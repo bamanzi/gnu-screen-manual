@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 12.1.4 Movement Keys</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 12.1.4 Movement Keys">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Movement"></a>
+<a name="Movement-Keys"></a>
+<h3 class="subsection">12.1.4 Movement Keys</h3>
+
+<p><kbd>h</kbd>, <kbd>C-h</kbd>, or <kbd>left arrow</kbd> move the cursor left.
+</p>
+<p><kbd>j</kbd>, <kbd>C-n</kbd>, or <kbd>down arrow</kbd> move the cursor down.
+</p>
+<p><kbd>k</kbd>, <kbd>C-p</kbd>, or <kbd>up arrow</kbd> move the cursor up.
+</p>
+<p><kbd>l</kbd> (&rsquo;el&rsquo;), or <kbd>right arrow</kbd> move the cursor right.
+</p>
+<p><kbd>0</kbd> (zero) or <kbd>C-a</kbd> move to the leftmost column.
+</p>
+<p><kbd>+</kbd> and <kbd>-</kbd> move the cursor to the leftmost column of the next
+or previous line.
+</p>
+<p><kbd>H</kbd>, <kbd>M</kbd> and <kbd>L</kbd> move the cursor to the leftmost column
+of the top, center or bottom line of the window. 
+</p>
+<p><kbd>|</kbd> moves to the specified absolute column.
+</p>
+<p><kbd>g</kbd> or <kbd>home</kbd> moves to the beginning of the buffer.
+</p>
+<p><kbd>G</kbd> or <kbd>end</kbd> moves to the specified absolute line (default: end of buffer).
+</p> 
+<p><kbd>%</kbd> jumps to the specified percentage of the buffer.
+</p>
+<p><kbd>^</kbd> or <kbd>$</kbd> move to the first
+or last non-whitespace character on the line.
+</p>
+<p><kbd>w</kbd>, <kbd>b</kbd>, and <kbd>e</kbd> move the cursor word by word.
+</p> 
+<p><kbd>B</kbd>, <kbd>E</kbd> move the cursor WORD by WORD (as in vi).
+</p>
+<p><kbd>f</kbd>/<kbd>F</kbd>, <kbd>t</kbd>/<kbd>T</kbd> move the cursor forward/backward to the 
+next occurence of the target. (eg, &rsquo;3fy&rsquo; will move the cursor to the 3rd 
+&rsquo;y&rsquo; to the right.)
+</p>
+<p><kbd>;</kbd> and <kbd>,</kbd> Repeat the last f/F/t/T command in the same/opposite direction.
+</p>
+<p><kbd>C-e</kbd> and <kbd>C-y</kbd> scroll the display up/down by one line
+while preserving the cursor position.
+</p>
+<p><kbd>C-u</kbd> and <kbd>C-d</kbd> scroll the display up/down by the specified
+amount of lines while preserving the cursor position. (Default: half
+screenful).
+</p>
+<p><kbd>C-b</kbd> and <kbd>C-f</kbd> move the cursor up/down a full screen.
+</p>
+<p>Note that Emacs-style movement keys can be specified by a .screenrc
+command. (<code>markkeys &quot;h=^B:l=^F:$=^E&quot;</code>) There is no simple method for
+a full emacs-style keymap, however, as this involves multi-character codes.
+</p>
+<p>
+
+</p>
+</body>
+</html>

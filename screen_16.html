@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 6.5 Term</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 6.5 Term">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Term"></a>
+<a name="Term-1"></a>
+<h2 class="section">6.5 Term</h2>
+<dl>
+<dt><a name="index-term"></a><u>Command:</u> <b>term</b><i> term</i></dt>
+<dd><p>(none)<br>
+In each window <code>screen</code> opens, it sets the <code>$TERM</code>
+variable to <code>screen</code> by default, unless no description for
+<code>screen</code> is installed in the local termcap or terminfo data base.
+In that case it pretends that the terminal emulator is &lsquo;<samp>vt100</samp>&rsquo;.
+This won&rsquo;t do much harm, as <code>screen</code> is VT100/ANSI compatible.  The
+use of the <code>term</code> command is discouraged for non-default purpose.
+That is, one may want to specify special <code>$TERM</code> settings (e.g. vt100) for
+the next <code>screen rlogin othermachine</code> command. Use the command
+<code>screen -T vt100 rlogin othermachine</code> rather than setting
+and resetting the default.
+</p></dd></dl>
+
+<p>
+
+</p>
+</body>
+</html>

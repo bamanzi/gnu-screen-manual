@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 6.6 Window Types</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 6.6 Window Types">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Window-Types"></a>
+<a name="Window-Types-1"></a>
+<h2 class="section">6.6 Window Types</h2>
+<a name="index-window-types"></a>
+<p>Screen provides three different window types. New windows are created
+with <code>screen</code>&rsquo;s &lsquo;<samp>screen</samp>&rsquo; command (see section <a href="screen_13.html#Screen-Command">Screen Command</a>).
+The first parameter to the &lsquo;<samp>screen</samp>&rsquo; command defines which
+type of window is created. The different window types are all
+special cases of the normal type. They have been added in order
+to allow <code>screen</code> to be used efficiently as a console
+with 100 or more windows.
+</p><ul>
+<li>
+The normal window contains a shell (default, if no parameter is given)
+or any other system command that could be executed from a shell.
+(e.g. &lsquo;<samp>slogin</samp>&rsquo;, etc...).
+
+</li><li>
+If a tty (character special device) name (e.g. &lsquo;<samp>/dev/ttya</samp>&rsquo;)
+is specified as the first parameter, then the window is directly
+connected to this device.
+This window type is similar to &lsquo;<samp>screen cu -l /dev/ttya</samp>&rsquo;.
+Read and write access is required on the device node,
+an exclusive open is attempted on the node to mark the connection line
+as busy.
+An optional parameter is allowed consisting of a comma separated
+list of flags in the notation used by &lsquo;<samp>stty(1)</samp>&rsquo;:
+<dl compact="compact">
+<dt> <code>&lt;baud_rate&gt;</code></dt>
+<dd><p>Usually 300, 1200, 9600 or 19200. This affects transmission as well as
+receive speed.
+</p></dd>
+<dt> <code>cs8 or cs7</code></dt>
+<dd><p>Specify the transmission of eight (or seven) bits per byte.
+</p></dd>
+<dt> <code>ixon or -ixon</code></dt>
+<dd><p>Enables (or disables) software flow-control (CTRL-S/CTRL-Q) for sending
+data.
+</p></dd>
+<dt> <code>ixoff or -ixoff</code></dt>
+<dd><p>Enables (or disables) software flow-control for receiving data.
+</p></dd>
+<dt> <code>istrip or -istrip</code></dt>
+<dd><p>Clear (or keep) the eight bit in each received byte.
+</p></dd>
+</dl>
+
+<p>You may want to specify as many of these options as applicable.
+Unspecified options cause the terminal driver to make up the parameter
+values of the connection. These values are system-dependent and may be
+in defaults or values saved from a previous connection.
+</p>
+<p>For tty windows, the <code>info</code> command shows some of the modem
+control lines in the status line.
+These may include &lsquo;<samp>RTS</samp>&rsquo;, &lsquo;<samp>CTS</samp>&rsquo;, &lsquo;<samp>DTR</samp>&rsquo;, &lsquo;<samp>CD</samp>&rsquo; and
+more. This depends rather on on the available <code>ioctl()</code>&rsquo;s and system
+header files than on the physical capabilities of the serial board. 
+The name of a logical low (inactive) signal is preceded by an 
+exclamation mark (&lsquo;<samp>!</samp>&rsquo;), otherwise the signal is logical high (active).
+Unsupported but shown signals are usually shown low.
+When the <code>CLOCAL</code> status bit is true, the whole set of modem signals is 
+placed inside curly braces (&lsquo;<samp>{</samp>&rsquo; and &lsquo;<samp>}</samp>&rsquo;).
+When the <code>CRTSCTS</code> or <code>TIOCSOFTCAR</code> bit is true, the signals 
+&lsquo;<samp>CTS</samp>&rsquo; or &lsquo;<samp>CD</samp>&rsquo; are shown in parenthesis, respectively.
+</p>
+<p>For tty windows, the command <code>break</code> causes the Data transmission
+line (TxD) to go low for a specified period of time. This is expected
+to be interpreted as break signal on the other side.
+No data is sent and no modem control line is changed when a
+<code>break</code> is issued.
+</p>
+</li><li>
+If the first parameter is <code>//telnet</code>, the second parameter is
+expected to be a host name, and an optional third parameter may specify
+a TCP port number (default decimal 23). Screen will connect to a
+server listening on the remote host and use the telnet protocol to
+communicate with that server.
+
+<p>For telnet windows, the command <code>info</code> shows details about
+the connection in square brackets (&lsquo;<samp>[</samp>&rsquo; and &lsquo;<samp>]</samp>&rsquo;) at the end of
+the status line.
+</p><dl compact="compact">
+<dt> <code>b</code></dt>
+<dd><p>BINARY. The connection is in binary mode.
+</p></dd>
+<dt> <code>e</code></dt>
+<dd><p>ECHO. Local echo is disabled.
+</p></dd>
+<dt> <code>c</code></dt>
+<dd><p>SGA. The connection is in &lsquo;character mode&rsquo; (default: &lsquo;line mode&rsquo;).
+</p></dd>
+<dt> <code>t</code></dt>
+<dd><p>TTYPE. The terminal type has been requested by the remote host. Screen
+sends the name <code>screen</code> unless instructed otherwise (see also the
+command &lsquo;<samp>term</samp>&rsquo;).
+</p></dd>
+<dt> <code>w</code></dt>
+<dd><p>NAWS. The remote site is notified about window size changes.
+</p></dd>
+<dt> <code>f</code></dt>
+<dd><p>LFLOW. The remote host will send flow control information.
+(Ignored at the moment.)
+</p></dd>
+</dl>
+<p>Additional flags for debugging are &lsquo;<samp>x</samp>&rsquo;, &lsquo;<samp>t</samp>&rsquo; and &lsquo;<samp>n</samp>&rsquo;
+(XDISPLOC, TSPEED and NEWENV).
+</p>
+<p>For telnet windows, the command <code>break</code> sends the telnet code
+<code>IAC BREAK</code> (decimal 243) to the remote host.
+</p>
+</li></ul>
+
+<p>
+
+</p>
+</body>
+</html>

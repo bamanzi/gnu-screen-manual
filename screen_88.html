@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 12.2 Paste</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 12.2 Paste">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Paste"></a>
+<a name="Paste-1"></a>
+<h2 class="section">12.2 Paste</h2>
+
+<a name="index-_005d"></a>
+<a name="index-C_002d_005d"></a>
+<dl>
+<dt><a name="index-paste"></a><u>Command:</u> <b>paste</b><i> [registers [destination]]</i></dt>
+<dd><p>(<kbd>C-a ]</kbd>, <kbd>C-a C-]</kbd>)<br>
+Write the (concatenated) contents of the specified registers to the stdin 
+stream of the current window.  The register &lsquo;<samp>.</samp>&rsquo; is treated as the
+paste buffer. If no parameter is specified the user is prompted to enter a 
+single register. The paste buffer can be filled with the 
+<code>copy</code>, <code>history</code> and <code>readbuf</code> commands.
+Other registers can be filled with the <code>register</code>, <code>readreg</code> and
+<code>paste</code> commands.
+If <code>paste</code> is called with a second argument, the contents of the specified
+registers is pasted into the named destination register rather than
+the window. If &lsquo;<samp>.</samp>&rsquo; is used as the second argument, the display&rsquo;s paste 
+buffer is the destination.
+Note, that <code>paste</code> uses a wide variety of resources: Usually both, a 
+current window and a current display are required. But whenever a second
+argument is specified no current window is needed. When the source specification
+only contains registers (not the paste buffer) then there need not be a current
+display (terminal attached), as the registers are a global resource. The
+paste buffer exists once for every user.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-stuff"></a><u>Command:</u> <b>stuff</b><i> [string]</i></dt>
+<dd><p>(none)<br>
+Stuff the string <var>string</var> in the input buffer of the current window.
+This is like the <code>paste</code> command, but with much less overhead.
+Without a paramter, <code>screen</code> will prompt for a string to stuff.
+You cannot paste large buffers with the <code>stuff</code> command. It is most
+useful for key bindings. See section <a href="screen_100.html#Bindkey">Bindkey</a>.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-pastefont"></a><u>Command:</u> <b>pastefont</b><i> [state]</i></dt>
+<dd><p>Tell screen to include font information in the paste buffer. The
+default is not to do so. This command is especially useful for
+multi character fonts like kanji.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-slowpaste"></a><u>Command:</u> <b>slowpaste</b><i> msec</i></dt>
+<dt><a name="index-defslowpaste"></a><u>Command:</u> <b>defslowpaste</b><i> msec</i></dt>
+<dd><p>(none)<br>
+Define the speed text is inserted in the current window by the <code>paste</code> 
+command. If the slowpaste value is nonzero text is written character by 
+character.
+<code>screen</code> will pause for <var>msec</var> milliseconds after each write
+to allow the application to process the input. only use <code>slowpaste</code> if 
+your underlying system exposes flow control problems while pasting large 
+amounts of text. 
+<code>defslowpaste</code> specifies the default for new windows.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-readreg"></a><u>Command:</u> <b>readreg</b><i> [-e encoding] [register [filename]]</i></dt>
+<dd><p>(none)<br>
+Does one of two things, dependent on number of arguments: with zero or one
+arguments it it duplicates the paste buffer contents into the register specified
+or entered at the prompt. With two arguments it reads the contents of the named
+file into the register, just as <code>readbuf</code> reads the screen-exchange file
+into the paste buffer.
+You can tell screen the encoding of the file via the <code>-e</code> option.
+The following example will paste the system&rsquo;s password file into
+the screen window (using register p, where a copy remains):
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">C-a : readreg p /etc/passwd
+C-a : paste p
+</pre></td></tr></table>
+</dd></dl>
+
+<p>
+
+</p>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 12.1.8 Specials</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 12.1.8 Specials">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Specials"></a>
+<a name="Specials-1"></a>
+<h3 class="subsection">12.1.8 Specials</h3>
+
+<p>There are, however, some keys that act differently here from in
+<code>vi</code>.  <code>Vi</code> does not allow to yank rectangular blocks of text,
+but <code>screen</code> does. Press:
+</p>
+<p><kbd>c</kbd> or <kbd>C</kbd> to set the left or right margin respectively. If no
+repeat count is given, both default to the current cursor position.<br>
+Example: Try this on a rather full text screen: 
+</p><table><tr><td>&nbsp;</td><td><pre class="example"><kbd>C-a [ M 20 l SPACE c 10 l 5 j C SPACE</kbd>.
+</pre></td></tr></table>
+
+<p>This moves one to the middle line of the screen, moves in 20 columns left,
+marks the beginning of the paste buffer, sets the left column, moves 5 columns
+down, sets the right column, and then marks the end of
+the paste buffer. Now try:
+</p><table><tr><td>&nbsp;</td><td><pre class="example"><kbd>C-a [ M 20 l SPACE 10 l 5 j SPACE</kbd>
+</pre></td></tr></table>
+
+<p>and notice the difference in the amount of text copied.
+</p>
+<p><kbd>J</kbd> joins lines. It toggles between 4 modes: lines separated by a
+newline character (012), lines glued seamless, lines separated by a single
+space or comma separated lines. Note that you can prepend the newline
+character with a carriage return character, by issuing a <code>set crlf
+on</code>.
+</p>
+<p><kbd>v</kbd> or <kbd>V</kbd> is for all the <code>vi</code> users who use <code>:set numbers</code> - it
+toggles the left margin between column 9 and 1.
+</p>
+<p><kbd>a</kbd> before the final <kbd>space</kbd> key turns on append mode. Thus
+the contents of the paste buffer will not be overwritten, but appended to.
+</p>
+<p><kbd>A</kbd> turns on append mode and sets a (second) mark.
+</p>
+<p><kbd>&gt;</kbd> sets the (second) mark and writes the contents of the paste buffer
+to the screen-exchange file (&lsquo;<tt>/tmp/screen-exchange</tt>&rsquo; per default)
+once copy-mode is finished.  See section <a href="screen_90.html#Screen-Exchange">Screen Exchange</a>.<br>
+This example demonstrates how to dump the
+whole scrollback buffer to that file: 
+</p><table><tr><td>&nbsp;</td><td><pre class="example"><kbd>C-a [ g SPACE G $ &gt;</kbd>.
+</pre></td></tr></table>
+
+<p><kbd>C-g</kbd> gives information about the current line and column.
+</p>
+<p><kbd>x</kbd> or <kbd>o</kbd> (&rsquo;oh&rsquo;) exchanges the first mark and the current cursor position. You
+can use this to adjust an already placed mark.
+</p>
+<p><kbd>C-l</kbd> (&rsquo;el&rsquo;) will redraw the screen.
+</p>
+<p><kbd>@</kbd> does nothing.  Absolutely nothing.  Does not even exit copy
+mode.
+</p>
+<p>All keys not described here exit copy mode.
+</p>
+<p>
+
+</p>
+</body>
+</html>

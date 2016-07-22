@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 10.1 Naming Windows (Titles)</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 10.1 Naming Windows (Titles)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Naming-Windows"></a>
+<a name="Naming-Windows-_0028Titles_0029"></a>
+<h2 class="section">10.1 Naming Windows (Titles)</h2>
+<a name="index-title"></a>
+
+<p>You can customize each window&rsquo;s name in the window display (viewed with
+the <code>windows</code> command (see section <a href="screen_63.html#Windows">Windows</a>) by setting it with
+one of the title commands.  Normally the name displayed is the actual
+command name of the program created in the window.  However, it is
+sometimes useful to distinguish various programs of the same name or to
+change the name on-the-fly to reflect the current state of the window.
+</p>
+<p>The default name for all shell windows can be set with the
+<code>shelltitle</code> command (see section <a href="screen_15.html#Shell">Shell</a>).  You can specify the name you
+want for a window with the &lsquo;<samp>-t</samp>&rsquo; option to the <code>screen</code> command
+when the window is created (see section <a href="screen_13.html#Screen-Command">Screen Command</a>).  To change the name after
+the window has been created you can use the title-string escape-sequence
+(<kbd>&lt;ESC&gt; k <var>name</var> &lt;ESC&gt; \</kbd>) and the <code>title</code> command
+(C-a A).  The former can be output from an application to control the
+window&rsquo;s name under software control, and the latter will prompt for a
+name when typed.  You can also bind predefined names to keys with the
+<code>title</code> command to set things quickly without prompting.
+</p>
+
+<p>
+
+</p>
+</body>
+</html>

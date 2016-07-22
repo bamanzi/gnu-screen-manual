@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 7.4 Windowlist</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 7.4 Windowlist">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Windowlist"></a>
+<a name="Windowlist-1"></a>
+<h2 class="section">7.4 Windowlist</h2>
+<a name="index-_0022"></a>
+<dl>
+<dt><a name="index-windowlist"></a><u>Command:</u> <b>windowlist</b><i> [-b] [-m] [-g]</i></dt>
+<dt><a name="index-windowlist-1"></a><u>Command:</u> <b>windowlist</b><i> string [<var>string</var>]</i></dt>
+<dt><a name="index-windowlist-2"></a><u>Command:</u> <b>windowlist</b><i> title [<var>title</var>]</i></dt>
+<dd><p>(<kbd>C-a &quot;</kbd>)<br>
+Display all windows in a table for visual window selection.
+If screen was in a window group, screen will
+back out of the group and then display the windows in that
+group. If the <code>-b</code> option is given, screen will
+switch to the blank window before presenting the list, so
+that the current window is also selectable.
+The <code>-m</code> option changes the order of the windows, instead of
+sorting by window numbers screen uses its internal most-recently-used
+list. The <code>-g</code> option will show the windows inside any groups
+in that level and downwards.
+</p>
+<p>The following keys are used to navigate in <code>windowlist</code>:
+</p>
+<p><kbd>k</kbd>, <kbd>C-p</kbd>, or <kbd>up</kbd> Move up one line.
+</p>
+<p><kbd>j</kbd>, <kbd>C-n</kbd>, or <kbd>down</kbd> Move down one line.
+</p>
+<p><kbd>C-g</kbd> or <kbd>escape</kbd> Exit windowlist.
+</p>
+<p><kbd>C-a</kbd> or <kbd>home</kbd> Move to the first line.
+</p>
+<p><kbd>C-e</kbd> or <kbd>end</kbd> Move to the last line.
+</p>
+<p><kbd>C-u</kbd> or <kbd>C-d</kbd> Move one half page up or down.
+</p>
+<p><kbd>C-b</kbd> or <kbd>C-f</kbd> Move one full page up or down.
+</p>
+<p><kbd>0..9</kbd> Using the number keys, move to the selected line.
+</p>
+<p><kbd>mouseclick</kbd> Move to the selected line. Available when
+<code>mousetrack</code> is set to <code>on</code>.
+</p>
+<p><kbd>/</kbd> Search.
+</p>
+<p><kbd>n</kbd> Repeat search in the forward direction.
+</p>
+<p><kbd>N</kbd> Repeat search in the backward direction.
+</p>
+<p><kbd>m</kbd> Toggle MRU.
+</p>
+<p><kbd>g</kbd> Toggle group nesting.
+</p>
+<p><kbd>a</kbd> All window view.
+</p>
+<p><kbd>C-h</kbd> or <kbd>backspace</kbd> Back out the group.
+</p>
+<p><kbd>,</kbd> Switch numbers with the previous window.
+</p>
+<p><kbd>.</kbd> Switch numbers with the next window.
+</p>
+<p><kbd>K</kbd> Kill that window.
+</p>
+<p><kbd>space</kbd> or <kbd>enter</kbd> Select that window.
+</p>
+<p>The table format can be changed with the string and title
+option, the title is displayed as table heading, while the
+lines are made by using the string setting.  The default
+setting is &lsquo;<samp>Num Name%=Flags</samp>&rsquo; for the title and
+&lsquo;<samp>%3n %t%=%f</samp>&rsquo; for the lines. See the string escapes chapter
+(see section <a href="screen_150.html#String-Escapes">String Escapes</a>) for more codes (e.g. color settings).
+</p>
+<p><code>Windowlist</code> needs a region size of at least 10 characters
+wide and 6 characters high in order to display.
+</p></dd></dl>
+
+<p>
+
+</p>
+</body>
+</html>

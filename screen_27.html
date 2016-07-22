@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 8.3 Lock</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 8.3 Lock">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Lock"></a>
+<a name="Lock-1"></a>
+<h2 class="section">8.3 Lock</h2>
+<a name="index-x"></a>
+<a name="index-C_002dx"></a>
+<dl>
+<dt><a name="index-lockscreen"></a><u>Command:</u> <b>lockscreen</b></dt>
+<dd><p>(<kbd>C-a x</kbd>, <kbd>C-a C-x</kbd>)<br>
+Call a screenlock program (&lsquo;<tt>/local/bin/lck</tt>&rsquo; or &lsquo;<tt>/usr/bin/lock</tt>&rsquo;
+or a builtin, if no other is available). Screen does not accept any
+command keys until this program terminates. Meanwhile processes in the
+windows may continue, as the windows are in the detached state.
+The screenlock program may be changed through the environment variable
+<code>$LOCKPRG</code> (which must be set in the shell from which <code>screen</code>
+is started) and is executed with the user&rsquo;s uid and gid.
+</p>
+<p>Warning: When you leave other shells unlocked and have no password set
+on <code>screen</code>, the lock is void: One could easily re-attach from an
+unlocked shell. This feature should rather be called
+<code>lockterminal</code>.
+</p></dd></dl>
+
+<p>
+
+</p>
+</body>
+</html>

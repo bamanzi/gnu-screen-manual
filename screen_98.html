@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 14.3 Command Character</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 14.3 Command Character">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Command-Character"></a>
+<a name="index-escape-character"></a>
+<a name="index-command-character"></a>
+<a name="Command-Character-1"></a>
+<h2 class="section">14.3 Command Character</h2>
+
+<dl>
+<dt><a name="index-escape"></a><u>Command:</u> <b>escape</b><i> xy</i></dt>
+<dd><p>(none)<br>
+Set the command character to <var>x</var> and the character generating a
+literal command character (by triggering the <code>meta</code> command)
+to <var>y</var> (similar to the &lsquo;<samp>-e</samp>&rsquo; option). 
+Each argument is either a single character, a two-character
+sequence of the form &lsquo;<samp>^x</samp>&rsquo; (meaning <kbd>C-x</kbd>), a backslash followed
+by an octal number (specifying the ASCII code of the character), or a
+backslash followed by a second character, such as &lsquo;<samp>\^</samp>&rsquo; or
+&lsquo;<samp>\\</samp>&rsquo;.  The default is &lsquo;<samp>^Aa</samp>&rsquo;, but &lsquo;<samp>``</samp>&rsquo; is recommended by
+one of the authors.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-defescape"></a><u>Command:</u> <b>defescape</b><i> xy</i></dt>
+<dd><p>(none)<br>
+Set the default command characters. This is equivalent to the command 
+<code>escape</code> except that it is useful for multiuser sessions only. 
+In a multiuser session
+<code>escape</code> changes the command character of the calling user, where 
+<code>defescape</code> changes the default command characters for users that
+will be added later.
+</p></dd></dl>
+
+<a name="index-a"></a>
+<dl>
+<dt><a name="index-meta"></a><u>Command:</u> <b>meta</b></dt>
+<dd><p>(<kbd>C-a a</kbd>)<br>
+Send the command character (<kbd>C-a</kbd>) to the process in the current
+window.  The keystroke for this command is the second parameter to the
+&lsquo;<samp>-e</samp>&rsquo; command line switch (see section <a href="screen_3.html#Invoking-Screen">Invoking <code>Screen</code></a>), or the
+<code>escape</code> .screenrc directive.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-command"></a><u>Command:</u> <b>command</b><i> [-c <var>class</var>]</i></dt>
+<dd><p>(none)<br>
+This command has the same effect as typing the screen escape character
+(<kbd>C-a</kbd>). It is probably only useful for key bindings.
+If the &lsquo;<samp>-c</samp>&rsquo; option is given, select the specified command class.
+See section <a href="screen_96.html#Bind">The <code>bind</code> command</a>, See section <a href="screen_100.html#Bindkey">Bindkey</a>.
+</p></dd></dl>
+
+<p>
+
+</p>
+</body>
+</html>

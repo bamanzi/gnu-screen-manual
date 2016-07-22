@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 15.1 About screen flow control settings</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 15.1 About screen flow control settings">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Flow-Control-Summary"></a>
+<a name="About-screen-flow-control-settings"></a>
+<h2 class="section">15.1 About <code>screen</code> flow control settings</h2>
+<p>Each window has a flow-control setting that determines how screen deals
+with the XON and XOFF characters (and perhaps the interrupt character).
+When flow-control is turned off, screen ignores the XON and XOFF
+characters, which allows the user to send them to the current program by
+simply typing them (useful for the <code>emacs</code> editor, for instance).
+The trade-off is that it will take longer for output from a
+&ldquo;normal&rdquo; program to pause in response to an XOFF.  With
+flow-control turned on, XON and XOFF characters are used to immediately
+pause the output of the current window.  You can still send these
+characters to the current program, but you must use the appropriate
+two-character screen commands (typically <kbd>C-a q</kbd> (xon) and <kbd>C-a
+s</kbd> (xoff)).  The xon/xoff commands are also useful for typing C-s and
+C-q past a terminal that intercepts these characters.
+</p>
+<p>Each window has an initial flow-control value set with either the
+&lsquo;<samp>-f</samp>&rsquo; option or the <code>defflow</code> command.  By default the
+windows are set to automatic flow-switching.  It can then be toggled
+between the three states &rsquo;fixed on&rsquo;, &rsquo;fixed off&rsquo; and &rsquo;automatic&rsquo;
+interactively with the <code>flow</code> command bound to <kbd>C-a f</kbd>.
+</p>
+<p>The automatic flow-switching mode deals with flow control using the
+TIOCPKT mode (like <code>rlogin</code> does). If the tty driver does not
+support TIOCPKT, screen tries to determine the right mode based on the
+current setting of the application keypad &mdash; when it is enabled,
+flow-control is turned off and visa versa.  Of course, you can still
+manipulate flow-control manually when needed.
+</p>
+<p>If you&rsquo;re running with flow-control enabled and find that pressing the
+interrupt key (usually C-c) does not interrupt the display until another
+6-8 lines have scrolled by, try running screen with the &lsquo;<samp>interrupt</samp>&rsquo;
+option (add the &lsquo;<samp>interrupt</samp>&rsquo; flag to the <code>flow</code> command in your
+.screenrc, or use the &lsquo;<samp>-i</samp>&rsquo; command-line option).  This causes the
+output that <code>screen</code> has accumulated from the interrupted program
+to be flushed.  One disadvantage is that the virtual terminal&rsquo;s memory
+contains the non-flushed version of the output, which in rare cases can
+cause minor inaccuracies in the output.  For example, if you switch
+screens and return, or update the screen with <kbd>C-a l</kbd> you would see
+the version of the output you would have gotten without &lsquo;<samp>interrupt</samp>&rsquo;
+being on.  Also, you might need to turn off flow-control (or use
+auto-flow mode to turn it off automatically) when running a program that
+expects you to type the interrupt character as input, as the
+&lsquo;<samp>interrupt</samp>&rsquo; parameter only takes effect when flow-control is
+enabled.  If your program&rsquo;s output is interrupted by mistake, a simple
+refresh of the screen with <kbd>C-a l</kbd> will restore it.  Give each mode
+a try, and use whichever mode you find more comfortable.
+</p>
+<p>
+
+</p>
+</body>
+</html>

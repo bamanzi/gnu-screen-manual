@@ -1,0 +1,381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 5.1 Default Key Bindings</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 5.1 Default Key Bindings">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Default-Key-Bindings"></a>
+<a name="Default-Key-Bindings-1"></a>
+<h2 class="section">5.1 Default Key Bindings</h2>
+
+<p>As mentioned previously, each keyboard command consists of a
+<kbd>C-a</kbd> followed by one other character.  For your convenience, all
+commands that are bound to lower-case letters are also bound to their
+control character counterparts (with the exception of <kbd>C-a a</kbd>; see
+below).  Thus, both <kbd>C-a c</kbd> and <kbd>C-a C-c</kbd> can be used to create
+a window.
+</p>
+<p>The following table shows the default key bindings:
+</p>
+<dl compact="compact">
+<dt> <kbd>C-a '</kbd></dt>
+<dd><p>(select)<br>
+Prompt for a window identifier and switch.
+See section <a href="screen_19.html#Selecting">Selecting a Window</a>.
+</p>
+</dd>
+<dt> <kbd>C-a &quot;</kbd></dt>
+<dd><p>(windowlist -b)<br>
+Present a list of all windows for selection.
+See section <a href="screen_19.html#Selecting">Selecting a Window</a>.
+</p>
+</dd>
+<dt> <kbd>C-a 0&hellip;9, -</kbd></dt>
+<dd><p>(select 0&hellip;select 9, select -)<br>
+Switch to window number 0&hellip;9, or the blank window.
+See section <a href="screen_19.html#Selecting">Selecting a Window</a>.
+</p>
+</dd>
+<dt> <kbd>C-a &lt;Tab&gt;</kbd></dt>
+<dd><p>(focus)<br>
+Switch the input focus to the next region.  See section <a href="screen_42.html#Regions">Regions</a>.
+</p>
+</dd>
+<dt> <kbd>C-a C-a</kbd></dt>
+<dd><p>(other)<br>
+Toggle to the window displayed previously.  If this window does no 
+longer exist, <code>other</code> has the same effect as <code>next</code>.
+See section <a href="screen_19.html#Selecting">Selecting a Window</a>.
+</p>
+</dd>
+<dt> <kbd>C-a a</kbd></dt>
+<dd><p>(meta)<br>
+Send the command character (C-a) to window. See <code>escape</code> command.
+See section <a href="screen_98.html#Command-Character">Command Character</a>. 
+</p>
+</dd>
+<dt> <kbd>C-a A</kbd></dt>
+<dd><p>(title)<br>
+Allow the user to enter a title for the current window.
+See section <a href="screen_53.html#Naming-Windows">Naming Windows (Titles)</a>.
+</p>
+</dd>
+<dt> <kbd>C-a b</kbd></dt>
+<dt> <kbd>C-a C-b</kbd></dt>
+<dd><p>(break)<br>
+Send a break to the tty.
+See section <a href="screen_130.html#Break">Break</a>.
+</p>
+</dd>
+<dt> <kbd>C-a B</kbd></dt>
+<dd><p>(pow_break)<br>
+Close and reopen the tty-line.
+See section <a href="screen_130.html#Break">Break</a>.
+</p>
+</dd>
+<dt> <kbd>C-a c</kbd></dt>
+<dt> <kbd>C-a C-c</kbd></dt>
+<dd><p>(screen)<br>
+Create a new window with a shell and switch to that window.
+See section <a href="screen_13.html#Screen-Command">Screen Command</a>.
+</p>
+</dd>
+<dt> <kbd>C-a C</kbd></dt>
+<dd><p>(clear)<br>
+Clear the screen.  See section <a href="screen_71.html#Clear">Clear</a>.
+</p>
+</dd>
+<dt> <kbd>C-a d</kbd></dt>
+<dt> <kbd>C-a C-d</kbd></dt>
+<dd><p>(detach)<br>
+Detach <code>screen</code> from this terminal.  See section <a href="screen_25.html#Detach">Detach</a>.
+</p>
+</dd>
+<dt> <kbd>C-a D D</kbd></dt>
+<dd><p>(pow_detach)<br>
+Detach and logout.  See section <a href="screen_26.html#Power-Detach">Power Detach</a>.
+</p>
+</dd>
+<dt> <kbd>C-a f</kbd></dt>
+<dt> <kbd>C-a C-f</kbd></dt>
+<dd><p>(flow)<br>
+Cycle flow among &lsquo;<samp>on</samp>&rsquo;, &lsquo;<samp>off</samp>&rsquo; or &lsquo;<samp>auto</samp>&rsquo;.  See section <a href="screen_105.html#Flow">Flow</a>.
+</p>
+</dd>
+<dt> <kbd>C-a F</kbd></dt>
+<dd><p>(fit)<br>
+Resize the window to the current region size.  See section <a href="screen_49.html#Fit">Fit</a>.
+</p>
+</dd>
+<dt> <kbd>C-a C-g</kbd></dt>
+<dd><p>(vbell)<br>
+Toggle visual bell mode.  See section <a href="screen_70.html#Bell">Bell</a>.
+</p>
+</dd>
+<dt> <kbd>C-a h</kbd></dt>
+<dd><p>(hardcopy)<br>
+Write a hardcopy of the current window to the file &ldquo;hardcopy.<var>n</var>&rdquo;.
+See section <a href="screen_122.html#Hardcopy">hardcopy</a>.
+</p>
+</dd>
+<dt> <kbd>C-a H</kbd></dt>
+<dd><p>(log)<br> 
+Toggle logging of the current window to the file &ldquo;screenlog.<var>n</var>&rdquo;.
+See section <a href="screen_123.html#Log">log</a>.
+</p>
+</dd>
+<dt> <kbd>C-a i</kbd></dt>
+<dt> <kbd>C-a C-i</kbd></dt>
+<dd><p>(info)<br>
+Show info about the current window.  See section <a href="screen_72.html#Info">Info</a>.
+</p>
+</dd>
+<dt> <kbd>C-a k</kbd></dt>
+<dt> <kbd>C-a C-k</kbd></dt>
+<dd><p>(kill)<br>
+Destroy the current window.  See section <a href="screen_59.html#Kill">Kill</a>.
+</p>
+</dd>
+<dt> <kbd>C-a l</kbd></dt>
+<dt> <kbd>C-a C-l</kbd></dt>
+<dd><p>(redisplay)<br>
+Fully refresh the current window.  See section <a href="screen_73.html#Redisplay">Redisplay</a>.
+</p>
+</dd>
+<dt> <kbd>C-a L</kbd></dt>
+<dd><p>(login)<br>
+Toggle the current window&rsquo;s login state.  See section <a href="screen_60.html#Login">Login</a>.
+</p>
+</dd>
+<dt> <kbd>C-a m</kbd></dt>
+<dt> <kbd>C-a C-m</kbd></dt>
+<dd><p>(lastmsg)<br>
+Repeat the last message displayed in the message line.
+See section <a href="screen_119.html#Last-Message">Display Last Message</a>.
+</p>
+</dd>
+<dt> <kbd>C-a M</kbd></dt>
+<dd><p>(monitor)
+Toggle monitoring of the current window.  See section <a href="screen_62.html#Monitor">Monitoring</a>.
+</p>
+</dd>
+<dt> <kbd>C-a &lt;SPC&gt;</kbd></dt>
+<dt> <kbd>C-a n</kbd></dt>
+<dt> <kbd>C-a C-n</kbd></dt>
+<dd><p>(next)<br>
+Switch to the next window.  See section <a href="screen_19.html#Selecting">Selecting a Window</a>.
+</p>
+</dd>
+<dt> <kbd>C-a N</kbd></dt>
+<dd><p>(number)<br>
+Show the number (and title) of the current window.  See section <a href="screen_135.html#Number">Number</a>.
+</p>
+</dd>
+<dt> <kbd>C-a p</kbd></dt>
+<dt> <kbd>C-a C-p</kbd></dt>
+<dt> <kbd>C-a C-h</kbd></dt>
+<dt> <kbd>C-a &lt;BackSpace&gt;</kbd></dt>
+<dd><p>(prev)<br>
+Switch to the previous window (opposite of <kbd>C-a n</kbd>).
+See section <a href="screen_19.html#Selecting">Selecting a Window</a>.
+</p>
+</dd>
+<dt> <kbd>C-a q</kbd></dt>
+<dt> <kbd>C-a C-q</kbd></dt>
+<dd><p>(xon)<br>
+Send a ^Q (ASCII XON) to the current window.  See section <a href="screen_106.html#XON_002fXOFF">XON and XOFF</a>.
+</p>
+</dd>
+<dt> <kbd>C-a Q</kbd></dt>
+<dd><p>(only)<br>
+Delete all regions but the current one.  See section <a href="screen_42.html#Regions">Regions</a>.
+</p>
+</dd>
+<dt> <kbd>C-a r</kbd></dt>
+<dt> <kbd>C-a C-r</kbd></dt>
+<dd><p>(wrap)<br>
+Toggle the current window&rsquo;s line-wrap setting (turn the current window&rsquo;s
+automatic margins on or off).  See section <a href="screen_74.html#Wrap">Wrap</a>.
+</p>
+</dd>
+<dt> <kbd>C-a s</kbd></dt>
+<dt> <kbd>C-a C-s</kbd></dt>
+<dd><p>(xoff)<br>
+Send a ^S (ASCII XOFF) to the current window.  See section <a href="screen_106.html#XON_002fXOFF">XON and XOFF</a>.
+</p>
+</dd>
+<dt> <kbd>C-a S</kbd></dt>
+<dd><p>(split)<br>
+Split the current region horizontally into two new ones.  See section <a href="screen_42.html#Regions">Regions</a>.
+</p>
+</dd>
+<dt> <kbd>C-a t</kbd></dt>
+<dt> <kbd>C-a C-t</kbd></dt>
+<dd><p>(time)<br>
+Show the load average and xref.  See section <a href="screen_136.html#Time">Time</a>.
+</p>
+</dd>
+<dt> <kbd>C-a v</kbd></dt>
+<dd><p>(version)<br>
+Display the version and compilation date.  See section <a href="screen_138.html#Version">Version</a>.
+</p>
+</dd>
+<dt> <kbd>C-a C-v</kbd></dt>
+<dd><p>(digraph)<br>
+Enter digraph.  See section <a href="screen_69.html#Digraph">Digraph</a>.
+</p>
+</dd>
+<dt> <kbd>C-a w</kbd></dt>
+<dt> <kbd>C-a C-w</kbd></dt>
+<dd><p>(windows)<br>
+Show a list of active windows.  See section <a href="screen_63.html#Windows">Windows</a>.
+</p>
+</dd>
+<dt> <kbd>C-a W</kbd></dt>
+<dd><p>(width)<br>
+Toggle between 80 and 132 columns.  See section <a href="screen_76.html#Window-Size">Window Size</a>.
+</p>
+</dd>
+<dt> <kbd>C-a x</kbd></dt>
+<dt> <kbd>C-a C-x</kbd></dt>
+<dd><p>(lockscreen)<br>
+Lock your terminal.  See section <a href="screen_27.html#Lock">Lock</a>.
+</p>
+</dd>
+<dt> <kbd>C-a X</kbd></dt>
+<dd><p>(remove)<br>
+Kill the current region.  See section <a href="screen_42.html#Regions">Regions</a>.
+</p>
+</dd>
+<dt> <kbd>C-a z</kbd></dt>
+<dt> <kbd>C-a C-z</kbd></dt>
+<dd><p>(suspend)<br>
+Suspend <code>screen</code>.  See section <a href="screen_40.html#Suspend">Suspend</a>.
+</p>
+</dd>
+<dt> <kbd>C-a Z</kbd></dt>
+<dd><p>(reset)<br>
+Reset the virtual terminal to its &ldquo;power-on&rdquo; values.  
+See section <a href="screen_75.html#Reset">Reset</a>.
+</p>
+</dd>
+<dt> <kbd>C-a .</kbd></dt>
+<dd><p>(dumptermcap)<br>
+Write out a &lsquo;<tt>.termcap</tt>&rsquo; file.  See section <a href="screen_109.html#Dump-Termcap">Write out the window&rsquo;s termcap entry</a>.
+</p>
+</dd>
+<dt> <kbd>C-a ?</kbd></dt>
+<dd><p>(help)<br>
+Show key bindings.  See section <a href="screen_99.html#Help">Help</a>.
+</p>
+</dd>
+<dt> <kbd>C-a \</kbd></dt>
+<dd><p>(quit)<br>
+Kill all windows and terminate <code>screen</code>.  See section <a href="screen_41.html#Quit">Quit</a>.
+</p>
+</dd>
+<dt> <kbd>C-a :</kbd></dt>
+<dd><p>(colon)<br>
+Enter a command line.  See section <a href="screen_7.html#Colon">Colon</a>.
+</p>
+</dd>
+<dt> <kbd>C-a [</kbd></dt>
+<dt> <kbd>C-a C-[</kbd></dt>
+<dt> <kbd>C-a &lt;ESC&gt;</kbd></dt>
+<dd><p>(copy)<br>
+Enter copy/scrollback mode.  See section <a href="screen_79.html#Copy">Copying</a>.
+</p>
+</dd>
+<dt> <kbd>C-a ]</kbd></dt>
+<dt> <kbd>C-a C-]</kbd></dt>
+<dd><p>(paste .)<br>
+Write the contents of the paste buffer to the stdin queue of the
+current window.  See section <a href="screen_88.html#Paste">Paste</a>.
+</p>
+</dd>
+<dt> <kbd>C-a {</kbd></dt>
+<dt> <kbd>C-a }</kbd></dt>
+<dd><p>(history)<br>
+Copy and paste a previous (command) line.  See section <a href="screen_91.html#History">History</a>.
+</p>
+</dd>
+<dt> <kbd>C-a &gt;</kbd></dt>
+<dd><p>(writebuf)<br>
+Write the paste buffer out to the screen-exchange file.
+See section <a href="screen_90.html#Screen-Exchange">Screen Exchange</a>.
+</p>
+</dd>
+<dt> <kbd>C-a &lt;</kbd></dt>
+<dd><p>(readbuf)<br>
+Read the screen-exchange file into the paste buffer.
+See section <a href="screen_90.html#Screen-Exchange">Screen Exchange</a>.
+</p>
+</dd>
+<dt> <kbd>C-a =</kbd></dt>
+<dd><p>(removebuf)<br>
+Delete the screen-exchange file.  See section <a href="screen_90.html#Screen-Exchange">Screen Exchange</a>.
+</p>
+</dd>
+<dt> <kbd>C-a _</kbd></dt>
+<dd><p>(silence)<br>
+Start/stop monitoring the current window for inactivity. See section <a href="screen_62.html#Monitor">Monitoring</a>.
+</p>
+</dd>
+<dt> <kbd>C-a |</kbd></dt>
+<dd><p>(split -v)<br>
+Split the current region vertically into two new ones.  See section <a href="screen_42.html#Regions">Regions</a>.
+</p>
+</dd>
+<dt> <kbd>C-a ,</kbd></dt>
+<dd><p>(license)<br>
+Show the copyright page.  See section <a href="screen_132.html#License">License</a>.
+</p>
+</dd>
+<dt> <kbd>C-a *</kbd></dt>
+<dd><p>(displays)<br>
+Show the listing of attached displays.  See section <a href="screen_34.html#Displays">Displays</a>.
+</p></dd>
+</dl>
+
+<p>
+
+</p>
+</body>
+</html>

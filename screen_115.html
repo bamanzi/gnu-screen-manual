@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 16.8 Character Translation</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 16.8 Character Translation">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Character-Translation"></a>
+<a name="Character-Translation-1"></a>
+<h2 class="section">16.8 Character Translation</h2>
+<p><code>Screen</code> has a powerful mechanism to translate characters to
+arbitrary strings depending on the current font and terminal type.
+Use this feature if you want to work with a common standard character
+set (say ISO8851-latin1) even on terminals that scatter the more
+unusual characters over several national language font pages.
+</p>
+<p>Syntax:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">    XC=<var>&lt;charset-mapping&gt;</var>{,,<var>&lt;charset-mapping&gt;</var>}
+    <var>&lt;charset-mapping&gt;</var> := <var>&lt;designator&gt;</var><var>&lt;template&gt;</var>{,<var>&lt;mapping&gt;</var>}
+    <var>&lt;mapping&gt;</var> := <var>&lt;char-to-be-mapped&gt;</var><var>&lt;template-arg&gt;</var>
+</pre></td></tr></table>
+
+<p>The things in braces may be repeated any number of times.
+</p>
+<p>A <var>&lt;charset-mapping&gt;</var> tells screen how to map characters
+in font <var>&lt;designator&gt;</var> (&lsquo;<samp>B</samp>&rsquo;: Ascii, &lsquo;<samp>A</samp>&rsquo;: UK,
+&lsquo;<samp>K</samp>&rsquo;: german, etc.)
+to strings. Every <var>&lt;mapping&gt;</var> describes to what string a single
+character will be translated. A template mechanism is used, as 
+most of the time the codes have a lot in common (for example
+strings to switch to and from another charset). Each occurrence
+of &lsquo;<samp>%</samp>&rsquo; in <var>&lt;template&gt;</var> gets substituted with the 
+<var>template-arg</var>
+specified together with the character. If your strings are not
+similar at all, then use &lsquo;<samp>%</samp>&rsquo; as a template and place the full
+string in <var>&lt;template-arg&gt;</var>. A quoting mechanism was added to make
+it possible to use a real &lsquo;<samp>%</samp>&rsquo;. The &lsquo;<samp>\</samp>&rsquo; character quotes the
+special characters &lsquo;<samp>\</samp>&rsquo;, &lsquo;<samp>%</samp>&rsquo;, and &lsquo;<samp>,</samp>&rsquo;.
+</p>
+<p>Here is an example:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">    termcap hp700 'XC=B\E(K%\E(B,\304[,\326\\\\,\334]'
+</pre></td></tr></table>
+
+<p>This tells <code>screen</code>, how to translate ISOlatin1 (charset &lsquo;<samp>B</samp>&rsquo;)
+upper case umlaut characters on a <code>hp700</code> terminal that has a
+German charset. &lsquo;<samp>\304</samp>&rsquo; gets translated to
+&lsquo;<samp>\E(K[\E(B</samp>&rsquo; and so on.
+Note that this line gets parsed *three* times before the internal
+lookup table is built, therefore a lot of quoting is needed to
+create a single &lsquo;<samp>\</samp>&rsquo;.
+</p>
+<p>Another extension was added to allow more emulation: If a mapping
+translates the unquoted &lsquo;<samp>%</samp>&rsquo; char, it will be sent to the terminal
+whenever screen switches to the corresponding <var>&lt;designator&gt;</var>.
+In this
+special case the template is assumed to be just &lsquo;<samp>%</samp>&rsquo; because
+the charset switch sequence and the character mappings normally
+haven&rsquo;t much in common.
+</p>
+<p>This example shows one use of the extension:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">    termcap xterm 'XC=K%,%\E(B,[\304,\\\\\326,]\334'
+</pre></td></tr></table>
+
+<p>Here, a part of the German (&lsquo;<samp>K</samp>&rsquo;) charset is emulated on an xterm.
+If screen has to change to the &lsquo;<samp>K</samp>&rsquo; charset, &lsquo;<samp>\E(B</samp>&rsquo; will be
+sent
+to the terminal, i.e. the ASCII charset is used instead. The
+template is just &lsquo;<samp>%</samp>&rsquo;, so the mapping is straightforward:
+&lsquo;<samp>[</samp>&rsquo; to &lsquo;<samp>\304</samp>&rsquo;, &lsquo;<samp>\</samp>&rsquo; to &lsquo;<samp>\326</samp>&rsquo;, and &lsquo;<samp>]</samp>&rsquo; to
+&lsquo;<samp>\334</samp>&rsquo;.
+</p>
+<p>
+
+</p>
+</body>
+</html>

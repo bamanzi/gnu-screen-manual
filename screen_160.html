@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 26.2 Compiling Screen</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 26.2 Compiling Screen">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Compiling-Screen"></a>
+<a name="Compiling-Screen-1"></a>
+<h2 class="section">26.2 Compiling Screen</h2>
+<a name="index-compiling-screen"></a>
+
+<p>To compile and install screen:
+</p>
+<p>The <code>screen</code> package comes with a <code>GNU Autoconf</code> configuration 
+script. Before you compile the package run 
+</p>
+<p align="center"> <code>sh ./configure</code>
+</p>
+<p>This will create a &lsquo;<tt>config.h</tt>&rsquo; and &lsquo;<tt>Makefile</tt>&rsquo; for your machine.
+If <code>configure</code> fails for some reason, then look at the examples and
+comments found in the &lsquo;<tt>Makefile.in</tt>&rsquo; and &lsquo;<tt>config.h.in</tt>&rsquo; templates.
+Rename &lsquo;<tt>config.status</tt>&rsquo; to &lsquo;<tt>config.status.<var>machine</var></tt>&rsquo; when
+you want to keep configuration data for multiple architectures. Running
+<code>sh ./config.status.<var>machine</var></code> recreates your configuration 
+significantly faster than rerunning <code>configure</code>. 
+<br>
+Read through the &quot;User Configuration&quot; section of &lsquo;<tt>config.h</tt>&rsquo;, and verify
+that it suits your needs.
+A comment near the top of this section explains why it&rsquo;s best to
+install screen setuid to root.
+Check for the place for the global &lsquo;<tt>screenrc</tt>&rsquo;-file and for the socket
+directory.
+<br>
+Check the compiler used in &lsquo;<tt>Makefile</tt>&rsquo;, the prefix path where to install
+<code>screen</code>. Then run
+</p>
+<p align="center"> <code>make</code>
+</p>
+<p>If <code>make</code> fails to produce one of the files &lsquo;<tt>term.h</tt>&rsquo;, &lsquo;<tt>comm.h</tt>&rsquo;
+or &lsquo;<tt>tty.c</tt>&rsquo;, then use <code><var>filename.x</var>.dist</code> instead.
+For additional information about installation of <code>screen</code> refer to the
+file &lsquo;<tt>INSTALLATION</tt>&rsquo;, coming with this package.
+</p>
+<p>
+
+</p>
+</body>
+</html>

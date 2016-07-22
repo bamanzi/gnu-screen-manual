@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 3. Invoking Screen</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 3. Invoking Screen">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Invoking-Screen"></a>
+<a name="Invoking-Screen-1"></a>
+<h1 class="chapter">3. Invoking <code>Screen</code></h1>
+<a name="index-invoking"></a>
+<a name="index-options"></a>
+<a name="index-command-line-options"></a>
+
+<p>Screen has the following command-line options:
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>-a</samp>&rsquo;</dt>
+<dd><p>Include <em>all</em> capabilities (with some minor exceptions) in each
+window&rsquo;s termcap, even if <code>screen</code> must redraw parts of the display
+in order to implement a function.
+</p>
+</dd>
+<dt> &lsquo;<samp>-A</samp>&rsquo;</dt>
+<dd><p>Adapt the sizes of all windows to the size of the display.  By default,
+<code>screen</code> may try to restore its old window sizes when attaching to
+resizable terminals (those with &lsquo;<samp>WS</samp>&rsquo; in their descriptions, e.g.
+<code>suncmd</code> or some varieties of <code>xterm</code>).
+</p>
+</dd>
+<dt> &lsquo;<samp>-c <var>file</var></samp>&rsquo;</dt>
+<dd><p>Use <var>file</var> as the user&rsquo;s configuration file instead of the default
+of &lsquo;<tt>$HOME/.screenrc</tt>&rsquo;.
+</p>
+</dd>
+<dt> &lsquo;<samp>-d [<var>pid.sessionname</var>]</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-D [<var>pid.sessionname</var>]</samp>&rsquo;</dt>
+<dd><p>Do not start <code>screen</code>, but instead detach a <code>screen</code> session
+running elsewhere (see section <a href="screen_25.html#Detach">Detach</a>).  &lsquo;<samp>-d</samp>&rsquo; has the same effect as
+typing <kbd>C-a d</kbd> from the controlling terminal for the session.
+&lsquo;<samp>-D</samp>&rsquo; is the equivalent to the power detach key.  If no session can
+be detached, this option is ignored.  In combination with the 
+<code>-r</code>/<code>-R</code> option more powerful effects can be achieved:
+</p>
+<dl compact="compact">
+<dt> <code>-d -r</code></dt>
+<dd><p>Reattach a session and if necessary detach it first.
+</p></dd>
+<dt> <code>-d -R</code>   </dt>
+<dd><p>Reattach a session and if necessary detach  or  even create it first.
+</p></dd>
+<dt> <code>-d -RR</code>  </dt>
+<dd><p>Reattach a session and if necessary detach or create it.
+Use the first session if more than one session is available.
+</p></dd>
+<dt> <code>-D -r</code>   </dt>
+<dd><p>Reattach a session. If necessary detach  and  logout remotely first.
+</p></dd>
+<dt> <code>-D -R</code>   </dt>
+<dd><p>Attach here and now. In detail this means: If a session  is running, 
+then reattach. If necessary detach and logout remotely first.  If it
+was not running create it and notify the user.
+This is the author&rsquo;s favorite.
+</p></dd>
+<dt> <code>-D -RR</code>  </dt>
+<dd><p>Attach here and now. Whatever that  means, just do it.
+</p></dd>
+</dl>
+
+<p><em>Note</em>: It is a good idea to check the status of your sessions
+with <code>screen -list</code> before using this option.
+</p>
+</dd>
+<dt> &lsquo;<samp>-e <var>xy</var></samp>&rsquo;</dt>
+<dd><p>Set the command character to <var>x</var>, and the character generating a
+literal command character (when typed after the command character) to
+<var>y</var>.  The defaults are <kbd>C-a</kbd> and <kbd>a</kbd>, which can be specified
+as &lsquo;<samp>-e^Aa</samp>&rsquo;.  When creating a <code>screen</code> session, this option
+sets the default command character. In a multiuser session all users
+added will start off with this command character. But when attaching
+to an already running session, this option only changes the command
+character of the attaching user.
+This option is equivalent to the commands <code>defescape</code> or 
+<code>escape</code> respectively.  (see section <a href="screen_98.html#Command-Character">Command Character</a>).
+</p>
+</dd>
+<dt> &lsquo;<samp>-f</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-fn</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-fa</samp>&rsquo;</dt>
+<dd><p>Set flow-control to on, off, or automatic switching mode, respectively.
+This option is equivalent to the <code>defflow</code> command (see section <a href="screen_103.html#Flow-Control">Flow Control</a>).
+</p>
+</dd>
+<dt> &lsquo;<samp>-h <var>num</var></samp>&rsquo;</dt>
+<dd><p>Set the history scrollback buffer to be <var>num</var> lines high.
+Equivalent to the <code>defscrollback</code> command (see section <a href="screen_79.html#Copy">Copying</a>).
+</p>
+</dd>
+<dt> &lsquo;<samp>-i</samp>&rsquo;</dt>
+<dd><p>Cause the interrupt key (usually <kbd>C-c</kbd>) to interrupt the display
+immediately when flow control is on.  This option is equivalent to the
+<code>interrupt</code> argument to the <code>defflow</code> command (see section <a href="screen_103.html#Flow-Control">Flow Control</a>). Its use is discouraged.
+</p>
+</dd>
+<dt> &lsquo;<samp>-l</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-ln</samp>&rsquo;</dt>
+<dd><p>Turn login mode on or off (for &lsquo;<tt>/etc/utmp</tt>&rsquo; updating).  This option
+is equivalent to the <code>deflogin</code> command (see section <a href="screen_60.html#Login">Login</a>).
+</p>
+</dd>
+<dt> &lsquo;<samp>-ls [<var>match</var>]</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-list [<var>match</var>]</samp>&rsquo;</dt>
+<dd><p>Do not start <code>screen</code>, but instead print a list of session
+identification strings (usually of the form <var>pid.tty.host</var>;
+see section <a href="screen_39.html#Session-Name">Session Name</a>).  Sessions marked &lsquo;<samp>detached</samp>&rsquo; can be resumed
+with <code>screen -r</code>.  Those marked &lsquo;<samp>attached</samp>&rsquo; are running and
+have a controlling terminal.  If the session runs in multiuser mode,
+it is marked &lsquo;<samp>multi</samp>&rsquo;.  Sessions marked as &lsquo;<samp>unreachable</samp>&rsquo; either
+live on a different host or are dead. 
+An unreachable session is considered dead, when its name matches either the
+name of the local host, or the specified parameter, if any.
+See the <code>-r</code> flag for a description how to construct matches.
+Sessions marked as &lsquo;<samp>dead</samp>&rsquo; should be thoroughly checked and removed.  
+Ask your system administrator if you are not sure.
+Remove sessions with the &lsquo;<samp>-wipe</samp>&rsquo; option.
+</p>
+</dd>
+<dt> &lsquo;<samp>-L</samp>&rsquo;</dt>
+<dd><p>Tell <code>screen</code> to turn on automatic output logging for the
+windows.
+</p>
+</dd>
+<dt> &lsquo;<samp>-m</samp>&rsquo;</dt>
+<dd><p>Tell <code>screen</code> to ignore the <code>$STY</code> environment variable.  When
+this option is used, a new session will always be created, regardless of
+whether <code>screen</code> is being called from within another <code>screen</code>
+session or not. This flag has a special meaning in connection
+with the &lsquo;<samp>-d</samp>&rsquo; option:
+</p><dl compact="compact">
+<dt> <code>-d -m</code></dt>
+<dd><p>Start <code>screen</code> in <em>detached</em> mode. This creates a new
+session but doesn&rsquo;t attach to it. This is useful for system startup
+scripts.
+</p></dd>
+<dt> <code>-D -m</code></dt>
+<dd><p>This also starts <code>screen</code> in <em>detached</em> mode, but doesn&rsquo;t fork
+a new process. The command exits if the session terminates.
+</p></dd>
+</dl>
+
+</dd>
+<dt> &lsquo;<samp>-O</samp>&rsquo;</dt>
+<dd><p>Select a more optimal output mode for your terminal rather than true VT100
+emulation (only affects auto-margin  terminals  without &lsquo;<samp>LP</samp>&rsquo;). This
+can also be set in your &lsquo;<tt>.screenrc</tt>&rsquo; by specifying &lsquo;<samp>OP</samp>&rsquo; in the 
+<code>termcap</code> command.
+</p>
+</dd>
+<dt> &lsquo;<samp>-p <var>name_or_number</var>|-|=|+</samp>&rsquo;</dt>
+<dd><p>Preselect a window. This is useful when you want to reattach to a
+specific window or you want to send a command via the &lsquo;<samp>-X</samp>&rsquo;
+option to a specific window. As with screen&rsquo;s select command, &lsquo;<samp>-</samp>&rsquo;
+selects the blank window. As a special case for reattach, &lsquo;<samp>=</samp>&rsquo;
+brings up the windowlist on the blank window, while a &lsquo;<samp>+</samp>&rsquo; will
+create new window. The command will not be executed if the specified
+window could not be found.
+</p>
+</dd>
+<dt> &lsquo;<samp>-q</samp>&rsquo;</dt>
+<dd><p>Suppress printing of error messages. In combination with &lsquo;<samp>-ls</samp>&rsquo; the exit 
+value is set as follows: 9 indicates a directory without sessions. 10 
+indicates a directory with running but not attachable sessions. 11 (or more) 
+indicates 1 (or more) usable sessions.
+In combination with &lsquo;<samp>-r</samp>&rsquo; the exit value is as follows: 10 indicates that 
+there is no session to resume. 12 (or more) indicates that there are 2 (or 
+more) sessions to resume and you should specify which one to choose. 
+In all other cases &lsquo;<samp>-q</samp>&rsquo; has no effect.
+</p>
+</dd>
+<dt> &lsquo;<samp>-Q</samp>&rsquo;</dt>
+<dd><p>Some commands now can be queried from a remote session using this
+flag, e.g. &rsquo;screen -Q windows&rsquo;. The commands will send the
+response to the stdout of the querying process. If there was an
+error in the command, then the querying process will exit with
+a non-zero status.
+</p>
+<p>The commands that can be queried now are:
+ <code>echo</code>
+ <code>info</code>
+ <code>lastmsg</code>
+ <code>number</code>
+ <code>select</code>
+ <code>time</code>
+ <code>title</code>
+ <code>windows</code>
+</p>
+</dd>
+<dt> &lsquo;<samp>-r [<var>pid.sessionname</var>]</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-r <var>sessionowner</var>/[<var>pid.sessionname</var>]</samp>&rsquo;</dt>
+<dd><p>Resume a detached <code>screen</code> session.  No other options (except
+combinations with &lsquo;<samp>-d</samp>&rsquo; or &lsquo;<samp>-D</samp>&rsquo;) may be specified, though 
+the session name
+(see section <a href="screen_39.html#Session-Name">Session Name</a>) may be needed to distinguish between multiple
+detached <code>screen</code> sessions.
+The second form is used to connect to another user&rsquo;s screen session which
+runs in multiuser mode. This indicates that screen should look for
+sessions in another user&rsquo;s directory. This requires setuid-root.
+</p>
+</dd>
+<dt> &lsquo;<samp>-R</samp>&rsquo;</dt>
+<dd><p>Resume the first appropriate detached <code>screen</code> session.  If
+successful, all other command-line options are ignored.  If no detached
+session exists, start a new session using the specified options, just as
+if &lsquo;<samp>-R</samp>&rsquo; had not been specified.  This option is set by default if
+screen is run as a login-shell (actually screen uses &lsquo;<samp>-xRR</samp>&rsquo; in
+that case).
+For combinations with the 
+&lsquo;<samp>-D</samp>&rsquo;/&lsquo;<samp>-d</samp>&rsquo; option see there.
+</p>
+</dd>
+<dt> &lsquo;<samp>-s <var>program</var></samp>&rsquo;</dt>
+<dd><p>Set the default shell to be <var>program</var>.  By default, <code>screen</code>
+uses the value of the environment variable <code>$SHELL</code>, or
+&lsquo;<tt>/bin/sh</tt>&rsquo; if it is not defined.  This option is equivalent to the
+<code>shell</code> command (see section <a href="screen_15.html#Shell">Shell</a>). See also there.
+</p>
+</dd>
+<dt> &lsquo;<samp>-S <var>sessionname</var></samp>&rsquo;</dt>
+<dd><p>Set the name of the new session to <var>sessionname</var>.  This option can
+be used to specify a meaningful name for the session in place of the
+default <var>tty.host</var> suffix.  This name identifies the session for the
+<code>screen -list</code> and <code>screen -r</code> commands.  This option is
+equivalent to the <code>sessionname</code> command (see section <a href="screen_39.html#Session-Name">Session Name</a>).
+</p>
+</dd>
+<dt> &lsquo;<samp>-t <var>name</var></samp>&rsquo;</dt>
+<dd><p>Set the title (name) for the default shell or specified program.
+This option is equivalent to the <code>shelltitle</code> command
+(see section <a href="screen_15.html#Shell">Shell</a>).
+</p>
+</dd>
+<dt> &lsquo;<samp>-T <var>term</var></samp>&rsquo;</dt>
+<dd><p>Set the $TERM enviroment varible using the spcified <em>term</em> as 
+opposed to the defualt setting of <code>screen</code>.
+</p>
+</dd>
+<dt> &lsquo;<samp>-U</samp>&rsquo;</dt>
+<dd><p>Run screen in UTF-8 mode. This option tells screen that your terminal
+sends and understands UTF-8 encoded characters. It also sets the default
+encoding for new windows to &lsquo;<samp>utf8</samp>&rsquo;.
+</p>
+</dd>
+<dt> &lsquo;<samp>-v</samp>&rsquo;</dt>
+<dd><p>Print the version number.
+</p>
+</dd>
+<dt> &lsquo;<samp>-wipe [<var>match</var>]</samp>&rsquo;</dt>
+<dd><p>List available screens like <code>screen -ls</code>, but remove destroyed
+sessions instead of marking them as &lsquo;<samp>dead</samp>&rsquo;. 
+An unreachable session is considered dead, when its name matches either 
+the name of the local host, or the explicitly given parameter, if any.
+See the <code>-r</code> flag for a description how to construct matches.
+</p>
+</dd>
+<dt> &lsquo;<samp>-x</samp>&rsquo;</dt>
+<dd><p>Attach to a session which is already attached elsewhere (multi-display
+mode). 
+<code>Screen</code> refuses to attach from within itself. 
+But when cascading multiple screens, loops are not detected; take care.
+</p>
+
+</dd>
+<dt> &lsquo;<samp>-X</samp>&rsquo;</dt>
+<dd><p>Send the specified command to a running screen session. You may use
+the <code>-S</code> option to specify the screen session if you have several
+running. You can use the <code>-d</code> or <code>-r</code> option to tell screen
+to look only for attached or detached screen sessions. Note that this
+command doesn&rsquo;t work if the session is password protected.
+</p>
+</dd>
+</dl>
+
+<p>
+
+</p>
+</body>
+</html>

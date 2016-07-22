@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 15.2 Flow</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 15.2 Flow">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Flow"></a>
+<a name="Flow-1"></a>
+<h2 class="section">15.2 Flow</h2>
+<dl>
+<dt><a name="index-defflow"></a><u>Command:</u> <b>defflow</b><i> fstate [interrupt]</i></dt>
+<dd><p>(none)<br>
+Same as the <code>flow</code> command except that the default setting for new
+windows is changed. Initial setting is &lsquo;auto&rsquo;.
+Specifying <code>flow auto interrupt</code> has the same effect as the
+command-line options &lsquo;<samp>-fa</samp>&rsquo; and &lsquo;<samp>-i</samp>&rsquo;.
+Note that if &lsquo;<samp>interrupt</samp>&rsquo; is enabled, all existing displays are
+changed immediately to forward interrupt signals.
+</p></dd></dl>
+
+<a name="index-f"></a>
+<a name="index-C_002df"></a>
+<dl>
+<dt><a name="index-flow"></a><u>Command:</u> <b>flow</b><i> [fstate]</i></dt>
+<dd><p>(<kbd>C-a f</kbd>, <kbd>C-a C-f</kbd>)<br>
+Sets the flow-control mode for this window to <var>fstate</var>, which can be
+&lsquo;<samp>on</samp>&rsquo;, &lsquo;<samp>off</samp>&rsquo; or &lsquo;<samp>auto</samp>&rsquo;.
+Without parameters it cycles the current window&rsquo;s
+flow-control setting.  Default is set by &lsquo;defflow&rsquo;.
+</p></dd></dl>
+
+<p>
+
+</p>
+</body>
+</html>

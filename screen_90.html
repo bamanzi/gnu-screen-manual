@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 12.4 Screen Exchange</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 12.4 Screen Exchange">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Screen-Exchange"></a>
+<a name="Screen-Exchange-1"></a>
+<h2 class="section">12.4 Screen Exchange</h2>
+
+<dl>
+<dt><a name="index-bufferfile"></a><u>Command:</u> <b>bufferfile</b><i> [<var>exchange-file</var>]</i></dt>
+<dd><p>(none)<br>
+Change the filename used for reading and writing with the paste buffer.
+If the <var>exchange-file</var> parameter is omitted, <code>screen</code> reverts
+to the default of &lsquo;<tt>/tmp/screen-exchange</tt>&rsquo;.  The following example
+will paste the system&rsquo;s password file into the screen window (using the 
+paste buffer, where a copy remains):
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">C-a : bufferfile /etc/passwd
+C-a &lt; C-a ]
+C-a : bufferfile
+</pre></td></tr></table>
+</dd></dl>
+
+<a name="index-_003c"></a>
+<dl>
+<dt><a name="index-readbuf"></a><u>Command:</u> <b>readbuf</b><i> [-e <var>encoding</var>] [<var>filename</var>]</i></dt>
+<dd><p>(<kbd>C-a &lt;</kbd>)<br>
+Reads the contents of the specified file into the paste buffer.
+You can tell screen the encoding of the file via the <code>-e</code> option.
+If no file is specified, the screen-exchange filename is used.
+</p></dd></dl>
+
+<a name="index-_003d"></a>
+<dl>
+<dt><a name="index-removebuf"></a><u>Command:</u> <b>removebuf</b></dt>
+<dd><p>(<kbd>C-a =</kbd>)<br>
+Unlinks the screen-exchange file.
+</p></dd></dl>
+
+<a name="index-_003e"></a>
+<dl>
+<dt><a name="index-writebuf"></a><u>Command:</u> <b>writebuf</b><i> [-e <var>encoding</var>] [<var>filename</var>]</i></dt>
+<dd><p>(<kbd>C-a &gt;</kbd>)<br>
+Writes the contents of the paste buffer to the specified file, or the
+public accessible screen-exchange file if no filename is given.
+This is thought of as a primitive means of
+communication between <code>screen</code> users on the same host.
+If an encoding is specified the paste buffer is recoded on the fly to
+match the encoding.
+See also
+<kbd>C-a &lt;ESC&gt;</kbd> (see section <a href="screen_79.html#Copy">Copying</a>).
+</p></dd></dl>
+
+<p>
+
+</p>
+</body>
+</html>

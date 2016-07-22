@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 8.4.6 Displays</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 8.4.6 Displays">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Displays"></a>
+<a name="Displays-1"></a>
+<h3 class="subsection">8.4.6 Displays</h3>
+<a name="index-_002a"></a>
+<dl>
+<dt><a name="index-displays"></a><u>Command:</u> <b>displays</b></dt>
+<dd><p>(<kbd>C-a *</kbd>)<br>
+Shows a tabular listing  of  all  currently  connected  user
+front-ends  (displays).   This  is most useful for multiuser
+sessions.
+</p>
+<p>The following keys can be used in <code>displays</code> list:
+</p>
+<p><kbd>k</kbd>, <kbd>C-p</kbd>, or <kbd>up</kbd> Move up one line.
+</p>
+<p><kbd>j</kbd>, <kbd>C-n</kbd>, or <kbd>down</kbd> Move down one line.
+</p>
+<p><kbd>C-a</kbd> or <kbd>home</kbd> Move to the first line.
+</p>
+<p><kbd>C-e</kbd> or <kbd>end</kbd> Move to the last line.
+</p>
+<p><kbd>C-u</kbd> or <kbd>C-d</kbd> Move one half page up or down.
+</p>
+<p><kbd>C-b</kbd> or <kbd>C-f</kbd> Move one full page up or down.
+</p>
+<p><kbd>mouseclick</kbd> Move to the selected line. Available when
+<code>mousetrack</code> is set to <code>on</code>.
+</p>
+<p><kbd>space</kbd> Refresh the list.
+</p>
+<p><kbd>d</kbd> Detach the selected display.
+</p>
+<p><kbd>D</kbd> Power detach the selected display.
+</p>
+<p><kbd>C-g</kbd>, <kbd>enter</kbd>, or <kbd>escape</kbd> Exit the list.
+</p>
+
+<p>The following is an example of what <code>displays</code> could
+look like:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">xterm 80x42   jnweiger@/dev/ttyp4      0(m11)    &amp;rWx
+facit 80x24   mlschroe@/dev/ttyhf nb  11(tcsh)    rwx
+xterm 80x42   jnhollma@/dev/ttyp5      0(m11)    &amp;R.x
+ (A)   (B)       (C)     (D)     (E)  (F)(G)    (H)(I)
+</pre></td></tr></table>
+
+<p>The legend is as follows:
+<br>(A) The terminal type known by <code>screen</code> for this display.
+<br>(B) Displays geometry as width x height.
+<br>(C) Username who is logged in at the display.
+<br>(D) Device name of the display or the attached device
+<br>(E) Display is in blocking or nonblocking mode. The available
+    modes are &quot;nb&quot;, &quot;NB&quot;, &quot;Z&lt;&quot;, &quot;Z&gt;&quot;, and  &quot;BL&quot;.
+<br>(F) Number of the window
+<br>(G) Name/title of window
+<br>(H) Whether the window is shared
+<br>(I) Window permissions. Made up of three characters:
+</p><table><tr><td>&nbsp;</td><td><pre class="display">(1st character)
+    &lsquo;<samp>-</samp>&rsquo; : no read
+    &lsquo;<samp>r</samp>&rsquo; : read
+    &lsquo;<samp>R</samp>&rsquo; : read only due to foreign wlock
+(2nd character)
+    &lsquo;<samp>-</samp>&rsquo; : no write
+    &lsquo;<samp>.</samp>&rsquo; : write suppressed by foreign wlock
+    &lsquo;<samp>w</samp>&rsquo; : write
+    &lsquo;<samp>W</samp>&rsquo; : own wlock
+(3rd character)
+    &lsquo;<samp>-</samp>&rsquo; : no execute
+    &lsquo;<samp>x</samp>&rsquo; : execute
+</pre></td></tr></table>
+
+<p><code>Displays</code> needs a region size of at least 10 characters
+wide and 5 characters high in order to display.
+</p></dd></dl>
+
+<p>
+
+</p>
+</body>
+</html>

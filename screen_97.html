@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 14.2 Examples of the bind command</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 14.2 Examples of the bind command">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Bind-Examples"></a>
+<a name="Examples-of-the-bind-command"></a>
+<h2 class="section">14.2 Examples of the <code>bind</code> command</h2>
+<p>Some examples:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">bind ' ' windows
+bind ^f screen telnet foobar
+bind \033 screen -ln -t root -h 1000 9 su
+</pre></td></tr></table>
+
+<p>would bind the space key to the command that displays a list of windows
+(so that the command usually invoked by <kbd>C-a C-w</kbd> would also be
+available as <kbd>C-a space</kbd>), bind <kbd>C-f</kbd> to the command
+&ldquo;create a window with a TELNET connection to foobar&rdquo;, and bind
+&lt;ESC&gt; to the command that creates an non-login window with title
+&lsquo;<samp>root</samp>&rsquo; in slot #9, with a superuser shell and a scrollback buffer
+of 1000 lines.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">bind -c demo1 0 select 10
+bind -c demo1 1 select 11
+bind -c demo1 2 select 12
+bindkey &quot;^B&quot; command -c demo1
+</pre></td></tr></table>
+<p>makes <kbd>C-b 0</kbd> select window 10, <kbd>C-b 1</kbd> window 11, etc.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">bind -c demo2 0 select 10
+bind -c demo2 1 select 11
+bind -c demo2 2 select 12
+bind - command -c demo2
+</pre></td></tr></table>
+<p>makes <kbd>C-a - 0</kbd> select window 10, <kbd>C-a - 1</kbd> window 11, etc.
+</p>
+<p>
+
+</p>
+</body>
+</html>

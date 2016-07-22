@@ -1,0 +1,714 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="texi2html 1.82">
+<!-- Sitemap 1.0 -->
+</HEAD>
+<BODY>
+<OBJECT type="text/site properties">
+<param name="ImageType" value="Folder">
+</OBJECT>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Top">
+<param name="Local" value="screen.html#Top">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="1. Overview">
+<param name="Local" value="screen_1.html#Overview">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="2. Getting Started">
+<param name="Local" value="screen_2.html#Getting-Started">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="3. Invoking Screen">
+<param name="Local" value="screen_3.html#Invoking-Screen">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4. Customizing Screen">
+<param name="Local" value="screen_4.html#Customization">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.1 The .screenrc file">
+<param name="Local" value="screen_5.html#Startup-Files">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.2 Source">
+<param name="Local" value="screen_6.html#Source">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.3 Colon">
+<param name="Local" value="screen_7.html#Colon">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5. Commands">
+<param name="Local" value="screen_8.html#Commands">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.1 Default Key Bindings">
+<param name="Local" value="screen_9.html#Default-Key-Bindings">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.2 Command Summary">
+<param name="Local" value="screen_10.html#Command-Summary">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6. New Window">
+<param name="Local" value="screen_11.html#New-Window">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.1 Chdir">
+<param name="Local" value="screen_12.html#Chdir">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.2 Screen Command">
+<param name="Local" value="screen_13.html#Screen-Command">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.3 Setenv">
+<param name="Local" value="screen_14.html#Setenv">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.4 Shell">
+<param name="Local" value="screen_15.html#Shell">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.5 Term">
+<param name="Local" value="screen_16.html#Term">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.6 Window Types">
+<param name="Local" value="screen_17.html#Window-Types">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.7 Window Groups">
+<param name="Local" value="screen_18.html#Window-Groups">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="7. Selecting a Window">
+<param name="Local" value="screen_19.html#Selecting">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="7.1 Moving Back and Forth">
+<param name="Local" value="screen_20.html#Next-and-Previous">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="7.2 Other Window">
+<param name="Local" value="screen_21.html#Other-Window">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="7.3 Select">
+<param name="Local" value="screen_22.html#Select">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="7.4 Windowlist">
+<param name="Local" value="screen_23.html#Windowlist">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8. Session Management Commands">
+<param name="Local" value="screen_24.html#Session-Management">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.1 Detach">
+<param name="Local" value="screen_25.html#Detach">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.2 Power Detach">
+<param name="Local" value="screen_26.html#Power-Detach">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.3 Lock">
+<param name="Local" value="screen_27.html#Lock">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.4 Multiuser Session">
+<param name="Local" value="screen_28.html#Multiuser-Session">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.4.1 Multiuser">
+<param name="Local" value="screen_29.html#Multiuser">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.4.2 Acladd">
+<param name="Local" value="screen_30.html#Acladd">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.4.3 Aclchg">
+<param name="Local" value="screen_31.html#Aclchg">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.4.4 Acldel">
+<param name="Local" value="screen_32.html#Acldel">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.4.5 Aclgrp">
+<param name="Local" value="screen_33.html#Aclgrp">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.4.6 Displays">
+<param name="Local" value="screen_34.html#Displays">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.4.7 aclumask">
+<param name="Local" value="screen_35.html#Umask">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.4.8 Wall">
+<param name="Local" value="screen_36.html#Wall">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.4.9 Writelock">
+<param name="Local" value="screen_37.html#Writelock">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.4.10 Su">
+<param name="Local" value="screen_38.html#Su">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.5 Session Name">
+<param name="Local" value="screen_39.html#Session-Name">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.6 Suspend">
+<param name="Local" value="screen_40.html#Suspend">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.7 Quit">
+<param name="Local" value="screen_41.html#Quit">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9. Regions">
+<param name="Local" value="screen_42.html#Regions">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.1 Split">
+<param name="Local" value="screen_43.html#Split">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.2 Focus">
+<param name="Local" value="screen_44.html#Focus">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.3 Only">
+<param name="Local" value="screen_45.html#Only">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.4 Remove">
+<param name="Local" value="screen_46.html#Remove">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.5 Resize">
+<param name="Local" value="screen_47.html#Resize">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.6 Caption">
+<param name="Local" value="screen_48.html#Caption">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.7 Fit">
+<param name="Local" value="screen_49.html#Fit">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.8 Focusminsize">
+<param name="Local" value="screen_50.html#Focusminsize">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.9 Layout">
+<param name="Local" value="screen_51.html#Layout">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10. Window Settings">
+<param name="Local" value="screen_52.html#Window-Settings">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.1 Naming Windows (Titles)">
+<param name="Local" value="screen_53.html#Naming-Windows">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.1.1 Title Command">
+<param name="Local" value="screen_54.html#Title-Command">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.1.2 Dynamic Titles">
+<param name="Local" value="screen_55.html#Dynamic-Titles">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.1.3 Setting up your prompt for shell titles">
+<param name="Local" value="screen_56.html#Title-Prompts">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.1.4 Setting up shell titles in your .screenrc">
+<param name="Local" value="screen_57.html#Title-Screenrc">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.2 Console">
+<param name="Local" value="screen_58.html#Console">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.3 Kill">
+<param name="Local" value="screen_59.html#Kill">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.4 Login">
+<param name="Local" value="screen_60.html#Login">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.5 Mode">
+<param name="Local" value="screen_61.html#Mode">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.6 Monitoring">
+<param name="Local" value="screen_62.html#Monitor">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.7 Windows">
+<param name="Local" value="screen_63.html#Windows">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.8 Hardstatus">
+<param name="Local" value="screen_64.html#Hardstatus">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.9 Mousetrack">
+<param name="Local" value="screen_65.html#Mousetrack">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11. Virtual Terminal">
+<param name="Local" value="screen_66.html#Virtual-Terminal">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.1 Control Sequences">
+<param name="Local" value="screen_67.html#Control-Sequences">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.2 Input Translation">
+<param name="Local" value="screen_68.html#Input-Translation">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.3 Digraph">
+<param name="Local" value="screen_69.html#Digraph">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.4 Bell">
+<param name="Local" value="screen_70.html#Bell">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.5 Clear">
+<param name="Local" value="screen_71.html#Clear">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.6 Info">
+<param name="Local" value="screen_72.html#Info">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.7 Redisplay">
+<param name="Local" value="screen_73.html#Redisplay">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.8 Wrap">
+<param name="Local" value="screen_74.html#Wrap">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.9 Reset">
+<param name="Local" value="screen_75.html#Reset">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.10 Window Size">
+<param name="Local" value="screen_76.html#Window-Size">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.11 Character Processing">
+<param name="Local" value="screen_77.html#Character-Processing">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12. Copy and Paste">
+<param name="Local" value="screen_78.html#Copy-and-Paste">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.1 Copying">
+<param name="Local" value="screen_79.html#Copy">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.1.1 CR/LF">
+<param name="Local" value="screen_80.html#Line-Termination">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.1.2 Scrollback">
+<param name="Local" value="screen_81.html#Scrollback">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.1.3 Markkeys">
+<param name="Local" value="screen_82.html#Copy-Mode-Keys">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.1.4 Movement Keys">
+<param name="Local" value="screen_83.html#Movement">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.1.5 Marking">
+<param name="Local" value="screen_84.html#Marking">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.1.6 Repeat Count">
+<param name="Local" value="screen_85.html#Repeat-count">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.1.7 Searching">
+<param name="Local" value="screen_86.html#Searching">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.1.8 Specials">
+<param name="Local" value="screen_87.html#Specials">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.2 Paste">
+<param name="Local" value="screen_88.html#Paste">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.3 Registers">
+<param name="Local" value="screen_89.html#Registers">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.4 Screen Exchange">
+<param name="Local" value="screen_90.html#Screen-Exchange">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.5 History">
+<param name="Local" value="screen_91.html#History">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="13. Subprocess Execution">
+<param name="Local" value="screen_92.html#Subprocess-Execution">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="13.1 Exec">
+<param name="Local" value="screen_93.html#Exec">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="13.2 Using Exec">
+<param name="Local" value="screen_94.html#Using-Exec">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="14. Key Binding">
+<param name="Local" value="screen_95.html#Key-Binding">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="14.1 The bind command">
+<param name="Local" value="screen_96.html#Bind">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="14.2 Examples of the bind command">
+<param name="Local" value="screen_97.html#Bind-Examples">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="14.3 Command Character">
+<param name="Local" value="screen_98.html#Command-Character">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="14.4 Help">
+<param name="Local" value="screen_99.html#Help">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="14.5 Bindkey">
+<param name="Local" value="screen_100.html#Bindkey">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="14.6 Bindkey Examples">
+<param name="Local" value="screen_101.html#Bindkey-Examples">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="14.7 Bindkey Control">
+<param name="Local" value="screen_102.html#Bindkey-Control">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="15. Flow Control">
+<param name="Local" value="screen_103.html#Flow-Control">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="15.1 About screen flow control settings">
+<param name="Local" value="screen_104.html#Flow-Control-Summary">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="15.2 Flow">
+<param name="Local" value="screen_105.html#Flow">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="15.3 XON and XOFF">
+<param name="Local" value="screen_106.html#XON_002fXOFF">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="16. Termcap">
+<param name="Local" value="screen_107.html#Termcap">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="16.1 Choosing the termcap entry for a window">
+<param name="Local" value="screen_108.html#Window-Termcap">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="16.2 Write out the window's termcap entry">
+<param name="Local" value="screen_109.html#Dump-Termcap">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="16.3 The termcap command">
+<param name="Local" value="screen_110.html#Termcap-Syntax">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="16.4 Termcap Examples">
+<param name="Local" value="screen_111.html#Termcap-Examples">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="16.5 Special Terminal Capabilities">
+<param name="Local" value="screen_112.html#Special-Capabilities">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="16.6 Autonuke">
+<param name="Local" value="screen_113.html#Autonuke">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="16.7 Obuflimit">
+<param name="Local" value="screen_114.html#Obuflimit">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="16.8 Character Translation">
+<param name="Local" value="screen_115.html#Character-Translation">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="17. The Message Line">
+<param name="Local" value="screen_116.html#Message-Line">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="17.1 Using the message line from your program">
+<param name="Local" value="screen_117.html#Privacy-Message">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="17.2 Hardware Status Line">
+<param name="Local" value="screen_118.html#Hardware-Status-Line">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="17.3 Display Last Message">
+<param name="Local" value="screen_119.html#Last-Message">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="17.4 Message Wait">
+<param name="Local" value="screen_120.html#Message-Wait">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="18. Logging">
+<param name="Local" value="screen_121.html#Logging">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="18.1 hardcopy">
+<param name="Local" value="screen_122.html#Hardcopy">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="18.2 log">
+<param name="Local" value="screen_123.html#Log">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="19. Startup">
+<param name="Local" value="screen_124.html#Startup">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="19.1 echo">
+<param name="Local" value="screen_125.html#echo">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="19.2 sleep">
+<param name="Local" value="screen_126.html#sleep">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="19.3 Startup Message">
+<param name="Local" value="screen_127.html#Startup-Message">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20. Miscellaneous commands">
+<param name="Local" value="screen_128.html#Miscellaneous">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.1 At">
+<param name="Local" value="screen_129.html#At">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.2 Break">
+<param name="Local" value="screen_130.html#Break">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.3 Debug">
+<param name="Local" value="screen_131.html#Debug">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.4 License">
+<param name="Local" value="screen_132.html#License">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.5 Nethack">
+<param name="Local" value="screen_133.html#Nethack">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.6 Nonblock">
+<param name="Local" value="screen_134.html#Nonblock">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.7 Number">
+<param name="Local" value="screen_135.html#Number">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.8 Time">
+<param name="Local" value="screen_136.html#Time">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.9 Verbose">
+<param name="Local" value="screen_137.html#Verbose">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.10 Version">
+<param name="Local" value="screen_138.html#Version">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.11 Zombie">
+<param name="Local" value="screen_139.html#Zombie">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.12 Printcmd">
+<param name="Local" value="screen_140.html#Printcmd">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.13 Rendition">
+<param name="Local" value="screen_141.html#Rendition">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.14 Sorendition">
+<param name="Local" value="screen_142.html#Sorendition">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.15 Attrcolor">
+<param name="Local" value="screen_143.html#Attrcolor">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.16 Setsid">
+<param name="Local" value="screen_144.html#Setsid">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.17 Eval">
+<param name="Local" value="screen_145.html#Eval">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.18 Maxwin">
+<param name="Local" value="screen_146.html#Maxwin">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.19 Backtick">
+<param name="Local" value="screen_147.html#Backtick">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.20 Screen Saver">
+<param name="Local" value="screen_148.html#Screen-Saver">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="20.21 Zmodem">
+<param name="Local" value="screen_149.html#Zmodem">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="21. String Escapes">
+<param name="Local" value="screen_150.html#String-Escapes">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="22. Environment Variables">
+<param name="Local" value="screen_151.html#Environment">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="23. Files Referenced">
+<param name="Local" value="screen_152.html#Files">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="24. Credits">
+<param name="Local" value="screen_153.html#Credits">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="25. Bugs">
+<param name="Local" value="screen_154.html#Bugs">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="25.1 Known Bugs">
+<param name="Local" value="screen_155.html#Known-Bugs">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="25.2 Reporting Bugs">
+<param name="Local" value="screen_156.html#Reporting-Bugs">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="25.3 Availability">
+<param name="Local" value="screen_157.html#Availability">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="26. Installation">
+<param name="Local" value="screen_158.html#Installation">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="26.1 Socket Directory">
+<param name="Local" value="screen_159.html#Socket-Directory">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="26.2 Compiling Screen">
+<param name="Local" value="screen_160.html#Compiling-Screen">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Concept Index">
+<param name="Local" value="screen_161.html#Concept-Index">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Command Index">
+<param name="Local" value="screen_162.html#Command-Index">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Keystroke Index">
+<param name="Local" value="screen_163.html#Keystroke-Index">
+</OBJECT> </LI>
+</UL>
+</HTML>
+</BODY>

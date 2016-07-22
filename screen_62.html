@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 10.6 Monitoring</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 10.6 Monitoring">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Monitor"></a>
+<a name="Monitoring"></a>
+<h2 class="section">10.6 Monitoring</h2>
+
+<dl>
+<dt><a name="index-activity"></a><u>Command:</u> <b>activity</b><i> message</i></dt>
+<dd><p>(none)<br>
+When any activity occurs in a background window that is being monitored,
+<code>screen</code> displays a notification in the message line.  The
+notification message can be redefined by means of the <code>activity</code>
+command.  Each occurrence of &lsquo;<samp>%</samp>&rsquo; in <var>message</var> is replaced by
+the number of the window in which activity has occurred, and each
+occurrence of &lsquo;<samp>^G</samp>&rsquo; is replaced by the definition for bell in your
+termcap (usually an audible bell).  The default message is
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">'Activity in window %n'
+</pre></td></tr></table>
+
+<p>Note that monitoring is off for all windows by default, but can be altered
+by use of the <code>monitor</code> command (<kbd>C-a M</kbd>).
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-defmonitor"></a><u>Command:</u> <b>defmonitor</b><i> state</i></dt>
+<dd><p>(none)<br>
+Same as the <code>monitor</code> command except that the default setting for
+new windows is changed.  Initial setting is &lsquo;off&rsquo;.
+</p></dd></dl>
+
+<a name="index-M"></a>
+<dl>
+<dt><a name="index-monitor"></a><u>Command:</u> <b>monitor</b><i> [state]</i></dt>
+<dd><p>(<kbd>C-a M</kbd>)<br>
+Toggles monitoring of the current window.  When monitoring is turned on
+and the affected window is switched into the background, the activity
+notification message will be displayed in the status line at the first
+sign of output, and the window will also be marked with an &lsquo;<samp>@</samp>&rsquo; in
+the window-status display (see section <a href="screen_63.html#Windows">Windows</a>).  Monitoring defaults to
+&lsquo;<samp>off</samp>&rsquo; for all windows.
+</p></dd></dl>
+
+<a name="index-_005f"></a>
+<dl>
+<dt><a name="index-silence"></a><u>Command:</u> <b>silence</b><i> [<var>state</var>|<var>sec</var>]</i></dt>
+<dd><p>(<kbd>C-a _</kbd>)<br>
+Toggles silence monitoring of windows. When silence is turned on and an 
+affected window is switched into the background, you will receive the
+silence notification message in the status line after a specified period
+of inactivity (silence). The default timeout can be changed with the
+<code>silencewait</code> command or by specifying a number of seconds instead of
+<code>on</code> or <code>off</code>. Silence is initially off for all windows.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-defsilence"></a><u>Command:</u> <b>defsilence</b><i> state</i></dt>
+<dd><p>(none)<br>
+Same as the <code>silence</code> command except that the default setting for
+new windows is changed.  Initial setting is &lsquo;off&rsquo;.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-silencewait"></a><u>Command:</u> <b>silencewait</b><i> <var>seconds</var></i></dt>
+<dd><p>(none)<br>
+Define the time that all windows monitored for silence should wait
+before displaying a message. Default is 30 seconds.
+</p></dd></dl>
+
+<p>
+
+</p>
+</body>
+</html>

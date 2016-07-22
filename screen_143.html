@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 20.15 Attrcolor</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 20.15 Attrcolor">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Attrcolor"></a>
+<a name="Attrcolor-1"></a>
+<h2 class="section">20.15 Attrcolor</h2>
+<dl>
+<dt><a name="index-attrcolor"></a><u>Command:</u> <b>attrcolor</b><i> <var>attrib</var> [<var>attribute/color-modifier</var>]</i></dt>
+<dd><p>(none)<br>
+This command can be used to highlight attributes by changing the color of
+the text. If the attribute
+<var>attrib</var>
+is in use, the specified attribute/color modifier is also applied. If no
+modifier is given, the current one is deleted. See the chapter
+about string escapes (see section <a href="screen_150.html#String-Escapes">String Escapes</a>) for the syntax of
+the modifier. <code>Screen</code> understands two pseudo-attributes, <code>i</code>
+stands for high-intensity foreground color and <code>I</code> for
+high-intensity background color.
+</p>
+<p>Examples:
+</p><dl compact="compact">
+<dt> <code>attrcolor b &quot;R&quot;</code></dt>
+<dd><p>Change the color to bright red if bold text is to be printed.
+</p></dd>
+<dt> <code>attrcolor u &quot;-u b&quot;</code></dt>
+<dd><p>Use blue text instead of underline.
+</p></dd>
+<dt> <code>attrcolor b &quot;.I&quot;</code></dt>
+<dd><p>Use bright colors for bold text. Most terminal emulators do this
+already.
+</p></dd>
+<dt> <code>attrcolor i &quot;+b&quot;</code></dt>
+<dd><p>Make bright colored text also bold.
+</p></dd>
+</dl>
+</dd></dl>
+
+<p>
+
+</p>
+</body>
+</html>

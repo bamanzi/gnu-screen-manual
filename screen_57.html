@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 10.1.4 Setting up shell titles in your .screenrc</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 10.1.4 Setting up shell titles in your .screenrc">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Title-Screenrc"></a>
+<a name="Setting-up-shell-titles-in-your-_002escreenrc"></a>
+<h3 class="subsection">10.1.4 Setting up shell titles in your &lsquo;<tt>.screenrc</tt>&rsquo;</h3>
+<p>Here are some .screenrc examples:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">screen -t top 2 nice top
+</pre></td></tr></table>
+
+<p>Adding this line to your .screenrc would start a niced version of the
+<code>top</code> command in window 2 named &lsquo;<samp>top</samp>&rsquo; rather than &lsquo;<samp>nice</samp>&rsquo;.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">shelltitle '&gt; |csh'
+screen 1
+</pre></td></tr></table>
+
+<p>This file would start a shell using the given shelltitle.  The title
+specified is an auto-title that would expect the prompt and the typed
+command to look something like the following:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">/usr/joe/src/dir&gt; trn
+</pre></td></tr></table>
+
+<p>(it looks after the &rsquo;&gt; &rsquo; for the command name).
+The window status would show the name &lsquo;<samp>trn</samp>&rsquo; while the command was
+running, and revert to &lsquo;<samp>csh</samp>&rsquo; upon completion.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">bind R screen -t '% |root:' su
+</pre></td></tr></table>
+
+<p>Having this command in your .screenrc would bind the key sequence
+<kbd>C-a R</kbd> to the <code>su</code> command and give it an auto-title name of
+&lsquo;<samp>root:</samp>&rsquo;.  For this auto-title to work, the screen could look
+something like this:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">% !em
+emacs file.c
+</pre></td></tr></table>
+
+<p>Here the user typed the csh history command <code>!em</code> which ran the
+previously entered <code>emacs</code> command.  The window status would show
+&lsquo;<samp>root:emacs</samp>&rsquo; during the execution of the command, and revert to
+simply &lsquo;<samp>root:</samp>&rsquo; at its completion.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">bind o title
+bind E title &quot;&quot;
+bind u title (unknown)
+</pre></td></tr></table>
+
+<p>The first binding doesn&rsquo;t have any arguments, so it would prompt you for
+a title when you type <kbd>C-a o</kbd>.  The second binding would clear an
+auto-titles current setting (C-a E).  The third binding would set the
+current window&rsquo;s title to &lsquo;<samp>(unknown)</samp>&rsquo; (C-a u).
+</p>
+<p>
+
+</p>
+</body>
+</html>

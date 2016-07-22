@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 6.4 Shell</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 6.4 Shell">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Shell"></a>
+<a name="Shell-1"></a>
+<h2 class="section">6.4 Shell</h2>
+<dl>
+<dt><a name="index-shell"></a><u>Command:</u> <b>shell</b><i> command</i></dt>
+<dt><a name="index-defshell"></a><u>Command:</u> <b>defshell</b><i> command</i></dt>
+<dd><p>(none)<br>
+Set the command to be used to create a new shell.  This overrides the
+value of the environment variable <code>$SHELL</code>.  This is useful if
+you&rsquo;d like to run a tty-enhancer which is expecting to execute the
+program specified in <code>$SHELL</code>.  
+If the command begins with a &lsquo;<samp>-</samp>&rsquo; character, the shell will be started as a
+login-shell. Typical shells do only minimal initialization when not started as a login-shell.
+E.g. Bash will not read your &lsquo;<tt>~/.bashrc</tt>&rsquo; unless it is a login-shell.
+</p>
+<p><code>defshell</code> is currently a synonym to the <code>shell</code> .screenrc command.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-shelltitle"></a><u>Command:</u> <b>shelltitle</b><i> title</i></dt>
+<dd><p>(none)<br>
+Set the title for all shells created during startup or by the C-a C-c
+command.  See section <a href="screen_53.html#Naming-Windows">Naming Windows (Titles)</a>, for details about what titles are.
+</p></dd></dl>
+
+<p>
+
+</p>
+</body>
+</html>
