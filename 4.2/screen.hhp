@@ -1,6 +1,6 @@
 [OPTIONS]
 Compatibility=1.1 or later
-Compiled file=screen.chm
+Compiled file=..\screen.chm
 Contents file=screen.hhc
 Default Window=Default
 Default topic=screen.html
