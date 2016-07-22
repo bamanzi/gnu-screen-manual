@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 13.2 Using Exec</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 13.2 Using Exec">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Using-Exec"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_93.html#Exec" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_95.html#Key-Binding" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_92.html#Subprocess-Execution" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_92.html#Subprocess-Execution" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_95.html#Key-Binding" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Using-Exec-1"></a>
+<h2 class="section">13.2 Using Exec</h2>
+<p>Abbreviations:
+</p>
+<ul>
+<li>
+Whitespace between the word &lsquo;<samp>exec</samp>&rsquo; and <var>fdpat</var> and the command name
+can be omitted. 
+
+</li><li>
+Trailing dots and a <var>fdpat</var> consisting only of dots can be omitted. 
+
+</li><li> 
+A simple &lsquo;<samp>|</samp>&rsquo; is synonymous for the &lsquo;<samp>!..|</samp>&rsquo; pattern.
+
+</li><li>
+The word &lsquo;<samp>exec</samp>&rsquo; can be omitted when the &lsquo;<samp>|</samp>&rsquo; abbreviation is used.
+
+</li><li>
+The word &lsquo;<samp>exec</samp>&rsquo; can always be replaced by leading &lsquo;<samp>!</samp>&rsquo;.
+</li></ul>
+
+<p>Examples:
+</p>
+<dl compact="compact">
+<dt> <code>!/bin/sh</code></dt>
+<dt> <code>exec /bin/sh</code></dt>
+<dt> <code>exec ... /bin/sh</code></dt>
+<dd><p>All of the above are equivalent.
+Creates another shell in the same window, while the original shell is still 
+running. Output of both shells is displayed and user input is sent to the new
+&lsquo;<tt>/bin/sh</tt>&rsquo;.
+</p>
+</dd>
+<dt> <code>!!stty 19200</code></dt>
+<dt> <code>exec!stty 19200</code></dt>
+<dt> <code>exec !.. stty 19200</code></dt>
+<dd><p>All of the above are equivalent.
+Set the speed of the window&rsquo;s tty. If your stty command operates on stdout,
+then add another &lsquo;<samp>!</samp>&rsquo;. This is a useful command, when a screen window
+is directly connected to a serial line that needs to be configured.
+</p>
+</dd>
+<dt> <code>|less</code></dt>
+<dt> <code>exec !..| less</code></dt>
+<dd><p>Both are equivalent.
+This adds a pager to the window output. The special character &lsquo;<samp>|</samp>&rsquo; is 
+needed to give the user control over the pager although it gets its input from 
+the window&rsquo;s process. This works, because &lsquo;<samp>less</samp>&rsquo; listens on stderr 
+(a behavior that <code>screen</code> would not expect without the &lsquo;<samp>|</samp>&rsquo;) 
+when its stdin is not a tty. <code>Less</code> versions newer than 177 fail miserably
+here; good old <code>pg</code> still works.
+</p>
+</dd>
+<dt> <code>!:sed -n s/.*Error.*/\007/p</code></dt>
+<dd><p>Sends window output to both, the user and the sed command. The sed inserts an
+additional bell character (oct. 007) to the window output seen by screen.
+This will cause &rsquo;Bell in window x&rsquo; messages, whenever the string &lsquo;<samp>Error</samp>&rsquo;
+appears in the window.
+</p></dd>
+</dl>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_93.html#Exec" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_95.html#Key-Binding" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_92.html#Subprocess-Execution" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_92.html#Subprocess-Execution" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_95.html#Key-Binding" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

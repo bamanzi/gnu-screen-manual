@@ -1,0 +1,337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 21. String Escapes</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 21. String Escapes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="String-Escapes"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_152.html#Zmodem" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_154.html#Environment" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_128.html#Miscellaneous" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_154.html#Environment" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="String-Escapes-1"></a>
+<h1 class="chapter">21. String Escapes</h1>
+<a name="index-string-escapes"></a>
+<p>Screen provides an escape mechanism to insert information like the
+current time into messages or file names. The escape character
+is <code>%</code> with one exception: inside of a window&rsquo;s hardstatus
+<code>^%</code> (<code>^E</code>) is used instead.
+</p>
+<p>Here is the full list of supported escapes:
+</p>
+<dl compact="compact">
+<dt> <code>%</code></dt>
+<dd><p>the escape character itself
+</p></dd>
+<dt> <code>a</code></dt>
+<dd><p>either <code>am</code> or <code>pm</code>
+</p></dd>
+<dt> <code>A</code></dt>
+<dd><p>either <code>AM</code> or <code>PM</code>
+</p></dd>
+<dt> <code>c</code></dt>
+<dd><p>current time <code>HH:MM</code> in 24h format
+</p></dd>
+<dt> <code>C</code></dt>
+<dd><p>current time <code>HH:MM</code> in 12h format
+</p></dd>
+<dt> <code>d</code></dt>
+<dd><p>day number
+</p></dd>
+<dt> <code>D</code></dt>
+<dd><p>weekday name
+</p></dd>
+<dt> <code>E</code></dt>
+<dd><p>sets %? to true if the escape character has been pressed.
+</p></dd>
+<dt> <code>f</code></dt>
+<dd><p>flags of the window. See section <a href="screen_63.html#Windows">Windows</a>, for meanings of the various flags.
+</p></dd>
+<dt> <code>F</code></dt>
+<dd><p>sets %? to true if the window has the focus
+</p></dd>
+<dt> <code>h</code></dt>
+<dd><p>hardstatus of the window
+</p></dd>
+<dt> <code>H</code></dt>
+<dd><p>hostname of the system
+</p></dd>
+<dt> <code>l</code></dt>
+<dd><p>current load of the system
+</p></dd>
+<dt> <code>m</code></dt>
+<dd><p>month number
+</p></dd>
+<dt> <code>M</code></dt>
+<dd><p>month name
+</p></dd>
+<dt> <code>n</code></dt>
+<dd><p>window number
+</p></dd>
+<dt> <code>P</code></dt>
+<dd><p>sets %? to true if the current region is in copy/paste mode
+</p></dd>
+<dt> <code>s</code></dt>
+<dd><p>seconds
+</p></dd>
+<dt> <code>S</code></dt>
+<dd><p>session name
+</p></dd>
+<dt> <code>t</code></dt>
+<dd><p>window title
+</p></dd>
+<dt> <code>u</code></dt>
+<dd><p>all other users on this window
+</p></dd>
+<dt> <code>w</code></dt>
+<dd><p>all window numbers and names. With <code>-</code> qualifier: up to the current
+window; with <code>+</code> qualifier: starting with the window after the current
+one.
+</p></dd>
+<dt> <code>W</code></dt>
+<dd><p>all window numbers and names except the current one
+</p></dd>
+<dt> <code>y</code></dt>
+<dd><p>last two digits of the year number
+</p></dd>
+<dt> <code>Y</code></dt>
+<dd><p>full year number
+</p></dd>
+<dt> <code>?</code></dt>
+<dd><p>the part to the next <code>%?</code> is displayed only if a <code>%</code> escape
+inside the part expands to a non-empty string
+</p></dd>
+<dt> <code>:</code></dt>
+<dd><p>else part of <code>%?</code>
+</p></dd>
+<dt> <code>=</code></dt>
+<dd><p>pad the string to the display&rsquo;s width (like TeX&rsquo;s hfill). If a
+number is specified, pad to the percentage of the window&rsquo;s width.
+A <code>0</code> qualifier tells screen to treat the number as absolute position.
+You can specify to pad relative to the last absolute pad position
+by adding a <code>+</code> qualifier or to pad relative to the right margin
+by using <code>-</code>. The padding truncates the string if the specified
+position lies before the current position. Add the <code>L</code> qualifier
+to change this.
+</p></dd>
+<dt> <code>&lt;</code></dt>
+<dd><p>same as <code>%=</code> but just do truncation, do not fill with spaces
+</p></dd>
+<dt> <code>&gt;</code></dt>
+<dd><p>mark the current text position for the next truncation. When
+screen needs to do truncation, it tries to do it in a way that
+the marked position gets moved to the specified percentage of
+the output area. (The area starts from the last absolute pad
+position and ends with the position specified by the truncation
+operator.) The <code>L</code> qualifier tells screen to mark the truncated
+parts with &lsquo;<samp>...</samp>&rsquo;.
+</p></dd>
+<dt> <code>{</code></dt>
+<dd><p>attribute/color modifier string terminated by the next <code>}</code>
+</p></dd>
+<dt> <code>`</code></dt>
+<dd><p>Substitute with the output of a &lsquo;backtick&rsquo; command. The length
+qualifier is misused to identify one of the commands. See section <a href="screen_150.html#Backtick">Backtick</a>.
+</p></dd>
+</dl>
+<p>The <code>c</code> and <code>C</code> escape may be qualified with a <code>0</code> to
+make screen use
+zero instead of space as fill character.
+The <code>n</code> and
+<code>=</code> escapes understand
+a length qualifier (e.g. <code>%3n</code>), <code>D</code> and <code>M</code> can be
+prefixed with <code>L</code> to generate long names, <code>w</code> and
+<code>W</code> also show the window flags if <code>L</code> is given.
+</p>
+<p>An attribute/color modifier is is used to change the attributes or the
+color settings. Its format
+is &lsquo;<samp>[attribute modifier] [color description]</samp>&rsquo;. The attribute modifier
+must be prefixed by a change type indicator if it can be confused with
+a color description. The following change types are known: 
+</p><dl compact="compact">
+<dt> <code>+</code></dt>
+<dd><p>add the specified set to the current attributes
+</p></dd>
+<dt> <code>-</code></dt>
+<dd><p>remove the set from the current attributes
+</p></dd>
+<dt> <code>!</code></dt>
+<dd><p>invert the set in the current attributes
+</p></dd>
+<dt> <code>=</code></dt>
+<dd><p>change the current attributes to the specified set
+</p></dd>
+</dl>
+<p>The attribute set can either be specified as a hexadecimal number or
+a combination of the following letters: 
+</p><dl compact="compact">
+<dt> <code>d</code></dt>
+<dd><p>dim
+</p></dd>
+<dt> <code>u</code></dt>
+<dd><p>underline
+</p></dd>
+<dt> <code>b</code></dt>
+<dd><p>bold
+</p></dd>
+<dt> <code>r</code></dt>
+<dd><p>reverse
+</p></dd>
+<dt> <code>s</code></dt>
+<dd><p>standout
+</p></dd>
+<dt> <code>B</code></dt>
+<dd><p>blinking
+</p></dd>
+</dl>
+<p>Colors are coded either as a hexadecimal number or two letters specifying
+the desired background and foreground color (in that order). The following
+colors are known:
+</p><dl compact="compact">
+<dt> <code>k</code></dt>
+<dd><p>black
+</p></dd>
+<dt> <code>r</code></dt>
+<dd><p>red
+</p></dd>
+<dt> <code>g</code></dt>
+<dd><p>green
+</p></dd>
+<dt> <code>y</code></dt>
+<dd><p>yellow
+</p></dd>
+<dt> <code>b</code></dt>
+<dd><p>blue
+</p></dd>
+<dt> <code>m</code></dt>
+<dd><p>magenta
+</p></dd>
+<dt> <code>c</code></dt>
+<dd><p>cyan
+</p></dd>
+<dt> <code>w</code></dt>
+<dd><p>white
+</p></dd>
+<dt> <code>d</code></dt>
+<dd><p>default color
+</p></dd>
+<dt> <code>.</code></dt>
+<dd><p>leave color unchanged
+</p></dd>
+</dl>
+<p>The capitalized versions of the letter specify bright colors. You can also
+use the pseudo-color &lsquo;<samp>i</samp>&rsquo; to set just the brightness and leave the color
+unchanged.
+</p>
+<p>A one digit/letter color description is treated as foreground or
+background color dependent on the current attributes: if reverse mode is
+set, the background color is changed instead of the foreground color.
+If you don&rsquo;t like this, prefix the color with a &lsquo;<samp>.</samp>&rsquo;. If you want
+the same behavior for two-letter color descriptions, also prefix them
+with a &lsquo;<samp>.</samp>&rsquo;.
+</p>
+<p>As a special case, &lsquo;<samp>%{-}</samp>&rsquo; restores the attributes and colors that
+were set before the last change was made (i.e. pops one level of the
+color-change stack).
+</p>
+<p>Examples:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>G</samp>&rsquo;</dt>
+<dd><p>set color to bright green
+</p></dd>
+<dt> &lsquo;<samp>+b r</samp>&rsquo;</dt>
+<dd><p>use bold red
+</p></dd>
+<dt> &lsquo;<samp>= yd</samp>&rsquo;</dt>
+<dd><p>clear all attributes, write in default color on yellow background.
+</p></dd>
+<dt> &lsquo;<samp>%-Lw%{= BW}%50&gt;%n%f* %t%{-}%+Lw%&lt;</samp>&rsquo;</dt>
+<dd><p>The available windows centered at the current win dow and truncated to
+the available width. The current window is displayed white on blue.
+This can be used with &lsquo;<samp>hardstatus alwayslastline</samp>&rsquo;.
+</p></dd>
+<dt> &lsquo;<samp>%?%F%{.R.}%?%3n %t%? [%h]%?</samp>&rsquo;</dt>
+<dd><p>The window number and title and the window&rsquo;s hardstatus, if one is set.
+Also use a red background if this is the active focus.
+Useful for &lsquo;<samp>caption string</samp>&rsquo;.
+</p></dd>
+</dl>
+
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_152.html#Zmodem" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_154.html#Environment" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_128.html#Miscellaneous" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_154.html#Environment" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

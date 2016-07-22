@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 16.3 The termcap command</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 16.3 The termcap command">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Termcap-Syntax"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_109.html#Dump-Termcap" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_111.html#Termcap-Examples" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_107.html#Termcap" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_107.html#Termcap" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_116.html#Message-Line" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="The-termcap-command"></a>
+<h2 class="section">16.3 The <code>termcap</code> command</h2>
+<dl>
+<dt><a name="index-termcap"></a><u>Command:</u> <b>termcap</b><i> term terminal-tweaks [window-tweaks]</i></dt>
+<dt><a name="index-terminfo"></a><u>Command:</u> <b>terminfo</b><i> term terminal-tweaks [window-tweaks]</i></dt>
+<dt><a name="index-termcapinfo"></a><u>Command:</u> <b>termcapinfo</b><i> term terminal-tweaks [window-tweaks]</i></dt>
+<dd><p>(none)<br>
+Use this command to modify your terminal&rsquo;s termcap entry without going
+through all the hassles involved in creating a custom termcap entry.
+Plus, you can optionally customize the termcap generated for the
+windows.  
+You have to place these commands in one of the screenrc startup files, as they
+are meaningless once the terminal emulator is booted.
+</p>
+<p>If your system uses the terminfo database rather than termcap,
+<code>screen</code> will understand the <code>terminfo</code> command, which has the
+same effects as the <code>termcap</code> command.   Two separate commands are
+provided, as there are subtle syntactic differences, e.g. when parameter
+interpolation (using &lsquo;<samp>%</samp>&rsquo;) is required. Note that the termcap names of
+the capabilities should also be used with the <code>terminfo</code> command.
+</p>
+<p>In many cases, where the arguments are valid in both terminfo and termcap
+syntax, you can use the command <code>termcapinfo</code>, which is just a
+shorthand for a pair of <code>termcap</code> and <code>terminfo</code> commands with
+identical arguments.
+</p></dd></dl>
+
+<p>The first argument specifies which terminal(s) should be affected by
+this definition.  You can specify multiple terminal names by separating
+them with &lsquo;<samp>|</samp>&rsquo;s.  Use &lsquo;<samp>*</samp>&rsquo; to match all terminals and &lsquo;<samp>vt*</samp>&rsquo;
+to match all terminals that begin with &lsquo;<samp>vt</samp>&rsquo;.
+</p>
+<p>Each <var>tweak</var> argument contains one or more termcap defines
+(separated by &lsquo;<samp>:</samp>&rsquo;s) to be inserted at the start of the appropriate
+termcap entry, enhancing it or overriding existing values.  The first
+tweak modifies your terminal&rsquo;s termcap, and contains definitions that
+your terminal uses to perform certain functions.  Specify a null string
+to leave this unchanged (e.g. &quot;&quot;).  The second (optional) tweak modifies
+all the window termcaps, and should contain definitions that screen
+understands (see section <a href="screen_66.html#Virtual-Terminal">Virtual Terminal</a>).
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_109.html#Dump-Termcap" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_111.html#Termcap-Examples" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_107.html#Termcap" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_107.html#Termcap" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_116.html#Message-Line" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

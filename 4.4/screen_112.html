@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 16.5 Special Terminal Capabilities</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 16.5 Special Terminal Capabilities">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Special-Capabilities"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_111.html#Termcap-Examples" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_113.html#Autonuke" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_107.html#Termcap" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_107.html#Termcap" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_116.html#Message-Line" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Special-Terminal-Capabilities"></a>
+<h2 class="section">16.5 Special Terminal Capabilities</h2>
+<a name="index-terminal-capabilities"></a>
+<a name="index-capabilities"></a>
+<p>The following table describes all terminal capabilities that are
+recognized by <code>screen</code> and are not in the termcap manual
+(see <a href="../termcap/index.html#Top">(termcap)Top</a> section &lsquo;Termcap&rsquo; in <cite>The Termcap Manual</cite>).
+You can place these capabilities in your termcap entries (in
+&lsquo;<tt>/etc/termcap</tt>&rsquo;) or use them with the commands <code>termcap</code>,
+<code>terminfo</code> and <code>termcapinfo</code> in your <code>screenrc</code> files. It is
+often not possible to place these capabilities in the terminfo database.
+</p><dl compact="compact">
+<dt> &lsquo;<samp>LP</samp>&rsquo;</dt>
+<dd><p>(bool)<br>
+Terminal has VT100 style margins (&lsquo;magic margins&rsquo;). Note that
+this capability is obsolete &mdash; <code>screen</code> now uses the standard 
+&lsquo;<samp>xn</samp>&rsquo; instead.
+</p>
+</dd>
+<dt> &lsquo;<samp>Z0</samp>&rsquo;</dt>
+<dd><p>(str)<br>
+Change width to 132 columns.
+</p>
+</dd>
+<dt> &lsquo;<samp>Z1</samp>&rsquo;</dt>
+<dd><p>(str)<br>
+Change width to 80 columns.
+</p>
+</dd>
+<dt> &lsquo;<samp>WS</samp>&rsquo;</dt>
+<dd><p>(str)<br>
+Resize display. This capability has the desired width and height as
+arguments.  SunView(tm) example: &lsquo;<samp>\E[8;%d;%dt</samp>&rsquo;.
+</p>
+</dd>
+<dt> &lsquo;<samp>NF</samp>&rsquo;</dt>
+<dd><p>(bool)<br>
+Terminal doesn&rsquo;t need flow control. Send ^S and ^Q direct to
+the application. Same as <code>flow off</code>. The opposite of this
+capability is &lsquo;<samp>nx</samp>&rsquo;.
+</p>
+</dd>
+<dt> &lsquo;<samp>G0</samp>&rsquo;</dt>
+<dd><p>(bool)<br>
+Terminal can deal with ISO 2022 font selection sequences.
+</p>
+</dd>
+<dt> &lsquo;<samp>S0</samp>&rsquo;</dt>
+<dd><p>(str)<br>
+Switch charset &lsquo;<samp>G0</samp>&rsquo; to the specified charset. Default
+is &lsquo;<samp>\E(%.</samp>&rsquo;.
+</p>
+</dd>
+<dt> &lsquo;<samp>E0</samp>&rsquo;</dt>
+<dd><p>(str)<br>
+Switch charset &lsquo;<samp>G0</samp>&rsquo; back to standard charset. Default
+is &lsquo;<samp>\E(B</samp>&rsquo;.
+</p>
+</dd>
+<dt> &lsquo;<samp>C0</samp>&rsquo;</dt>
+<dd><p>(str)<br>
+Use the string as a conversion table for font 0. See
+the &lsquo;<samp>ac</samp>&rsquo; capability for more details.
+</p>
+</dd>
+<dt> &lsquo;<samp>CS</samp>&rsquo;</dt>
+<dd><p>(str)<br>
+Switch cursor-keys to application mode.
+</p>
+</dd>
+<dt> &lsquo;<samp>CE</samp>&rsquo;</dt>
+<dd><p>(str)<br>
+Switch cursor-keys to cursor mode.
+</p>
+</dd>
+<dt> &lsquo;<samp>AN</samp>&rsquo;</dt>
+<dd><p>(bool)<br>
+Enable autonuke for displays of this terminal type.
+(see section <a href="screen_113.html#Autonuke">Autonuke</a>).
+</p>
+</dd>
+<dt> &lsquo;<samp>OL</samp>&rsquo;</dt>
+<dd><p>(num)<br>
+Set the output buffer limit. See the &lsquo;<samp>obuflimit</samp>&rsquo; command
+(see section <a href="screen_114.html#Obuflimit">Obuflimit</a>) for more details.
+</p>
+</dd>
+<dt> &lsquo;<samp>KJ</samp>&rsquo;</dt>
+<dd><p>(str)<br>
+Set the encoding of the terminal. See the &lsquo;<samp>encoding</samp>&rsquo; command
+(see section <a href="screen_77.html#Character-Processing">Character Processing</a>) for valid encodings.
+</p>
+</dd>
+<dt> &lsquo;<samp>AF</samp>&rsquo;</dt>
+<dd><p>(str)<br>
+Change character foreground color in an ANSI conform way. This
+capability will almost always be set to &lsquo;<samp>\E[3%dm</samp>&rsquo;
+(&lsquo;<samp>\E[3%p1%dm</samp>&rsquo; on terminfo machines).
+</p>
+</dd>
+<dt> &lsquo;<samp>AB</samp>&rsquo;</dt>
+<dd><p>(str)<br>
+Same as &lsquo;<samp>AF</samp>&rsquo;, but change background color.
+</p>
+</dd>
+<dt> &lsquo;<samp>AX</samp>&rsquo;</dt>
+<dd><p>(bool)<br>
+Does understand ANSI set default fg/bg color (&lsquo;<samp>\E[39m / \E[49m</samp>&rsquo;).
+</p>
+</dd>
+<dt> &lsquo;<samp>XC</samp>&rsquo;</dt>
+<dd><p>(str)<br>
+Describe a translation of characters to strings depending on the
+current font.  (see section <a href="screen_115.html#Character-Translation">Character Translation</a>).
+</p>
+</dd>
+<dt> &lsquo;<samp>XT</samp>&rsquo;</dt>
+<dd><p>(bool)<br>
+Terminal understands special xterm sequences (OSC, mouse tracking).
+</p>
+</dd>
+<dt> &lsquo;<samp>C8</samp>&rsquo;</dt>
+<dd><p>(bool)<br>
+Terminal needs bold to display high-intensity colors (e.g. Eterm).
+</p>
+</dd>
+<dt> &lsquo;<samp>TF</samp>&rsquo;</dt>
+<dd><p>(bool)<br>
+Add missing capabilities to the termcap/info entry. (Set by default).
+</p></dd>
+</dl>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_111.html#Termcap-Examples" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_113.html#Autonuke" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_107.html#Termcap" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_107.html#Termcap" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_116.html#Message-Line" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

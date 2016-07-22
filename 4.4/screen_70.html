@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 11.4 Bell</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 11.4 Bell">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Bell"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_69.html#Digraph" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_71.html#Clear" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_66.html#Virtual-Terminal" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_66.html#Virtual-Terminal" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_78.html#Copy-and-Paste" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Bell-1"></a>
+<h2 class="section">11.4 Bell</h2>
+
+<dl>
+<dt><a name="index-bell_005fmsg"></a><u>Command:</u> <b>bell_msg</b><i> [message]</i></dt>
+<dd><p>(none)<br>
+When a bell character is sent to a background window, <code>screen</code>
+displays a notification in the message line.  The notification message
+can be re-defined by this command.  Each occurrence
+of &lsquo;<samp>%</samp>&rsquo; in <var>message</var> is replaced by the number of the window to
+which a bell has been sent, and each occurrence of &lsquo;<samp>^G</samp>&rsquo; is replaced
+by the definition for bell in your termcap (usually an audible bell).
+The default message is
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">'Bell in window %n'
+</pre></td></tr></table>
+
+<p>An empty message can be supplied to the <code>bell_msg</code> command to suppress
+output of a message line (<code>bell_msg &quot;&quot;</code>).
+Without a parameter, the current message is shown.
+</p></dd></dl>
+
+<a name="index-C_002dg"></a>
+<dl>
+<dt><a name="index-vbell"></a><u>Command:</u> <b>vbell</b><i> [state]</i></dt>
+<dd><p>(<kbd>C-a C-g</kbd>)<br>
+Sets or toggles the visual bell setting for the current window. If 
+<code>vbell</code> is switched to &lsquo;<samp>on</samp>&rsquo;, but your
+terminal does not support a visual bell, the visual bell message is
+displayed in the status line when the bell character is received. 
+Visual bell support of a terminal is 
+defined by the termcap variable <code>vb</code>. See <a href="../termcap/Bell.html#Bell">(termcap)Bell</a> section &lsquo;Visual Bell&rsquo; in <cite>The Termcap Manual</cite>, for more information on visual bells. 
+The equivalent terminfo capability is <code>flash</code>.
+</p>
+<p>Per  default, <code>vbell</code> is &lsquo;<samp>off</samp>&rsquo;, thus the audible bell is used.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-vbell_005fmsg"></a><u>Command:</u> <b>vbell_msg</b><i> [message]</i></dt>
+<dd><p>(none)<br>
+Sets the visual bell message. <var>Message</var> is printed to the status
+line if the window receives a bell character (^G), <code>vbell</code> is
+set to &lsquo;<samp>on</samp>&rsquo; and the terminal does not support a visual bell.
+The default message is &lsquo;<samp>Wuff, Wuff!!</samp>&rsquo;.
+Without a parameter, the current message is shown.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-vbellwait"></a><u>Command:</u> <b>vbellwait</b><i> sec</i></dt>
+<dd><p>(none)<br>
+Define a delay in seconds after each display of <code>screen</code> &rsquo;s visual
+bell message. The default is 1 second.
+</p></dd></dl>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_69.html#Digraph" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_71.html#Clear" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_66.html#Virtual-Terminal" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_66.html#Virtual-Terminal" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_78.html#Copy-and-Paste" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

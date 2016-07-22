@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 17.2 Hardware Status Line</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 17.2 Hardware Status Line">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Hardware-Status-Line"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_117.html#Privacy-Message" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_119.html#Last-Message" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_116.html#Message-Line" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_116.html#Message-Line" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_121.html#Logging" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Hardware-Status-Line-1"></a>
+<h2 class="section">17.2 Hardware Status Line</h2>
+<dl>
+<dt><a name="index-hardstatus"></a><u>Command:</u> <b>hardstatus</b><i> [state]</i></dt>
+<dt><a name="index-hardstatus-1"></a><u>Command:</u> <b>hardstatus</b><i> [<code>always</code>]<code>firstline</code>|<code>lastline</code>|<code>message</code>|<code>ignore</code> [string]</i></dt>
+<dt><a name="index-hardstatus-2"></a><u>Command:</u> <b>hardstatus</b><i> <code>string</code> [string]</i></dt>
+<dd><p>(none)<br>
+This command configures the use and emulation of the terminal&rsquo;s
+hardstatus line. The first form toggles whether <code>screen</code>
+will use the hardware status line to display messages. If the
+flag is set to &lsquo;<samp>off</samp>&rsquo;, these messages
+are overlaid in reverse video mode at the display line. The default
+setting is &lsquo;<samp>on</samp>&rsquo;.
+</p>
+<p>The second form tells screen what to do if the terminal doesn&rsquo;t
+have a hardstatus line (i.e. the termcap/terminfo capabilities
+&quot;hs&quot;, &quot;ts&quot;, &quot;fs&quot; and &quot;ds&quot; are not set). If the type
+<code>firstline</code>/<code>lastline</code> is used, screen will reserve the first/last
+line of the display for the hardstatus. <code>message</code> uses
+<code>screen</code>&rsquo;s message mechanism and
+<code>ignore</code> tells <code>screen</code> never to display the hardstatus.
+If you prepend the word <code>always</code> to the type (e.g., <code>alwayslastline</code>), <code>screen</code> will use
+the type even if the terminal supports a hardstatus line.
+</p>
+<p>The third form specifies the contents of the hardstatus line.
+<code>%h</code> is used as default string, i.e., the stored hardstatus of the
+current window (settable via &lsquo;<samp>ESC]0;^G</samp>&rsquo; or &lsquo;<samp>ESC_\\</samp>&rsquo;) is
+displayed.
+You can customize this to any string you like including
+string escapes (see section <a href="screen_153.html#String-Escapes">String Escapes</a>).
+If you leave
+out the argument <var>string</var>, the current string is displayed.
+</p>
+<p>You can mix the second and third form by providing the string as
+additional argument.
+</p></dd></dl>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_117.html#Privacy-Message" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_119.html#Last-Message" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_116.html#Message-Line" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_116.html#Message-Line" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_121.html#Logging" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 1. Overview</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 1. Overview">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Overview"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen.html#Top" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_2.html#Getting-Started" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[ &lt;&lt; ]</td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_2.html#Getting-Started" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Overview-1"></a>
+<h1 class="chapter">1. Overview</h1>
+<a name="index-overview"></a>
+
+<p>Screen is a full-screen window manager that multiplexes a physical
+terminal between several processes, typically interactive shells.  Each
+virtual terminal provides the functions of the DEC VT100 terminal and,
+in addition, several control functions from the ISO 6429 (ECMA 48, ANSI X3.64)
+and ISO 2022 standards (e.g. insert/delete line and support for multiple
+character sets).  There is a scrollback history buffer for each virtual
+terminal and a copy-and-paste mechanism that allows the user to move
+text regions between windows.
+</p> 
+<p>When <code>screen</code> is called, it creates a single window with a shell in
+it (or the specified command) and then gets out of your way so that you
+can use the program as you normally would.  Then, at any time, you can
+create new (full-screen) windows with other programs in them (including
+more shells), kill the current window, view a list of the active
+windows, turn output logging on and off, copy text between windows, view
+the scrollback history, switch between windows, etc.  All windows run
+their programs completely independent of each other.  Programs continue
+to run when their window is currently not visible and even when the
+whole screen session is detached from the user&rsquo;s terminal.
+</p>
+<p>When a program terminates, <code>screen</code> (per default) kills the window
+that contained it.  If this window was in the foreground, the display
+switches to the previously displayed window; if none are left,
+<code>screen</code> exits. Shells usually distinguish between running as login-shell or sub-shell.
+Screen runs them as sub-shells, unless told otherwise (See <code>shell</code> .screenrc command).
+</p>
+<p>Everything you type is sent to the program running in the current
+window.  The only exception to this is the one keystroke that is used to
+initiate a command to the window manager.  By default, each command
+begins with a control-a (abbreviated <kbd>C-a</kbd> from now on), and is
+followed by one other keystroke.  The command character (see section <a href="screen_98.html#Command-Character">Command Character</a>) and all the key bindings (see section <a href="screen_95.html#Key-Binding">Key Binding</a>) can be fully
+customized to be anything you like, though they are always two
+characters in length.
+</p>
+<p><code>Screen</code> does not understand the prefix <kbd>C-</kbd> to mean control, although
+this notation is used in this manual for readability.
+Please use the caret notation (<kbd>^A</kbd> instead of <kbd>C-a</kbd>) as arguments
+to e.g. the <code>escape</code> command or the <code>-e</code> option. <code>Screen</code>
+will also print out control characters in caret notation.
+</p>
+<p>The standard way to create a new window is to type <kbd>C-a c</kbd>.  This
+creates a new window running a shell and switches to that window
+immediately, regardless of the state of the process running in the
+current window.  Similarly, you can create a new window with a custom
+command in it by first binding the command to a keystroke (in your
+&lsquo;<tt>.screenrc</tt>&rsquo; file or at the <kbd>C-a :</kbd> command line) and then using it 
+just like the <kbd>C-a c</kbd> command.  In addition, new windows can be created by 
+running a command like:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">screen emacs prog.c
+</pre></td></tr></table>
+
+<p>from a shell prompt within a previously created window.  This will not
+run another copy of <code>screen</code>, but will instead supply the command
+name and its arguments to the window manager (specified in the $STY environment
+variable) who will use it to create the new window.  The above example would 
+start the <code>emacs</code> editor (editing &lsquo;<tt>prog.c</tt>&rsquo;) and switch to its window.
+- Note that you cannot transport environment variables from
+the invoking shell to the application (emacs in this case), because it is
+forked from the parent screen process, not from the invoking shell.
+</p>
+<p>If &lsquo;<tt>/etc/utmp</tt>&rsquo; is writable by <code>screen</code>, an appropriate record
+will be written to this file for each window, and removed when the
+window is closed.  This is useful for working with <code>talk</code>,
+<code>script</code>, <code>shutdown</code>, <code>rsend</code>, <code>sccs</code> and other
+similar programs that use the utmp file to determine who you are. As
+long as <code>screen</code> is active on your terminal, the terminal&rsquo;s own
+record is removed from the utmp file.  See section <a href="screen_60.html#Login">Login</a>.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen.html#Top" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_2.html#Getting-Started" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[ &lt;&lt; ]</td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_2.html#Getting-Started" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

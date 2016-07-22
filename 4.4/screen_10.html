@@ -1,0 +1,686 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 5.2 Command Summary</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 5.2 Command Summary">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Command-Summary"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_9.html#Default-Key-Bindings" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_11.html#New-Window" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_8.html#Commands" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_8.html#Commands" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_11.html#New-Window" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Command-Summary-1"></a>
+<h2 class="section">5.2 Command Summary</h2>
+<a name="index-command-summary"></a>
+
+<dl compact="compact">
+<dt> <code>acladd <var>usernames</var></code></dt>
+<dd><p>Allow other users in this session.  See section <a href="screen_28.html#Multiuser-Session">Multiuser Session</a>.
+</p></dd>
+<dt> <code>aclchg <var>usernames permbits list</var></code></dt>
+<dd><p>Change a user&rsquo;s permissions.  See section <a href="screen_28.html#Multiuser-Session">Multiuser Session</a>.
+</p></dd>
+<dt> <code>acldel <var>username</var></code></dt>
+<dd><p>Disallow other user in this session.  See section <a href="screen_28.html#Multiuser-Session">Multiuser Session</a>.
+</p></dd>
+<dt> <code>aclgrp <var>usrname</var> [<var>groupname</var>]</code></dt>
+<dd><p>Inherit permissions granted to a group leader. See section <a href="screen_28.html#Multiuser-Session">Multiuser Session</a>.
+</p></dd>
+<dt> <code>aclumask [<var>users</var>]+/-<var>bits</var> ...</code></dt>
+<dd><p>Predefine access to new windows. See section <a href="screen_35.html#Umask">aclumask</a>.
+</p></dd>
+<dt> <code>activity <var>message</var></code></dt>
+<dd><p>Set the activity notification message.  See section <a href="screen_62.html#Monitor">Monitoring</a>.
+</p></dd>
+<dt> <code>addacl <var>usernames</var></code></dt>
+<dd><p>Synonym to <code>acladd</code>.  See section <a href="screen_28.html#Multiuser-Session">Multiuser Session</a>.
+</p></dd>
+<dt> <code>allpartial <var>state</var></code></dt>
+<dd><p>Set all windows to partial refresh.  See section <a href="screen_73.html#Redisplay">Redisplay</a>.
+</p></dd>
+<dt> <code>altscreen <var>state</var></code></dt>
+<dd><p>Enables support for the &quot;alternate screen&quot; terminal capability.  See section <a href="screen_73.html#Redisplay">Redisplay</a>.
+</p></dd>
+<dt> <code>at [<var>ident</var>][<kbd>#</kbd><var>|</var><kbd>*</kbd><var>|</var><kbd>%</kbd>] <var>command</var> [<var>args</var>]</code></dt>
+<dd><p>Execute a command at other displays or windows.  See section <a href="screen_129.html#At">At</a>.
+</p></dd>
+<dt> <code>attrcolor <var>attrib</var> [<var>attribute/color-modifier</var>]</code></dt>
+<dd><p>Map attributes to colors.  See section <a href="screen_146.html#Attrcolor">Attrcolor</a>.
+</p></dd>
+<dt> <code>autodetach <var>state</var></code></dt>
+<dd><p>Automatically detach the session on SIGHUP.  See section <a href="screen_25.html#Detach">Detach</a>.
+</p></dd>
+<dt> <code>autonuke <var>state</var></code></dt>
+<dd><p>Enable a clear screen to discard unwritten output.  See section <a href="screen_113.html#Autonuke">Autonuke</a>.
+</p></dd>
+<dt> <code>backtick <var>id</var> <var>lifespan</var> <var>autorefresh</var> <var>command</var> [<var>args</var>]</code></dt>
+<dd><p>Define a command for the backtick string escape.  See section <a href="screen_150.html#Backtick">Backtick</a>.
+</p></dd>
+<dt> <code>bce [<var>state</var>]</code></dt>
+<dd><p>Change background color erase.  See section <a href="screen_77.html#Character-Processing">Character Processing</a>.
+</p></dd>
+<dt> <code>bell_msg [<var>message</var>]</code></dt>
+<dd><p>Set the bell notification message.  See section <a href="screen_70.html#Bell">Bell</a>.
+</p></dd>
+<dt> <code>bind [-c <var>class</var>] <var>key</var> [<var>command</var> [<var>args</var>]]</code></dt>
+<dd><p>Bind a command to a key.  See section <a href="screen_96.html#Bind">The <code>bind</code> command</a>.
+</p></dd>
+<dt> <code>bindkey [<var>opts</var>] [<var>string</var> [<var>cmd args</var>]]</code></dt>
+<dd><p>Bind a string to a series of keystrokes. See section <a href="screen_100.html#Bindkey">Bindkey</a>.
+</p></dd>
+<dt> <code>blanker</code></dt>
+<dd><p>Blank the screen.  See section <a href="screen_151.html#Screen-Saver">Screen Saver</a>.
+</p></dd>
+<dt> <code>blankerprg</code></dt>
+<dd><p>Define a blanker program.  See section <a href="screen_151.html#Screen-Saver">Screen Saver</a>.
+</p></dd>
+<dt> <code>break [<var>duration</var>]</code></dt>
+<dd><p>Send a break signal to the current window.  See section <a href="screen_130.html#Break">Break</a>.
+</p></dd>
+<dt> <code>breaktype [<var>tcsendbreak</var> | <var>TCSBRK</var> | <var>TIOCSBRK</var>]</code></dt>
+<dd><p>Specify how to generate breaks.  See section <a href="screen_130.html#Break">Break</a>.
+</p></dd>
+<dt> <code>bufferfile [<var>exchange-file</var>]</code></dt>
+<dd><p>Select a file for screen-exchange.  See section <a href="screen_90.html#Screen-Exchange">Screen Exchange</a>.
+</p></dd>
+<dt> <code>bumpleft</code></dt>
+<dd><p>Swaps window with previous one on window list.  See section <a href="screen_131.html#Bumpleft">Bumpleft</a>.
+</p></dd>
+<dt> <code>bumpright</code></dt>
+<dd><p>Swaps window with previous one on window list.  See section <a href="screen_132.html#Bumpright">Bumpright</a>.
+</p></dd>
+<dt> <code>c1 [<var>state</var>]</code></dt>
+<dd><p>Change c1 code processing.  See section <a href="screen_77.html#Character-Processing">Character Processing</a>.
+</p></dd>
+<dt> <code>caption <var>mode</var> [<var>string</var>]</code></dt>
+<dd><p>Change caption mode and string.  See section <a href="screen_42.html#Regions">Regions</a>.
+</p></dd>
+<dt> <code>chacl <var>usernames permbits list</var></code></dt>
+<dd><p>Synonym to <code>aclchg</code>. See section <a href="screen_28.html#Multiuser-Session">Multiuser Session</a>.
+</p></dd>
+<dt> <code>charset <var>set</var></code></dt>
+<dd><p>Change character set slot designation.  See section <a href="screen_77.html#Character-Processing">Character Processing</a>.
+</p></dd>
+<dt> <code>chdir [<var>directory</var>]</code></dt>
+<dd><p>Change the current directory for future windows.  See section <a href="screen_12.html#Chdir">Chdir</a>.
+</p></dd>
+<dt> <code>cjkwidth</code></dt>
+<dd><p>Treat ambiguous width characters as full/half width.  See section <a href="screen_77.html#Character-Processing">Character Processing</a>.
+</p></dd>
+<dt> <code>clear</code></dt>
+<dd><p>Clear the window screen.  See section <a href="screen_71.html#Clear">Clear</a>.
+</p></dd>
+<dt> <code>colon</code></dt>
+<dd><p>Enter a <code>screen</code> command.  See section <a href="screen_7.html#Colon">Colon</a>.
+</p></dd>
+<dt> <code>collapse</code></dt>
+<dd><p>Reorders window on window list, removing number gaps between them.  See section <a href="screen_133.html#Collapse">Collapse</a>.
+</p></dd>
+<dt> <code>command [-c <var>class</var>]</code></dt>
+<dd><p>Simulate the screen escape key.  See section <a href="screen_98.html#Command-Character">Command Character</a>.
+</p></dd>
+<dt> <code>compacthist [<var>state</var>]</code></dt>
+<dd><p>Selects compaction of trailing empty lines.  See section <a href="screen_81.html#Scrollback">Scrollback</a>.
+</p></dd>
+<dt> <code>console [<var>state</var>]</code></dt>
+<dd><p>Grab or ungrab console output.  See section <a href="screen_58.html#Console">Console</a>.
+</p></dd>
+<dt> <code>copy</code></dt>
+<dd><p>Enter copy mode.  See section <a href="screen_79.html#Copy">Copying</a>.
+</p></dd>
+<dt> <code>copy_reg [<var>key</var>]</code></dt>
+<dd><p>Removed. Use <code>paste</code> instead.  See section <a href="screen_89.html#Registers">Registers</a>.
+</p></dd>
+<dt> <code>crlf <var>state</var></code></dt>
+<dd><p>Select line break behavior for copying.  See section <a href="screen_80.html#Line-Termination">CR/LF</a>.
+</p></dd>
+<dt> <code>debug <var>state</var></code></dt>
+<dd><p>Suppress/allow debugging output.  See section <a href="screen_134.html#Debug">Debug</a>.
+</p></dd>
+<dt> <code>defautonuke <var>state</var></code></dt>
+<dd><p>Select default autonuke behavior.  See section <a href="screen_113.html#Autonuke">Autonuke</a>.
+</p></dd>
+<dt> <code>defbce <var>state</var></code></dt>
+<dd><p>Select background color erase.  See section <a href="screen_77.html#Character-Processing">Character Processing</a>.
+</p></dd>
+<dt> <code>defbreaktype [<var>tcsendbreak</var> | <var>TCSBRK</var> | <var>TIOCSBRK</var>]</code></dt>
+<dd><p>Specify the default for generating breaks.  See section <a href="screen_130.html#Break">Break</a>.
+</p></dd>
+<dt> <code>defc1 <var>state</var></code></dt>
+<dd><p>Select default c1 processing behavior.  See section <a href="screen_77.html#Character-Processing">Character Processing</a>.
+</p></dd>
+<dt> <code>defcharset [<var>set</var>]</code></dt>
+<dd><p>Change defaul character set slot designation.  See section <a href="screen_77.html#Character-Processing">Character Processing</a>.
+</p></dd>
+<dt> <code>defencoding <var>enc</var></code></dt>
+<dd><p>Select default window encoding.  See section <a href="screen_77.html#Character-Processing">Character Processing</a>.
+</p></dd>
+<dt> <code>defescape <var>xy</var></code></dt>
+<dd><p>Set the default command and <code>meta</code> characters.  See section <a href="screen_98.html#Command-Character">Command Character</a>.
+</p></dd>
+<dt> <code>defflow <var>fstate</var></code></dt>
+<dd><p>Select default flow control behavior.  See section <a href="screen_105.html#Flow">Flow</a>.
+</p></dd>
+<dt> <code>defgr <var>state</var></code></dt>
+<dd><p>Select default GR processing behavior.  See section <a href="screen_77.html#Character-Processing">Character Processing</a>.
+</p></dd>
+<dt> <code>defhstatus [<var>status</var>]</code></dt>
+<dd><p>Select default window hardstatus line.  See section <a href="screen_64.html#Hardstatus">Hardstatus</a>.
+</p></dd>
+<dt> <code>deflog <var>state</var></code></dt>
+<dd><p>Select default window logging behavior.  See section <a href="screen_123.html#Log">log</a>.
+</p></dd>
+<dt> <code>deflogin <var>state</var></code></dt>
+<dd><p>Select default utmp logging behavior.  See section <a href="screen_60.html#Login">Login</a>.
+</p></dd>
+<dt> <code>defmode <var>mode</var></code></dt>
+<dd><p>Select default file mode for ptys.  See section <a href="screen_61.html#Mode">Mode</a>.
+</p></dd>
+<dt> <code>defmonitor <var>state</var></code></dt>
+<dd><p>Select default activity monitoring behavior.  See section <a href="screen_62.html#Monitor">Monitoring</a>.
+</p></dd>
+<dt> <code>defmousetrack <var>on</var>|<var>off</var></code></dt>
+<dd><p>Select the default mouse tracking behavior.  See section <a href="screen_65.html#Mousetrack">Mousetrack</a>.
+</p></dd>
+<dt> <code>defnonblock <var>state</var>|<var>numsecs</var></code></dt>
+<dd><p>Select default nonblock mode.  See section <a href="screen_137.html#Nonblock">Nonblock</a>.
+</p></dd>
+<dt> <code>defobuflimit <var>limit</var></code></dt>
+<dd><p>Select default output buffer limit.  See section <a href="screen_114.html#Obuflimit">Obuflimit</a>.
+</p></dd>
+<dt> <code>defscrollback <var>num</var></code></dt>
+<dd><p>Set default lines of scrollback.  See section <a href="screen_81.html#Scrollback">Scrollback</a>.
+</p></dd>
+<dt> <code>defshell <var>command</var></code></dt>
+<dd><p>Set the default program for new windows.  See section <a href="screen_15.html#Shell">Shell</a>.
+</p></dd>
+<dt> <code>defsilence <var>state</var></code></dt>
+<dd><p>Select default idle monitoring behavior.  See section <a href="screen_62.html#Monitor">Monitoring</a>.
+</p></dd>
+<dt> <code>defslowpaste <var>msec</var></code></dt>
+<dd><p>Select the default inter-character timeout when pasting.  See section <a href="screen_88.html#Paste">Paste</a>.
+</p></dd>
+<dt> <code>defutf8 <var>state</var></code></dt>
+<dd><p>Select default character encoding.  See section <a href="screen_77.html#Character-Processing">Character Processing</a>.
+</p></dd>
+<dt> <code>defwrap <var>state</var></code></dt>
+<dd><p>Set default line-wrapping behavior.  See section <a href="screen_74.html#Wrap">Wrap</a>.
+</p></dd>
+<dt> <code>defwritelock <var>on|off|auto</var></code></dt>
+<dd><p>Set default writelock behavior.  See section <a href="screen_28.html#Multiuser-Session">Multiuser Session</a>.
+</p></dd>
+<dt> <code>defzombie [<var>keys</var>]</code></dt>
+<dd><p>Keep dead windows.  See section <a href="screen_142.html#Zombie">Zombie</a>.
+</p></dd>
+<dt> <code>zombie_timeout [<var>seconds</var>]</code></dt>
+<dd><p>Try to reconnect dead windows after timeout.  See section <a href="screen_142.html#Zombie">Zombie</a>.
+</p></dd>
+<dt> <code>detach [-h]</code></dt>
+<dd><p>Disconnect <code>screen</code> from the terminal.  See section <a href="screen_25.html#Detach">Detach</a>.
+</p></dd>
+<dt> <code>digraph [<var>preset</var> [<var>unicode-value</var>]]</code></dt>
+<dd><p>Enter a digraph sequence.  See section <a href="screen_69.html#Digraph">Digraph</a>.
+</p></dd>
+<dt> <code>dinfo</code></dt>
+<dd><p>Display terminal information.  See section <a href="screen_72.html#Info">Info</a>.
+</p></dd>
+<dt> <code>displays</code></dt>
+<dd><p>List currently active user interfaces. See section <a href="screen_34.html#Displays">Displays</a>.
+</p></dd>
+<dt> <code>dumptermcap</code></dt>
+<dd><p>Write the window&rsquo;s termcap entry to a file.  See section <a href="screen_109.html#Dump-Termcap">Write out the window&rsquo;s termcap entry</a>.
+</p></dd>
+<dt> <code>echo [-n] <var>message</var></code></dt>
+<dd><p>Display a message on startup.  See section <a href="screen_124.html#Startup">Startup</a>.
+</p></dd>
+<dt> <code>encoding <var>enc</var> [<var>denc</var>]</code></dt>
+<dd><p>Set the encoding of a window.  See section <a href="screen_77.html#Character-Processing">Character Processing</a>.
+</p></dd>
+<dt> <code>escape <var>xy</var></code></dt>
+<dd><p>Set the command and <code>meta</code> characters.  See section <a href="screen_98.html#Command-Character">Command Character</a>.
+</p></dd>
+<dt> <code>eval <var>command1</var> [<var>command2</var> ...]</code></dt>
+<dd><p>Parse and execute each argument. See section <a href="screen_148.html#Eval">Eval</a>.
+</p></dd>
+<dt> <code>exec [[<var>fdpat</var>] <var>command</var> [<var>args</var> ...]]</code></dt>
+<dd><p>Run a subprocess (filter).  See section <a href="screen_93.html#Exec">Exec</a>.
+</p></dd>
+<dt> <code>fit</code></dt>
+<dd><p>Change window size to current display size.  See section <a href="screen_76.html#Window-Size">Window Size</a>.
+</p></dd>
+<dt> <code>flow [<var>fstate</var>]</code></dt>
+<dd><p>Set flow control behavior.  See section <a href="screen_105.html#Flow">Flow</a>.
+</p></dd>
+<dt> <code>focus</code></dt>
+<dd><p>Move focus to next region.  See section <a href="screen_42.html#Regions">Regions</a>.
+</p></dd>
+<dt> <code>focusminsize</code></dt>
+<dd><p>Force the current region to a certain size.  See section <a href="screen_50.html#Focusminsize">Focusminsize</a>.
+</p></dd>
+<dt> <code>gr [<var>state</var>]</code></dt>
+<dd><p>Change GR charset processing.  See section <a href="screen_77.html#Character-Processing">Character Processing</a>.
+</p></dd>
+<dt> <code>group [<var>grouptitle</var>]</code></dt>
+<dd><p>Change or show the group the current window belongs to.  See section <a href="screen_18.html#Window-Groups">Window Groups</a>.
+</p></dd>
+<dt> <code>hardcopy [-h] [<var>file</var>]</code></dt>
+<dd><p>Write out the contents of the current window.  See section <a href="screen_122.html#Hardcopy">hardcopy</a>.
+</p></dd>
+<dt> <code>hardcopy_append <var>state</var></code></dt>
+<dd><p>Append to hardcopy files.  See section <a href="screen_122.html#Hardcopy">hardcopy</a>.
+</p></dd>
+<dt> <code>hardcopydir <var>directory</var></code></dt>
+<dd><p>Place, where to dump hardcopy files.  See section <a href="screen_122.html#Hardcopy">hardcopy</a>.
+</p></dd>
+<dt> <code>hardstatus [<var>state</var>]</code></dt>
+<dd><p>Use the hardware status line.  See section <a href="screen_118.html#Hardware-Status-Line">Hardware Status Line</a>.
+</p></dd>
+<dt> <code>height [<var>lines</var> [<var>cols</var>]]</code></dt>
+<dd><p>Set display height.  See section <a href="screen_76.html#Window-Size">Window Size</a>.
+</p></dd>
+<dt> <code>help [-c <var>class</var>]</code></dt>
+<dd><p>Display current key bindings.  See section <a href="screen_99.html#Help">Help</a>.
+</p></dd>
+<dt> <code>history</code></dt>
+<dd><p>Find previous command beginning &hellip;.  See section <a href="screen_91.html#History">History</a>.
+</p></dd>
+<dt> <code>hstatus <var>status</var></code></dt>
+<dd><p>Change the window&rsquo;s hardstatus line.  See section <a href="screen_64.html#Hardstatus">Hardstatus</a>.
+</p></dd>
+<dt> <code>idle [<var>timeout</var> [<var>cmd</var> <var>args</var>]]</code></dt>
+<dd><p>Define a screen saver command.  See section <a href="screen_151.html#Screen-Saver">Screen Saver</a>.
+</p></dd>
+<dt> <code>ignorecase [on|off]</code></dt>
+<dd><p>Ignore character case in searches.  See section <a href="screen_86.html#Searching">Searching</a>.
+</p></dd>
+<dt> <code>info</code></dt>
+<dd><p>Display window settings.  See section <a href="screen_72.html#Info">Info</a>.
+</p></dd>
+<dt> <code>ins_reg [<var>key</var>]</code></dt>
+<dd><p>Removed, use <code>paste</code> instead.  See section <a href="screen_89.html#Registers">Registers</a>.
+</p></dd>
+<dt> <code>kill</code></dt>
+<dd><p>Destroy the current window.  See section <a href="screen_59.html#Kill">Kill</a>.
+</p></dd>
+<dt> <code>lastmsg</code></dt>
+<dd><p>Redisplay the last message.  See section <a href="screen_119.html#Last-Message">Display Last Message</a>.
+</p></dd>
+<dt> <code>layout new [<var>title</var>]</code></dt>
+<dd><p>Create a layout.  See section <a href="screen_51.html#Layout">Layout</a>.
+</p></dd>
+<dt> <code>layout remove [<var>n</var>|<var>title</var>]</code></dt>
+<dd><p>Delete a layout.  See section <a href="screen_51.html#Layout">Layout</a>.
+</p></dd>
+<dt> <code>layout next</code></dt>
+<dd><p>Select the next layout.  See section <a href="screen_51.html#Layout">Layout</a>.
+</p></dd>
+<dt> <code>layout prev</code></dt>
+<dd><p>Select the previous layout.  See section <a href="screen_51.html#Layout">Layout</a>.
+</p></dd>
+<dt> <code>layout select [<var>n</var>|<var>title</var>]</code></dt>
+<dd><p>Jump to a layout.  See section <a href="screen_51.html#Layout">Layout</a>.
+</p></dd>
+<dt> <code>layout show</code></dt>
+<dd><p>List the available layouts.  See section <a href="screen_51.html#Layout">Layout</a>.
+</p></dd>
+<dt> <code>layout title [<var>title</var>]</code></dt>
+<dd><p>Show or set the title of a layout.  See section <a href="screen_51.html#Layout">Layout</a>.
+</p></dd>
+<dt> <code>layout number [<var>n</var>]</code></dt>
+<dd><p>Show or set the number of a layout.  See section <a href="screen_51.html#Layout">Layout</a>.
+</p></dd>
+<dt> <code>layout attach [<var>title</var>|:last]</code></dt>
+<dd><p>Show or set which layout to reattach to.  See section <a href="screen_51.html#Layout">Layout</a>.
+</p></dd>
+<dt> <code>layout save [<var>n</var>|<var>title</var>]</code></dt>
+<dd><p>Remember the organization of a layout.  See section <a href="screen_51.html#Layout">Layout</a>.
+</p></dd>
+<dt> <code>layout autosave [<var>on</var>|<var>off</var>]</code></dt>
+<dd><p>Show or set the status of layout saving.  See section <a href="screen_51.html#Layout">Layout</a>.
+</p></dd>
+<dt> <code>layout dump [filename]</code></dt>
+<dd><p>Save the layout arrangement to a file.  See section <a href="screen_51.html#Layout">Layout</a>.
+</p></dd>
+<dt> <code>license</code></dt>
+<dd><p>Display licensing information.  See section <a href="screen_124.html#Startup">Startup</a>.
+</p></dd>
+<dt> <code>lockscreen</code></dt>
+<dd><p>Lock the controlling terminal.  See section <a href="screen_27.html#Lock">Lock</a>.
+</p></dd>
+<dt> <code>log [<var>state</var>]</code></dt>
+<dd><p>Log all output in the current window.  See section <a href="screen_123.html#Log">log</a>.
+</p></dd>
+<dt> <code>logfile <var>filename</var></code></dt>
+<dd><p>Place where to collect logfiles.  See section <a href="screen_123.html#Log">log</a>.
+</p></dd>
+<dt> <code>login [<var>state</var>]</code></dt>
+<dd><p>Log the window in &lsquo;<tt>/etc/utmp</tt>&rsquo;.  See section <a href="screen_60.html#Login">Login</a>.
+</p></dd>
+<dt> <code>logtstamp [<var>state</var>]</code></dt>
+<dd><p>Configure logfile time-stamps.  See section <a href="screen_123.html#Log">log</a>.
+</p></dd>
+<dt> <code>mapdefault</code></dt>
+<dd><p>Use only the default mapping table for the next keystroke.  See section <a href="screen_102.html#Bindkey-Control">Bindkey Control</a>.
+</p></dd>
+<dt> <code>mapnotnext</code></dt>
+<dd><p>Don&rsquo;t try to do keymapping on the next keystroke.  See section <a href="screen_102.html#Bindkey-Control">Bindkey Control</a>.
+</p></dd>
+<dt> <code>maptimeout <var>n</var></code></dt>
+<dd><p>Set the inter-character timeout used for keymapping. See section <a href="screen_102.html#Bindkey-Control">Bindkey Control</a>.
+</p></dd>
+<dt> <code>markkeys <var>string</var></code></dt>
+<dd><p>Rebind keys in copy mode.  See section <a href="screen_82.html#Copy-Mode-Keys">Markkeys</a>.
+</p></dd>
+<dt> <code>maxwin <var>n</var></code></dt>
+<dd><p>Set the maximum window number. See section <a href="screen_149.html#Maxwin">Maxwin</a>.
+</p></dd>
+<dt> <code>meta</code></dt>
+<dd><p>Insert the command character.  See section <a href="screen_98.html#Command-Character">Command Character</a>.
+</p></dd>
+<dt> <code>monitor [<var>state</var>]</code></dt>
+<dd><p>Monitor activity in window.  See section <a href="screen_62.html#Monitor">Monitoring</a>.
+</p></dd>
+<dt> <code>mousetrack [<var>on</var>|<var>off</var>]</code></dt>
+<dd><p>Enable selecting split regions with mouse clicks.  See section <a href="screen_65.html#Mousetrack">Mousetrack</a>.
+</p></dd>
+<dt> <code>msgminwait <var>sec</var></code></dt>
+<dd><p>Set minimum message wait.  See section <a href="screen_120.html#Message-Wait">Message Wait</a>.
+</p></dd>
+<dt> <code>msgwait <var>sec</var></code></dt>
+<dd><p>Set default message wait.  See section <a href="screen_120.html#Message-Wait">Message Wait</a>.
+</p></dd>
+<dt> <code>multiuser <var>state</var></code></dt>
+<dd><p>Go into single or multi user mode. See section <a href="screen_28.html#Multiuser-Session">Multiuser Session</a>.
+</p></dd>
+<dt> <code>nethack <var>state</var></code></dt>
+<dd><p>Use <code>nethack</code>-like error messages.  See section <a href="screen_136.html#Nethack">Nethack</a>.
+</p></dd>
+<dt> <code>next</code></dt>
+<dd><p>Switch to the next window.  See section <a href="screen_19.html#Selecting">Selecting a Window</a>.
+</p></dd>
+<dt> <code>nonblock [<var>state</var>|<var>numsecs</var>]</code></dt>
+<dd><p>Disable flow control to the current display. See section <a href="screen_137.html#Nonblock">Nonblock</a>.|<var>numsecs</var>]
+</p></dd>
+<dt> <code>number [<var>n</var>]</code></dt>
+<dd><p>Change/display the current window&rsquo;s number.  See section <a href="screen_138.html#Number">Number</a>.
+</p></dd>
+<dt> <code>obuflimit [<var>limit</var>]</code></dt>
+<dd><p>Select output buffer limit.  See section <a href="screen_114.html#Obuflimit">Obuflimit</a>.
+</p></dd>
+<dt> <code>only</code></dt>
+<dd><p>Kill all other regions.  See section <a href="screen_42.html#Regions">Regions</a>.
+</p></dd>
+<dt> <code>other</code></dt>
+<dd><p>Switch to the window you were in last.  See section <a href="screen_19.html#Selecting">Selecting a Window</a>.
+</p></dd>
+<dt> <code>partial <var>state</var></code></dt>
+<dd><p>Set window to partial refresh.  See section <a href="screen_73.html#Redisplay">Redisplay</a>.
+</p></dd>
+<dt> <code>password [<var>crypted_pw</var>]</code></dt>
+<dd><p>Set reattach password.  See section <a href="screen_25.html#Detach">Detach</a>.
+</p></dd>
+<dt> <code>paste [<var>src_regs</var> [<var>dest_reg</var>]]</code></dt>
+<dd><p>Paste contents of paste buffer or registers somewhere.  See section <a href="screen_88.html#Paste">Paste</a>.
+</p></dd>
+<dt> <code>pastefont [<var>state</var>]</code></dt>
+<dd><p>Include font information in the paste buffer.  See section <a href="screen_88.html#Paste">Paste</a>.
+</p></dd>
+<dt> <code>pow_break</code></dt>
+<dd><p>Close and Reopen the window&rsquo;s terminal.  See section <a href="screen_130.html#Break">Break</a>.
+</p></dd>
+<dt> <code>pow_detach</code></dt>
+<dd><p>Detach and hang up.  See section <a href="screen_26.html#Power-Detach">Power Detach</a>.
+</p></dd>
+<dt> <code>pow_detach_msg [<var>message</var>]</code></dt>
+<dd><p>Set message displayed on <code>pow_detach</code>.  See section <a href="screen_26.html#Power-Detach">Power Detach</a>.
+</p></dd>
+<dt> <code>prev</code></dt>
+<dd><p>Switch to the previous window.  See section <a href="screen_19.html#Selecting">Selecting a Window</a>.
+</p></dd>
+<dt> <code>printcmd [<var>cmd</var>]</code></dt>
+<dd><p>Set a command for VT100 printer port emulation.  See section <a href="screen_143.html#Printcmd">Printcmd</a>.
+</p></dd>
+<dt> <code>process [<var>key</var>]</code></dt>
+<dd><p>Treat a register as input to <code>screen</code>.  See section <a href="screen_89.html#Registers">Registers</a>.
+</p></dd>
+<dt> <code>quit</code></dt>
+<dd><p>Kill all windows and exit.  See section <a href="screen_41.html#Quit">Quit</a>.
+</p></dd>
+<dt> <code>readbuf [-e <var>encoding</var>] [<var>filename</var>]</code></dt>
+<dd><p>Read the paste buffer from the screen-exchange file.  See section <a href="screen_90.html#Screen-Exchange">Screen Exchange</a>.
+</p></dd>
+<dt> <code>readreg [-e <var>encoding</var>] [<var>reg</var> [<var>file</var>]]</code></dt>
+<dd><p>Load a register from paste buffer or file.  See section <a href="screen_89.html#Registers">Registers</a>.
+</p></dd>
+<dt> <code>redisplay</code></dt>
+<dd><p>Redisplay the current window.  See section <a href="screen_73.html#Redisplay">Redisplay</a>.
+</p></dd>
+<dt> <code>register [-e <var>encoding</var>] <var>key</var> <var>string</var></code></dt>
+<dd><p>Store a string to a register.  See section <a href="screen_89.html#Registers">Registers</a>.
+</p></dd>
+<dt> <code>remove</code></dt>
+<dd><p>Kill current region.  See section <a href="screen_42.html#Regions">Regions</a>.
+</p></dd>
+<dt> <code>removebuf</code></dt>
+<dd><p>Delete the screen-exchange file.  See section <a href="screen_90.html#Screen-Exchange">Screen Exchange</a>.
+</p></dd>
+<dt> <code>rendition bell | monitor | silence | so <var>attr</var> [<var>color</var>]</code></dt>
+<dd><p>Change text attributes in caption for flagged windows.  See section <a href="screen_144.html#Rendition">Rendition</a>.
+</p></dd>
+<dt> <code>reset</code></dt>
+<dd><p>Reset the terminal settings for the window.  See section <a href="screen_75.html#Reset">Reset</a>.
+</p></dd>
+<dt> <code>resize [(+/-)lines]</code></dt>
+<dd><p>Grow or shrink a region
+</p></dd>
+<dt> <code>screen [<var>opts</var>] [<var>n</var>] [<var>cmd</var> [<var>args</var>] | //group]</code></dt>
+<dd><p>Create a new window.  See section <a href="screen_13.html#Screen-Command">Screen Command</a>.
+</p></dd>
+<dt> <code>scrollback <var>num</var></code></dt>
+<dd><p>Set size of scrollback buffer.  See section <a href="screen_81.html#Scrollback">Scrollback</a>.
+</p></dd>
+<dt> <code>select [<var>n</var>|-|.]</code></dt>
+<dd><p>Switch to a specified window.  See section <a href="screen_19.html#Selecting">Selecting a Window</a>.
+</p></dd>
+<dt> <code>sessionname [<var>name</var>]</code></dt>
+<dd><p>Name this session.  See section <a href="screen_39.html#Session-Name">Session Name</a>.
+</p></dd>
+<dt> <code>setenv [<var>var</var> [<var>string</var>]]</code></dt>
+<dd><p>Set an environment variable for new windows.  See section <a href="screen_14.html#Setenv">Setenv</a>.
+</p></dd>
+<dt> <code>setsid <var>state</var></code></dt>
+<dd><p>Controll process group creation for windows.  See section <a href="screen_147.html#Setsid">Setsid</a>.
+</p></dd>
+<dt> <code>shell <var>command</var></code></dt>
+<dd><p>Set the default program for new windows.  See section <a href="screen_15.html#Shell">Shell</a>.
+</p></dd>
+<dt> <code>shelltitle <var>title</var></code></dt>
+<dd><p>Set the default name for new windows.  See section <a href="screen_15.html#Shell">Shell</a>.
+</p></dd>
+<dt> <code>silence [<var>state</var>|<var>seconds</var>]</code></dt>
+<dd><p>Monitor a window for inactivity.  See section <a href="screen_62.html#Monitor">Monitoring</a>.
+</p></dd>
+<dt> <code>silencewait <var>seconds</var></code></dt>
+<dd><p>Default timeout to trigger an inactivity notify.  See section <a href="screen_62.html#Monitor">Monitoring</a>.
+</p></dd>
+<dt> <code>sleep <var>num</var></code></dt>
+<dd><p>Pause during startup.  See section <a href="screen_124.html#Startup">Startup</a>.
+</p></dd>
+<dt> <code>slowpaste <var>msec</var></code></dt>
+<dd><p>Slow down pasting in windows.  See section <a href="screen_88.html#Paste">Paste</a>.
+</p></dd>
+<dt> <code>source <var>file</var></code></dt>
+<dd><p>Run commands from a file.  See section <a href="screen_6.html#Source">Source</a>.
+</p></dd>
+<dt> <code>sorendition [<var>attr</var> [<var>color</var>]]</code></dt>
+<dd><p>Deprecated. Use <code>rendition so</code> instead. See section <a href="screen_144.html#Rendition">Rendition</a>.
+</p></dd>
+<dt> <code>split</code></dt>
+<dd><p>Split region into two parts.  See section <a href="screen_42.html#Regions">Regions</a>.
+</p></dd>
+<dt> <code>startup_message <var>state</var></code></dt>
+<dd><p>Display copyright notice on startup.  See section <a href="screen_124.html#Startup">Startup</a>.
+</p></dd>
+<dt> <code>stuff [<var>string</var>]</code></dt>
+<dd><p>Stuff a string in the input buffer of a window.  See section <a href="screen_88.html#Paste">Paste</a>.
+</p></dd>
+<dt> <code>su [<var>username</var> [<var>password</var> [<var>password2</var>]]]</code></dt>
+<dd><p>Identify a user. See section <a href="screen_28.html#Multiuser-Session">Multiuser Session</a>.
+</p></dd>
+<dt> <code>suspend</code></dt>
+<dd><p>Put session in background.  See section <a href="screen_40.html#Suspend">Suspend</a>.
+</p></dd>
+<dt> <code>term <var>term</var></code></dt>
+<dd><p>Set <code>$TERM</code> for new windows.  See section <a href="screen_16.html#Term">Term</a>.
+</p></dd>
+<dt> <code>termcap <var>term</var> <var>terminal-tweaks</var> [<var>window-tweaks</var>]</code></dt>
+<dd><p>Tweak termcap entries for best performance.  See section <a href="screen_110.html#Termcap-Syntax">The <code>termcap</code> command</a>.
+</p></dd>
+<dt> <code>terminfo <var>term</var> <var>terminal-tweaks</var> [<var>window-tweaks</var>]</code></dt>
+<dd><p>Ditto, for terminfo systems.  See section <a href="screen_110.html#Termcap-Syntax">The <code>termcap</code> command</a>.
+</p></dd>
+<dt> <code>termcapinfo <var>term</var> <var>terminal-tweaks</var> [<var>window-tweaks</var>]</code></dt>
+<dd><p>Ditto, for both systems.  See section <a href="screen_110.html#Termcap-Syntax">The <code>termcap</code> command</a>.
+</p></dd>
+<dt> <code>time [<var>string</var>]</code></dt>
+<dd><p>Display time and load average.  See section <a href="screen_139.html#Time">Time</a>.
+</p></dd>
+<dt> <code>title [<var>windowtitle</var>]</code></dt>
+<dd><p>Set the name of the current window.  See section <a href="screen_54.html#Title-Command">Title Command</a>.
+</p></dd>
+<dt> <code>umask [<var>users</var>]+/-<var>bits</var> ...</code></dt>
+<dd><p>Synonym to <code>aclumask</code>. See section <a href="screen_35.html#Umask">aclumask</a>.
+</p></dd>
+<dt> <code>unbindall</code></dt>
+<dd><p>Unset all keybindings. See section <a href="screen_96.html#Bind">The <code>bind</code> command</a>.
+</p></dd>
+<dt> <code>unsetenv <var>var</var></code></dt>
+<dd><p>Unset environment variable for new windows.  See section <a href="screen_14.html#Setenv">Setenv</a>.
+</p></dd>
+<dt> <code>utf8 [<var>state</var> [<var>dstate</var>]]</code></dt>
+<dd><p>Select character encoding of the current window.  See section <a href="screen_77.html#Character-Processing">Character Processing</a>.
+</p></dd>
+<dt> <code>vbell [<var>state</var>]</code></dt>
+<dd><p>Use visual bell.  See section <a href="screen_70.html#Bell">Bell</a>.
+</p></dd>
+<dt> <code>vbell_msg [<var>message</var>]</code></dt>
+<dd><p>Set vbell message.  See section <a href="screen_70.html#Bell">Bell</a>.
+</p></dd>
+<dt> <code>vbellwait <var>sec</var></code></dt>
+<dd><p>Set delay for vbell message.  See section <a href="screen_70.html#Bell">Bell</a>.
+</p></dd>
+<dt> <code>version</code></dt>
+<dd><p>Display <code>screen</code> version.  See section <a href="screen_141.html#Version">Version</a>.
+</p></dd>
+<dt> <code>wall <var>message</var></code></dt>
+<dd><p>Write a message to all displays.  See section <a href="screen_28.html#Multiuser-Session">Multiuser Session</a>.
+</p></dd>
+<dt> <code>width [<var>cols</var> [<var>lines</var>]]</code></dt>
+<dd><p>Set the width of the window.  See section <a href="screen_76.html#Window-Size">Window Size</a>.
+</p></dd>
+<dt> <code>windowlist [[-b] [-m] [-g]] | string [<var>string</var>] | title [<var>title</var>]</code></dt>
+<dd><p>Present a list of all windows for selection.  See section <a href="screen_23.html#Windowlist">Windowlist</a>.
+</p></dd>
+<dt> <code>windows</code></dt>
+<dd><p>List active windows.  See section <a href="screen_63.html#Windows">Windows</a>.
+</p></dd>
+<dt> <code>wrap [ on | off ]</code></dt>
+<dd><p>Control line-wrap behavior.  See section <a href="screen_74.html#Wrap">Wrap</a>.
+</p></dd>
+<dt> <code>writebuf [-e <var>encoding</var>] [<var>filename</var>]</code></dt>
+<dd><p>Write paste buffer to screen-exchange file.  See section <a href="screen_90.html#Screen-Exchange">Screen Exchange</a>.
+</p></dd>
+<dt> <code>writelock <var>on</var>|<var>off</var>|<var>auto</var></code></dt>
+<dd><p>Grant exclusive write permission.  See section <a href="screen_28.html#Multiuser-Session">Multiuser Session</a>.
+</p></dd>
+<dt> <code>xoff</code></dt>
+<dd><p>Send an XOFF character.  See section <a href="screen_106.html#XON_002fXOFF">XON and XOFF</a>.
+</p></dd>
+<dt> <code>xon</code></dt>
+<dd><p>Send an XON character.  See section <a href="screen_106.html#XON_002fXOFF">XON and XOFF</a>.
+</p></dd>
+<dt> <code>zmodem [off|auto|catch|pass]</code></dt>
+<dd><p>Define how screen treats zmodem requests.  See section <a href="screen_152.html#Zmodem">Zmodem</a>.
+</p></dd>
+<dt> <code>zombie [<var>keys</var> [onerror] ]</code></dt>
+<dd><p>Keep dead windows.  See section <a href="screen_142.html#Zombie">Zombie</a>.
+</p></dd>
+</dl>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_9.html#Default-Key-Bindings" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_11.html#New-Window" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_8.html#Commands" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_8.html#Commands" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_11.html#New-Window" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

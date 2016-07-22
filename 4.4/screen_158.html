@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 25.1 Known Bugs</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 25.1 Known Bugs">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Known-Bugs"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_157.html#Bugs" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_159.html#Reporting-Bugs" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_157.html#Bugs" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_157.html#Bugs" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_161.html#Installation" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Known-Bugs-1"></a>
+<h2 class="section">25.1 Known Bugs</h2>
+
+<ul>
+<li>
+&lsquo;<samp>dm</samp>&rsquo; (delete mode) and &lsquo;<samp>xs</samp>&rsquo; are not handled correctly (they
+are ignored).  &lsquo;<samp>xn</samp>&rsquo; is treated as a magic-margin indicator.
+
+</li><li>
+<code>screen</code> has no clue about double-high or double-wide characters. 
+But this is the only area where <code>vttest</code> is allowed to fail.
+
+</li><li>
+It is not possible to change the environment variable <code>$TERMCAP</code>
+when reattaching under a different terminal type.
+
+</li><li>
+The support of terminfo based systems is very limited. Adding extra
+capabilities to <code>$TERMCAP</code> may not have any effects.
+
+</li><li>
+<code>screen</code> does not make use of hardware tabs.
+
+</li><li>
+<code>screen</code> must be installed setuid root on most systems
+in order to be able to
+correctly change the owner of the tty device file for each window.
+Special permission may also be required to write the file
+&lsquo;<tt>/etc/utmp</tt>&rsquo;.
+
+</li><li>
+Entries in &lsquo;<tt>/etc/utmp</tt>&rsquo; are not removed when <code>screen</code> is killed
+with SIGKILL.  This will cause some programs (like &quot;w&quot; or &quot;rwho&quot;) to
+advertise that a user is logged on who really isn&rsquo;t.
+
+</li><li>
+<code>screen</code> may give a strange warning when your tty has no utmp
+entry.
+
+</li><li>
+When the modem line was hung up, <code>screen</code> may not automatically detach
+(or quit) unless the device driver sends a HANGUP signal. To detach such a 
+<code>screen</code> session use the -D or -d command line option.
+
+</li><li>
+If a password is set, the command line options -d and -D still detach a 
+session without asking.
+
+</li><li>
+Both <code>breaktype</code> and <code>defbreaktype</code> change the break generating
+method used by all terminal devices. The first should change a window
+specific setting, where the latter should change only the default for new
+windows.
+
+</li><li>
+When attaching to a multiuser session, the user&rsquo;s &lsquo;<tt>.screenrc</tt>&rsquo; file is not
+sourced. Each users personal settings have to be included in the 
+&lsquo;<tt>.screenrc</tt>&rsquo; file from which the session is booted, or have to be 
+changed manually.
+
+</li><li>
+A weird imagination is most useful to gain full advantage of all the
+features.
+</li></ul>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_157.html#Bugs" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_159.html#Reporting-Bugs" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_157.html#Bugs" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_157.html#Bugs" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_161.html#Installation" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

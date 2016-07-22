@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 9.9 Layout</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 9.9 Layout">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Layout"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_50.html#Focusminsize" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_52.html#Window-Settings" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_42.html#Regions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_42.html#Regions" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_52.html#Window-Settings" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Layout-1"></a>
+<h2 class="section">9.9 Layout</h2>
+<a name="index-layout"></a>
+<p>Using regions, and perhaps a large enough terminal, you can give
+<code>screen</code> more of a desktop feel. By being able to split
+regions horizontally or vertically, you can take advantage of the
+lesser used spaces of your terminal. The catch to these splits has
+been that they&rsquo;re not kept between screen detachments and reattachments.
+</p>
+<p>Layouts will help organize your regions. You can create one
+layout of four horizontal regions and then create a separate layout
+of regions in a two by two array. The regions could contain the same windows,
+but they don&rsquo;t have to. You can easily switch between layouts and keep
+them between detachments and reattachments.
+</p>
+<p>Note that there are several subcommands to <code>layout</code>.
+</p>
+<dl>
+<dt><a name="index-layout-1"></a><u>Command:</u> <b>layout</b><i> <code>new</code> [title]</i></dt>
+<dd><p>(none)<br>
+Create a new layout. The screen will change to one whole region 
+and be switched to the blank window. From here, you build the 
+regions and the windows they show as you desire. The new layout 
+will be numbered with the smallest available integer, starting 
+with zero. You can optionally give a title to your new layout. 
+Otherwise, it will have a default title of <code>layout</code>. You 
+can always change the title later by using the command 
+<code>layout title</code>.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-layout-2"></a><u>Command:</u> <b>layout</b><i> <code>remove</code> [n|title]</i></dt>
+<dd><p>(none)<br>
+Remove, or in other words, delete the specified layout. Either
+the number or the title can be specified. Without either
+specification, <code>screen</code> will remove the current layout.
+</p>
+<p>Removing a layout does not affect your set windows or regions.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-layout-3"></a><u>Command:</u> <b>layout</b><i> <code>next</code></i></dt>
+<dd><p>(none)<br>
+Switch to the next layout available
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-layout-4"></a><u>Command:</u> <b>layout</b><i> <code>prev</code></i></dt>
+<dd><p>(none)<br>
+Switch to the previous layout available
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-layout-5"></a><u>Command:</u> <b>layout</b><i> <code>select</code> [n|title]</i></dt>
+<dd><p>(none)<br>
+Select the desired layout. Either the number or the title can
+be specified. Without either specification, <code>screen</code> will
+prompt and ask which screen is desired. To see which layouts are
+available, use the <code>layout show</code> command.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-layout-6"></a><u>Command:</u> <b>layout</b><i> <code>show</code></i></dt>
+<dd><p>(none)<br>
+List on the message line the number(s) and title(s) of the available
+layout(s). The current layout is flagged.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-layout-7"></a><u>Command:</u> <b>layout</b><i> <code>title</code> [title]</i></dt>
+<dd><p>(none)<br>
+Change or display the title of the current layout. A string given
+will be used to name the layout. Without any options, the current
+title and number is displayed on the message line.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-layout-8"></a><u>Command:</u> <b>layout</b><i> <code>number</code> [n]</i></dt>
+<dd><p>(none)<br>
+Change or display the number of the current layout. An integer given
+will be used to number the layout. Without any options, the current
+number and title is displayed on the message line.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-layout-9"></a><u>Command:</u> <b>layout</b><i> <code>attach</code> [title|<code>:last</code>]</i></dt>
+<dd><p>(none)<br>
+Change or display which layout to reattach back to. The default is
+<code>:last</code>, which tells <code>screen</code> to reattach back to the last
+used layout just before detachment. By supplying a title, You can
+instruct <code>screen</code> to reattach to a particular layout regardless
+which one was used at the time of detachment. Without any options,
+the layout to reattach to will be shown in the message line.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-layout-10"></a><u>Command:</u> <b>layout</b><i> <code>save</code> [n|title]</i></dt>
+<dd><p>(none)<br>
+Remember the current arrangement of regions. When used, <code>screen</code>
+will remember the arrangement of vertically and horizontally split
+regions. This arrangement is restored when a <code>screen</code> session
+is reattached or switched back from a different layout. If the
+session ends or the <code>screen</code> process dies, the layout
+arrangements are lost. The <code>layout dump</code> command should help
+in this siutation. If a number
+or title is supplied, <code>screen</code> will remember the arrangement of
+that particular layout. Without any options, <code>screen</code> will
+remember the current layout.
+</p>
+<p>Saving your regions can be done automatically by using the
+<code>layout autosave</code> command.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-layout-11"></a><u>Command:</u> <b>layout</b><i> <code>autosave</code> [<code>on</code>|<code>off</code>]</i></dt>
+<dd><p>(none)<br>
+Change or display the status of automatically saving layouts. The
+default is <code>on</code>, meaning when <code>screen</code> is detached or
+changed to a different layout, the arrangement of regions and windows
+will be remembered at the time of change and restored upon return.
+If autosave is set to <code>off</code>, that arrangement will only be
+restored to either to the last manual save, using <code>layout save</code>,
+or to when the layout was first created, to a single region with
+a single window. Without either an <code>on</code> or an <code>off</code>, the
+current status is displayed on the message line.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-layout-12"></a><u>Command:</u> <b>layout</b><i> <code>dump</code> [filename]</i></dt>
+<dd><p>(none)<br>
+Write to a file the order of splits made in the current layout. This
+is useful to recreate the order of your regions used in your current
+layout. Only the current layout is recorded. While the order of the
+regions are recorded, the sizes of those regions and which windows
+correspond to which regions are not. If no filename is specified,
+the default is &lsquo;<tt>layout-dump</tt>&rsquo;, saved in the directory that the
+<code>screen</code> process was started in. If the file already exists,
+<code>layout dump</code> will append to that file. As an example:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">layout dump /home/user/.screenrc
+</pre></td></tr></table>
+<p>will save or append the layout to the user&rsquo;s &lsquo;<tt>.screenrc</tt>&rsquo; file.
+</p></dd></dl>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_50.html#Focusminsize" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_52.html#Window-Settings" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_42.html#Regions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_42.html#Regions" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_52.html#Window-Settings" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

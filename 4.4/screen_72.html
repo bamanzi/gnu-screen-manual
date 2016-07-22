@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 11.6 Info</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 11.6 Info">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Info"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_71.html#Clear" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_73.html#Redisplay" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_66.html#Virtual-Terminal" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_66.html#Virtual-Terminal" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_78.html#Copy-and-Paste" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Info-1"></a>
+<h2 class="section">11.6 Info</h2>
+<a name="index-i"></a>
+<a name="index-C_002di"></a>
+<dl>
+<dt><a name="index-info"></a><u>Command:</u> <b>info</b></dt>
+<dd><p>(<kbd>C-a i</kbd>, <kbd>C-a C-i</kbd>)<br>
+Uses the message line to display some information about the current
+window: the cursor position in the form &lsquo;<samp>(<var>column</var>,<var>row</var>)</samp>&rsquo;
+starting with &lsquo;<samp>(1,1)</samp>&rsquo;, the terminal width and height plus the size
+of the scrollback buffer in lines, like in &lsquo;<samp>(80,24)+50</samp>&rsquo;, 
+the current state of window XON/XOFF flow control is shown like this
+(see section <a href="screen_103.html#Flow-Control">Flow Control</a>):
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  +flow     automatic flow control, currently on.
+  -flow     automatic flow control, currently off.
+  +(+)flow  flow control enabled. Agrees with automatic control.
+  -(+)flow  flow control disabled. Disagrees with automatic control.
+  +(-)flow  flow control enabled. Disagrees with automatic control.
+  -(-)flow  flow control disabled. Agrees with automatic control.
+</pre></td></tr></table>
+
+<p>The current line wrap setting (&lsquo;<samp>+wrap</samp>&rsquo; indicates enabled, &lsquo;<samp>-wrap</samp>&rsquo;
+not) is also shown. The flags &lsquo;<samp>ins</samp>&rsquo;, &lsquo;<samp>org</samp>&rsquo;, &lsquo;<samp>app</samp>&rsquo;, &lsquo;<samp>log</samp>&rsquo;,
+&lsquo;<samp>mon</samp>&rsquo; and &lsquo;<samp>nored</samp>&rsquo; are displayed when the window is in insert mode,
+origin mode, application-keypad mode, has output logging,
+activity monitoring or partial redraw enabled.
+</p>
+<p>The currently active 
+character set (&lsquo;<samp>G0</samp>&rsquo;, &lsquo;<samp>G1</samp>&rsquo;, &lsquo;<samp>G2</samp>&rsquo;, or &lsquo;<samp>G3</samp>&rsquo;), and in
+square brackets the terminal character sets that are currently
+designated as &lsquo;<samp>G0</samp>&rsquo; through &lsquo;<samp>G3</samp>&rsquo;.  
+If the window is in UTF-8 mode, the string &lsquo;<samp>UTF-8</samp>&rsquo; is shown instead.
+Additional modes depending on the type of the window are displayed at
+the end of the status line (see section <a href="screen_17.html#Window-Types">Window Types</a>).
+</p>
+<p>If the state machine of the terminal emulator is in a non-default state,
+the info line is started with a string identifying the current state.
+</p>
+<p>For system information use <code>time</code>.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-dinfo"></a><u>Command:</u> <b>dinfo</b></dt>
+<dd><p>(none)<br>
+Show what <code>screen</code> thinks about your terminal. Useful if you want to know
+why features like color or the alternate charset don&rsquo;t work.
+</p></dd></dl>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_71.html#Clear" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_73.html#Redisplay" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_66.html#Virtual-Terminal" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_66.html#Virtual-Terminal" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_78.html#Copy-and-Paste" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 16.4 Termcap Examples</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 16.4 Termcap Examples">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Termcap-Examples"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_110.html#Termcap-Syntax" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_112.html#Special-Capabilities" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_107.html#Termcap" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_107.html#Termcap" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_116.html#Message-Line" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Termcap-Examples-1"></a>
+<h2 class="section">16.4 Termcap Examples</h2>
+<p>Some examples:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">termcap xterm*  xn:hs@
+</pre></td></tr></table>
+
+<p>Informs <code>screen</code> that all terminals that begin with &lsquo;<samp>xterm</samp>&rsquo;
+have firm auto-margins that allow the last position on the screen to be
+updated (xn), but they don&rsquo;t really have a status line (no &rsquo;hs&rsquo; &ndash;
+append &lsquo;<samp>@</samp>&rsquo; to turn entries off).  Note that we assume &lsquo;<samp>xn</samp>&rsquo; for
+all terminal names that start with &lsquo;<samp>vt</samp>&rsquo;, but only if you don&rsquo;t
+specify a termcap command for that terminal.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">termcap vt*  xn
+termcap vt102|vt220  Z0=\E[?3h:Z1=\E[?3l
+</pre></td></tr></table>
+
+<p>Specifies the firm-margined &lsquo;<samp>xn</samp>&rsquo; capability for all terminals that
+begin with &lsquo;<samp>vt</samp>&rsquo;, and the second line will also add the
+escape-sequences to switch into (Z0) and back out of (Z1)
+132-character-per-line mode if this is a VT102 or VT220.  (You must
+specify Z0 and Z1 in your termcap to use the width-changing commands.)
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">termcap vt100  &quot;&quot;  l0=PF1:l1=PF2:l2=PF3:l3=PF4
+</pre></td></tr></table>
+
+<p>This leaves your vt100 termcap alone and adds the function key labels to
+each window&rsquo;s termcap entry.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">termcap h19|z19  am@:im=\E@:ei=\EO  dc=\E[P
+</pre></td></tr></table>
+
+<p>Takes a h19 or z19 termcap and turns off auto-margins (am@) and enables
+the insert mode (im) and end-insert (ei) capabilities (the &lsquo;<samp>@</samp>&rsquo; in
+the &lsquo;<samp>im</samp>&rsquo; string is after the &lsquo;<samp>=</samp>&rsquo;, so it is part of the
+string).  Having the &lsquo;<samp>im</samp>&rsquo; and &lsquo;<samp>ei</samp>&rsquo; definitions put into your
+terminal&rsquo;s termcap will cause screen to automatically advertise the
+character-insert capability in each window&rsquo;s termcap.  Each window will
+also get the delete-character capability (dc) added to its termcap,
+which screen will translate into a line-update for the terminal (we&rsquo;re
+pretending it doesn&rsquo;t support character deletion).
+</p>
+<p>If you would like to fully specify each window&rsquo;s termcap entry, you
+should instead set the <code>$SCREENCAP</code> variable prior to running
+<code>screen</code>.  See section <a href="screen_66.html#Virtual-Terminal">Virtual Terminal</a>, for the details of the
+<code>screen</code> terminal emulation.  See <a href="../termcap/index.html#Top">(termcap)Top</a> section &lsquo;Termcap&rsquo; in <cite>The Termcap Manual</cite>, for more information on termcap definitions.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_110.html#Termcap-Syntax" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_112.html#Special-Capabilities" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_107.html#Termcap" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_107.html#Termcap" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_116.html#Message-Line" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

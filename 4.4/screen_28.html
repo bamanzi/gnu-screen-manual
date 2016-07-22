@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 8.4 Multiuser Session</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 8.4 Multiuser Session">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Multiuser-Session"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_27.html#Lock" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_29.html#Multiuser" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_24.html#Session-Management" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_24.html#Session-Management" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_42.html#Regions" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Multiuser-Session-1"></a>
+<h2 class="section">8.4 Multiuser Session</h2>
+<a name="index-multiuser-session"></a>
+
+<p>These commands allow other users to gain access to one single <code>screen</code>
+session. When attaching to a multiuser <code>screen</code> the sessionname is 
+specified as <code>username/sessionname</code> to the <code>-S</code> command line option.
+<code>Screen</code> must be compiled with multiuser support to enable features 
+described here.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="screen_29.html#Multiuser" accesskey="1">8.4.1 Multiuser</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">			Enable / Disable multiuser mode.
+</td></tr>
+<tr><td align="left" valign="top"><a href="screen_30.html#Acladd" accesskey="2">8.4.2 Acladd</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">			Enable a specific user.
+</td></tr>
+<tr><td align="left" valign="top"><a href="screen_31.html#Aclchg" accesskey="3">8.4.3 Aclchg</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                      Change a users permissions.
+</td></tr>
+<tr><td align="left" valign="top"><a href="screen_32.html#Acldel" accesskey="4">8.4.4 Acldel</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">			Disable a specific user.
+</td></tr>
+<tr><td align="left" valign="top"><a href="screen_33.html#Aclgrp" accesskey="5">8.4.5 Aclgrp</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">			Grant a user permissions to other users.
+</td></tr>
+<tr><td align="left" valign="top"><a href="screen_34.html#Displays" accesskey="6">8.4.6 Displays</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">			List all active users at their displays.
+</td></tr>
+<tr><td align="left" valign="top"><a href="screen_35.html#Umask" accesskey="7">8.4.7 aclumask</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">			Predefine access to new windows.
+</td></tr>
+<tr><td align="left" valign="top"><a href="screen_36.html#Wall" accesskey="8">8.4.8 Wall</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                        Write a message to all users.
+</td></tr>
+<tr><td align="left" valign="top"><a href="screen_37.html#Writelock" accesskey="9">8.4.9 Writelock</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                   Grant exclusive window access.
+</td></tr>
+<tr><td align="left" valign="top"><a href="screen_38.html#Su">8.4.10 Su</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                          Substitute user.
+</td></tr>
+</table>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_27.html#Lock" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_29.html#Multiuser" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_24.html#Session-Management" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_24.html#Session-Management" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_42.html#Regions" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on July 22, 2016 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>Screen User's Manual: 8.4.3 Aclchg</title>
+
+
+<meta name="keywords" content="Screen User's Manual: 8.4.3 Aclchg">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Aclchg"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_30.html#Acladd" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_32.html#Acldel" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_24.html#Session-Management" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_28.html#Multiuser-Session" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_42.html#Regions" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Aclchg-1"></a>
+<h3 class="subsection">8.4.3 Aclchg</h3>
+<dl>
+<dt><a name="index-aclchg"></a><u>Command:</u> <b>aclchg</b><i> <var>usernames permbits list</var></i></dt>
+<dt><a name="index-chacl"></a><u>Command:</u> <b>chacl</b><i> <var>usernames permbits list</var></i></dt>
+<dd><p>(none)<br>
+Change permissions for a comma separated list of users. 
+Permission bits are represented as &lsquo;<samp>r</samp>&rsquo;, &lsquo;<samp>w</samp>&rsquo; and &lsquo;<samp>x</samp>&rsquo;. 
+Prefixing &lsquo;<samp>+</samp>&rsquo; grants the permission, &lsquo;<samp>-</samp>&rsquo; removes it. The third 
+parameter is a comma separated list of commands or windows (specified either 
+by number or title). The special list &lsquo;<samp>#</samp>&rsquo; refers to all windows, &lsquo;<samp>?</samp>&rsquo; 
+to all commands. If <var>usernames</var> consists of a single &lsquo;<samp>*</samp>&rsquo;, all 
+known users are affected. 
+A command can be executed when the user has the &lsquo;<samp>x</samp>&rsquo; bit for it. The user
+can type input to a window when he has its &lsquo;<samp>w</samp>&rsquo; bit set and no other
+user obtains a writelock for this window. Other bits are currently ignored.
+To withdraw the writelock from another user in e.g. window 2:
+&lsquo;<samp>aclchg <var>username</var> -w+w 2</samp>&rsquo;. To allow read-only access 
+to the session: &lsquo;<samp>aclchg <var>username</var> -w &quot;#&quot;</samp>&rsquo;. As soon as a user&rsquo;s name 
+is known to screen, he can attach to the session and (per default) has full 
+permissions for all command and windows. Execution permission for the acl 
+commands, <code>at</code> and others should also be removed or the user may be able 
+to regain write permission.
+<code>Chacl</code> is a synonym to <code>aclchg</code>.
+Multi-user mode only.
+</p></dd></dl>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="screen_30.html#Acladd" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_32.html#Acldel" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen_24.html#Session-Management" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="screen_28.html#Multiuser-Session" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="screen_42.html#Regions" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="screen.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="screen_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="screen_164.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="screen_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>
