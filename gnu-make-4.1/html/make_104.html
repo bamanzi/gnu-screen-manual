@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 9. How to Run make</title>
+
+
+<meta name="keywords" content="GNU make: 9. How to Run make">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Running"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_103.html#Guile-Function" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_105.html#Makefile-Arguments" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_89.html#Functions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="How-to-Run-make"></a>
+<h1 class="chapter">9. How to Run <code>make</code></h1>
+
+<p>A makefile that says how to recompile a program can be used in more
+than one way.  The simplest use is to recompile every file that is out
+of date.  Usually, makefiles are written so that if you run
+<code>make</code> with no arguments, it does just that.
+</p>
+<p>But you might want to update only some of the files; you might want to use
+a different compiler or different compiler options; you might want just to
+find out which files are out of date without changing them.
+</p>
+<p>By giving arguments when you run <code>make</code>, you can do any of these
+things and many others.
+</p>
+<a name="index-exit-status-of-make"></a>
+<p>The exit status of <code>make</code> is always one of three values:
+</p><dl compact="compact">
+<dt> <code>0</code></dt>
+<dd><p>The exit status is zero if <code>make</code> is successful.
+</p></dd>
+<dt> <code>2</code></dt>
+<dd><p>The exit status is two if <code>make</code> encounters any errors.
+It will print messages describing the particular errors.
+</p></dd>
+<dt> <code>1</code></dt>
+<dd><p>The exit status is one if you use the &lsquo;<samp>-q</samp>&rsquo; flag and <code>make</code>
+determines that some target is not already up to date.
+See section <a href="make_107.html#Instead-of-Execution">Instead of Executing Recipes</a>.
+</p></dd>
+</dl>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="make_105.html#Makefile-Arguments" accesskey="1">9.1 Arguments to Specify the Makefile</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">          How to specify which makefile to use.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_106.html#Goals" accesskey="2">9.2 Arguments to Specify the Goals</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                       How to use goal arguments to specify which
+                                  parts of the makefile to use.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_107.html#Instead-of-Execution" accesskey="3">9.3 Instead of Executing Recipes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        How to use mode flags to specify what
+                                  kind of thing to do with the recipes
+                                  in the makefile other than simply
+                                  execute them.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_108.html#Avoiding-Compilation" accesskey="4">9.4 Avoiding Recompilation of Some Files</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        How to avoid recompiling certain files.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_109.html#Overriding" accesskey="5">9.5 Overriding Variables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                  How to override a variable to specify
+                                  an alternate compiler and other things.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_110.html#Testing" accesskey="6">9.6 Testing the Compilation of a Program</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                     How to proceed past some errors, to
+                                  test compilation.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_111.html#Options-Summary" accesskey="7">9.7 Summary of Options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+</table>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_103.html#Guile-Function" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_105.html#Makefile-Arguments" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_89.html#Functions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

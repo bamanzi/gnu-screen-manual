@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 3.1.1 Splitting Long Lines</title>
+
+
+<meta name="keywords" content="GNU make: 3.1.1 Splitting Long Lines">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Splitting-Lines"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_13.html#Makefile-Contents" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_15.html#Makefile-Names" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_12.html#Makefiles" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_13.html#Makefile-Contents" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Splitting-Long-Lines"></a>
+<h3 class="subsection">3.1.1 Splitting Long Lines</h3>
+<a name="index-splitting-long-lines"></a>
+<a name="index-long-lines_002c-splitting"></a>
+<a name="index-backslash-_0028_005c_0029_002c-to-quote-newlines"></a>
+
+<p>Makefiles use a &ldquo;line-based&rdquo; syntax in which the newline character
+is special and marks the end of a statement.  GNU <code>make</code> has no
+limit on the length of a statement line, up to the amount of memory in
+your computer.
+</p>
+<p>However, it is difficult to read lines which are too long to display
+without wrapping or scrolling.  So, you can format your makefiles for
+readability by adding newlines into the middle of a statement: you do
+this by escaping the internal newlines with a backslash (<code>\</code>)
+character.  Where we need to make a distinction we will refer to
+&ldquo;physical lines&rdquo; as a single line ending with a newline (regardless
+of whether it is escaped) and a &ldquo;logical line&rdquo; being a complete
+statement including all escaped newlines up to the first non-escaped
+newline.
+</p>
+<p>The way in which backslash/newline combinations are handled depends on
+whether the statement is a recipe line or a non-recipe line.  Handling
+of backslash/newline in a recipe line is discussed later
+(see section <a href="make_50.html#Splitting-Recipe-Lines">Splitting Recipe Lines</a>).
+</p>
+<p>Outside of recipe lines, backslash/newlines are converted into a
+single space character.  Once that is done, all whitespace around the
+backslash/newline is condensed into a single space: this includes all
+whitespace preceding the backslash, all whitespace at the beginning of
+the line after the backslash/newline, and any consecutive
+backslash/newline combinations.
+</p>
+<p>If the <code>.POSIX</code> special target is defined then backslash/newline
+handling is modified slightly to conform to POSIX.2: first, whitespace
+preceding a backslash is not removed and second, consecutive
+backslash/newlines are not condensed.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_13.html#Makefile-Contents" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_15.html#Makefile-Names" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_12.html#Makefiles" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_13.html#Makefile-Contents" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

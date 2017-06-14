@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 5.4.1 Output During Parallel Execution</title>
+
+
+<meta name="keywords" content="GNU make: 5.4.1 Output During Parallel Execution">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Parallel-Output"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_56.html#Parallel" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_58.html#Parallel-Input" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_56.html#Parallel" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Output-During-Parallel-Execution"></a>
+<h3 class="subsection">5.4.1 Output During Parallel Execution</h3>
+<a name="index-output-during-parallel-execution"></a>
+<a name="index-parallel-execution_002c-output-during"></a>
+
+<p>When running several recipes in parallel the output from each
+recipe appears as soon as it is generated, with the result that
+messages from different recipes may be interspersed, sometimes even
+appearing on the same line.  This can make reading the output very
+difficult.
+</p>
+<a name="index-_002d_002doutput_002dsync"></a>
+<a name="index-_002dO"></a>
+<p>To avoid this you can use the &lsquo;<samp>--output-sync</samp>&rsquo; (&lsquo;<samp>-O</samp>&rsquo;) option.
+This option instructs <code>make</code> to save the output from the commands
+it invokes and print it all once the commands are completed.
+Additionally, if there are multiple recursive <code>make</code> invocations
+running in parallel, they will communicate so that only one of them is
+generating output at a time.
+</p>
+<p>If working directory printing is enabled (see section <a href="make_65.html#g_t_002dw-Option">The &lsquo;<samp>--print-directory</samp>&rsquo; Option</a>), the enter/leave messages are
+printed around each output grouping.  If you prefer not to see these
+messages add the &lsquo;<samp>--no-print-directory</samp>&rsquo; option to <code>MAKEFLAGS</code>.
+</p>
+<p>There are four levels of granularity when synchronizing output,
+specified by giving an argument to the option (e.g.,  &lsquo;<samp>-Oline</samp>&rsquo; or
+&lsquo;<samp>--output-sync=recurse</samp>&rsquo;).
+</p>
+<dl compact="compact">
+<dt> <code>none</code></dt>
+<dd><p>This is the default: all output is sent directly as it is generated and
+no synchronization is performed.
+</p>
+</dd>
+<dt> <code>line</code></dt>
+<dd><p>Output from each individual line of the recipe is grouped and printed
+as soon as that line is complete.  If a recipe consists of multiple
+lines, they may be interspersed with lines from other recipes.
+</p>
+</dd>
+<dt> <code>target</code></dt>
+<dd><p>Output from the entire recipe for each target is grouped and printed
+once the target is complete.  This is the default if the
+<code>--output-sync</code> or <code>-O</code> option is given with no argument.
+</p>
+</dd>
+<dt> <code>recurse</code></dt>
+<dd><p>Output from each recursive invocation of <code>make</code> is grouped and
+printed once the recursive invocation is complete.
+</p>
+</dd>
+</dl>
+
+<p>Regardless of the mode chosen, the total build time will be the same.
+The only difference is in how the output appears.
+</p>
+<p>The &lsquo;<samp>target</samp>&rsquo; and &lsquo;<samp>recurse</samp>&rsquo; modes both collect the output of
+the entire recipe of a target and display it uninterrupted when the
+recipe completes.  The difference between them is in how recipes that
+contain recursive invocations of <code>make</code> are treated
+(see section <a href="make_61.html#Recursion">Recursive Use of <code>make</code></a>).  For all recipes
+which have no recursive lines, the &lsquo;<samp>target</samp>&rsquo; and &lsquo;<samp>recurse</samp>&rsquo;
+modes behave identically.
+</p>
+<p>If the &lsquo;<samp>recurse</samp>&rsquo; mode is chosen, recipes that contain recursive
+<code>make</code> invocations are treated the same as other targets: the
+output from the recipe, including the output from the recursive
+<code>make</code>, is saved and printed after the entire recipe is complete.
+This ensures output from all the targets built by a given recursive
+<code>make</code> instance are grouped together, which may make the output
+easier to understand.  However it also leads to long periods of time
+during the build where no output is seen, followed by large bursts of
+output.  If you are not watching the build as it proceeds, but instead
+viewing a log of the build after the fact, this may be the best option
+for you.
+</p>
+<p>If you are watching the output, the long gaps of quiet during the
+build can be frustrating.  The &lsquo;<samp>target</samp>&rsquo; output synchronization
+mode detects when <code>make</code> is going to be invoked recursively,
+using the standard methods, and it will not synchronize the output of
+those lines.  The recursive <code>make</code> will perform the
+synchronization for its targets and the output from each will be
+displayed immediately when it completes.  Be aware that output from
+recursive lines of the recipe are not synchronized (for example if
+the recursive line prints a message before running <code>make</code>, that
+message will not be synchronized).
+</p>
+<p>The &lsquo;<samp>line</samp>&rsquo; mode can be useful for front-ends that are watching
+the output of <code>make</code> to track when recipes are started and
+completed.
+</p>
+<p>Some programs invoked by <code>make</code> may behave differently if they
+determine they&rsquo;re writing output to a terminal versus a file (often
+described as &ldquo;interactive&rdquo; vs. &ldquo;non-interactive&rdquo; modes).  For
+example, many programs that can display colorized output will not do
+so if they determine they are not writing to a terminal.  If your
+makefile invokes a program like this then using the output
+synchronization options will cause the program to believe it&rsquo;s running
+in &ldquo;non-interactive&rdquo; mode even though the output will ultimately go
+to the terminal.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_56.html#Parallel" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_58.html#Parallel-Input" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_56.html#Parallel" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

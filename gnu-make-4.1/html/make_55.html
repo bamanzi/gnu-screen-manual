@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 5.3.2 Choosing the Shell</title>
+
+
+<meta name="keywords" content="GNU make: 5.3.2 Choosing the Shell">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Choosing-the-Shell"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_54.html#One-Shell" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_56.html#Parallel" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_53.html#Execution" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Choosing-the-Shell-1"></a>
+<h3 class="subsection">5.3.2 Choosing the Shell</h3>
+<a name="index-shell_002c-choosing-the"></a>
+<a name="index-SHELL_002c-value-of"></a>
+<a name="index-_002eSHELLFLAGS_002c-value-of"></a>
+
+<a name="index-SHELL"></a>
+<a name="index-_002eSHELLFLAGS"></a>
+<p>The program used as the shell is taken from the variable <code>SHELL</code>.
+If this variable is not set in your makefile, the program
+&lsquo;<tt>/bin/sh</tt>&rsquo; is used as the shell.  The argument(s) passed to the
+shell are taken from the variable <code>.SHELLFLAGS</code>.  The default
+value of <code>.SHELLFLAGS</code> is <code>-c</code> normally, or <code>-ec</code> in
+POSIX-conforming mode.
+</p>
+<a name="index-environment_002c-SHELL-in"></a>
+<p>Unlike most variables, the variable <code>SHELL</code> is never set from the
+environment.  This is because the <code>SHELL</code> environment variable is
+used to specify your personal choice of shell program for interactive
+use.  It would be very bad for personal choices like this to affect the
+functioning of makefiles.  See section <a href="make_80.html#Environment">Variables from the Environment</a>.
+</p>
+<p>Furthermore, when you do set <code>SHELL</code> in your makefile that value
+is <em>not</em> exported in the environment to recipe lines that
+<code>make</code> invokes.  Instead, the value inherited from the user&rsquo;s
+environment, if any, is exported.  You can override this behavior by
+explicitly exporting <code>SHELL</code> (see section <a href="make_63.html#Variables_002fRecursion">Communicating Variables to a Sub-<code>make</code></a>), forcing it to be
+passed in the environment to recipe lines.
+</p>
+<a name="index-MAKESHELL-_0028MS_002dDOS-alternative-to-SHELL_0029"></a>
+<p>However, on MS-DOS and MS-Windows the value of <code>SHELL</code> in the
+environment <strong>is</strong> used, since on those systems most users do not
+set this variable, and therefore it is most likely set specifically to
+be used by <code>make</code>.  On MS-DOS, if the setting of <code>SHELL</code> is
+not suitable for <code>make</code>, you can set the variable
+<code>MAKESHELL</code> to the shell that <code>make</code> should use; if set it
+will be used as the shell instead of the value of <code>SHELL</code>.
+</p>
+<a name="Choosing-a-Shell-in-DOS-and-Windows"></a>
+<h4 class="subsubheading">Choosing a Shell in DOS and Windows</h4>
+<a name="index-shell_002c-in-DOS-and-Windows"></a>
+<a name="index-DOS_002c-choosing-a-shell-in"></a>
+<a name="index-Windows_002c-choosing-a-shell-in"></a>
+
+<p>Choosing a shell in MS-DOS and MS-Windows is much more complex than on
+other systems.
+</p>
+<a name="index-COMSPEC"></a>
+<p>On MS-DOS, if <code>SHELL</code> is not set, the value of the variable
+<code>COMSPEC</code> (which is always set) is used instead.
+</p>
+<a name="index-SHELL_002c-MS_002dDOS-specifics"></a>
+<p>The processing of lines that set the variable <code>SHELL</code> in Makefiles
+is different on MS-DOS.  The stock shell, &lsquo;<tt>command.com</tt>&rsquo;, is
+ridiculously limited in its functionality and many users of <code>make</code>
+tend to install a replacement shell.  Therefore, on MS-DOS, <code>make</code>
+examines the value of <code>SHELL</code>, and changes its behavior based on
+whether it points to a Unix-style or DOS-style shell.  This allows
+reasonable functionality even if <code>SHELL</code> points to
+&lsquo;<tt>command.com</tt>&rsquo;.
+</p>
+<p>If <code>SHELL</code> points to a Unix-style shell, <code>make</code> on MS-DOS
+additionally checks whether that shell can indeed be found; if not, it
+ignores the line that sets <code>SHELL</code>.  In MS-DOS, GNU <code>make</code>
+searches for the shell in the following places:
+</p>
+<ol>
+<li>
+In the precise place pointed to by the value of <code>SHELL</code>.  For
+example, if the makefile specifies &lsquo;<samp>SHELL = /bin/sh</samp>&rsquo;, <code>make</code>
+will look in the directory &lsquo;<tt>/bin</tt>&rsquo; on the current drive.
+
+</li><li>
+In the current directory.
+
+</li><li>
+In each of the directories in the <code>PATH</code> variable, in order.
+
+</li></ol>
+
+<p>In every directory it examines, <code>make</code> will first look for the
+specific file (&lsquo;<tt>sh</tt>&rsquo; in the example above).  If this is not found,
+it will also look in that directory for that file with one of the known
+extensions which identify executable files.  For example &lsquo;<tt>.exe</tt>&rsquo;,
+&lsquo;<tt>.com</tt>&rsquo;, &lsquo;<tt>.bat</tt>&rsquo;, &lsquo;<tt>.btm</tt>&rsquo;, &lsquo;<tt>.sh</tt>&rsquo;, and some others.
+</p>
+<p>If any of these attempts is successful, the value of <code>SHELL</code> will
+be set to the full pathname of the shell as found.  However, if none of
+these is found, the value of <code>SHELL</code> will not be changed, and thus
+the line that sets it will be effectively ignored.  This is so
+<code>make</code> will only support features specific to a Unix-style shell if
+such a shell is actually installed on the system where <code>make</code> runs.
+</p>
+<p>Note that this extended search for the shell is limited to the cases
+where <code>SHELL</code> is set from the Makefile; if it is set in the
+environment or command line, you are expected to set it to the full
+pathname of the shell, exactly as things are on Unix.
+</p>
+<p>The effect of the above DOS-specific processing is that a Makefile that
+contains &lsquo;<samp>SHELL = /bin/sh</samp>&rsquo; (as many Unix makefiles do), will work
+on MS-DOS unaltered if you have e.g. &lsquo;<tt>sh.exe</tt>&rsquo; installed in some
+directory along your <code>PATH</code>.
+</p>
+<a name="index-SHELL-1"></a>
+<a name="index-_002eSHELLFLAGS-1"></a>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_54.html#One-Shell" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_56.html#Parallel" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_53.html#Execution" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

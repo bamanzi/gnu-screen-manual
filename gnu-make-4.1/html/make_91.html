@@ -1,0 +1,425 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 8.2 Functions for String Substitution and Analysis</title>
+
+
+<meta name="keywords" content="GNU make: 8.2 Functions for String Substitution and Analysis">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Text-Functions"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_90.html#Syntax-of-Functions" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_92.html#File-Name-Functions" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_89.html#Functions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_89.html#Functions" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_104.html#Running" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Functions-for-String-Substitution-and-Analysis"></a>
+<h2 class="section">8.2 Functions for String Substitution and Analysis</h2>
+<a name="index-functions_002c-for-text"></a>
+
+<p>Here are some functions that operate on strings:
+</p>
+<dl compact="compact">
+<dt> <code>$(subst <var>from</var>,<var>to</var>,<var>text</var>)</code></dt>
+<dd><a name="index-subst-1"></a>
+<p>Performs a textual replacement on the text <var>text</var>: each occurrence
+of <var>from</var> is replaced by <var>to</var>.  The result is substituted for
+the function call.  For example,
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(subst ee,EE,feet on the street)
+</pre></td></tr></table>
+
+<p>substitutes the string &lsquo;<samp>fEEt on the strEEt</samp>&rsquo;.
+</p>
+</dd>
+<dt> <code>$(patsubst <var>pattern</var>,<var>replacement</var>,<var>text</var>)</code></dt>
+<dd><a name="index-patsubst-1"></a>
+<p>Finds whitespace-separated words in <var>text</var> that match
+<var>pattern</var> and replaces them with <var>replacement</var>.  Here
+<var>pattern</var> may contain a &lsquo;<samp>%</samp>&rsquo; which acts as a wildcard,
+matching any number of any characters within a word.  If
+<var>replacement</var> also contains a &lsquo;<samp>%</samp>&rsquo;, the &lsquo;<samp>%</samp>&rsquo; is replaced
+by the text that matched the &lsquo;<samp>%</samp>&rsquo; in <var>pattern</var>.  Only the first
+&lsquo;<samp>%</samp>&rsquo; in the <var>pattern</var> and <var>replacement</var> is treated this
+way; any subsequent &lsquo;<samp>%</samp>&rsquo; is unchanged.
+</p>
+<a name="index-_0025_002c-quoting-in-patsubst"></a>
+<a name="index-_0025_002c-quoting-with-_005c-_0028backslash_0029-2"></a>
+<a name="index-_005c-_0028backslash_0029_002c-to-quote-_0025-2"></a>
+<a name="index-backslash-_0028_005c_0029_002c-to-quote-_0025-2"></a>
+<a name="index-quoting-_0025_002c-in-patsubst"></a>
+<p>&lsquo;<samp>%</samp>&rsquo; characters in <code>patsubst</code> function invocations can be
+quoted with preceding backslashes (&lsquo;<samp>\</samp>&rsquo;).  Backslashes that would
+otherwise quote &lsquo;<samp>%</samp>&rsquo; characters can be quoted with more backslashes.
+Backslashes that quote &lsquo;<samp>%</samp>&rsquo; characters or other backslashes are
+removed from the pattern before it is compared file names or has a stem
+substituted into it.  Backslashes that are not in danger of quoting
+&lsquo;<samp>%</samp>&rsquo; characters go unmolested.  For example, the pattern
+&lsquo;<tt>the\%weird\\%pattern\\</tt>&rsquo; has &lsquo;<samp>the%weird\</samp>&rsquo; preceding the
+operative &lsquo;<samp>%</samp>&rsquo; character, and &lsquo;<samp>pattern\\</samp>&rsquo; following it.  The
+final two backslashes are left alone because they cannot affect any
+&lsquo;<samp>%</samp>&rsquo; character.
+</p>
+<p>Whitespace between words is folded into single space characters;
+leading and trailing whitespace is discarded.
+</p>
+<p>For example,
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(patsubst %.c,%.o,x.c.c bar.c)
+</pre></td></tr></table>
+
+<p>produces the value &lsquo;<samp>x.c.o bar.o</samp>&rsquo;.
+</p>
+<p>Substitution references (see section <a href="make_72.html#Substitution-Refs">Substitution References</a>) are a simpler way to get the effect of the <code>patsubst</code>
+function:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(<var>var</var>:<var>pattern</var>=<var>replacement</var>)
+</pre></td></tr></table>
+
+<p>is equivalent to
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(patsubst <var>pattern</var>,<var>replacement</var>,$(<var>var</var>))
+</pre></td></tr></table>
+
+<p>The second shorthand simplifies one of the most common uses of
+<code>patsubst</code>: replacing the suffix at the end of file names.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(<var>var</var>:<var>suffix</var>=<var>replacement</var>)
+</pre></td></tr></table>
+
+<p>is equivalent to
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(patsubst %<var>suffix</var>,%<var>replacement</var>,$(<var>var</var>))
+</pre></td></tr></table>
+
+<p>For example, you might have a list of object files:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">objects = foo.o bar.o baz.o
+</pre></td></tr></table>
+
+<p>To get the list of corresponding source files, you could simply write:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(objects:.o=.c)
+</pre></td></tr></table>
+
+<p>instead of using the general form:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(patsubst %.o,%.c,$(objects))
+</pre></td></tr></table>
+
+</dd>
+<dt> <code>$(strip <var>string</var>)</code></dt>
+<dd><a name="index-stripping-whitespace"></a>
+<a name="index-whitespace_002c-stripping"></a>
+<a name="index-spaces_002c-stripping"></a>
+<a name="index-strip"></a>
+<p>Removes leading and trailing whitespace from <var>string</var> and replaces
+each internal sequence of one or more whitespace characters with a
+single space.  Thus, &lsquo;<samp>$(strip a b  c )</samp>&rsquo; results in &lsquo;<samp>a b c</samp>&rsquo;.
+</p>
+<p>The function <code>strip</code> can be very useful when used in conjunction
+with conditionals.  When comparing something with the empty string
+&lsquo;<samp></samp>&rsquo; using <code>ifeq</code> or <code>ifneq</code>, you usually want a string of
+just whitespace to match the empty string (see section <a href="make_85.html#Conditionals">Conditional Parts of Makefiles</a>).
+</p>
+<p>Thus, the following may fail to have the desired results:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">.PHONY: all
+ifneq   &quot;$(needs_made)&quot; &quot;&quot;
+all: $(needs_made)
+else
+all:;@echo 'Nothing to make!'
+endif
+</pre></td></tr></table>
+
+<p>Replacing the variable reference &lsquo;<samp>$(needs_made)</samp>&rsquo; with the
+function call &lsquo;<samp>$(strip $(needs_made))</samp>&rsquo; in the <code>ifneq</code>
+directive would make it more robust.
+</p>
+</dd>
+<dt> <code>$(findstring <var>find</var>,<var>in</var>)</code></dt>
+<dd><a name="index-findstring"></a>
+<a name="index-searching-for-strings"></a>
+<a name="index-finding-strings"></a>
+<a name="index-strings_002c-searching-for"></a>
+<p>Searches <var>in</var> for an occurrence of <var>find</var>.  If it occurs, the
+value is <var>find</var>; otherwise, the value is empty.  You can use this
+function in a conditional to test for the presence of a specific
+substring in a given string.  Thus, the two examples,
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(findstring a,a b c)
+$(findstring a,b c)
+</pre></td></tr></table>
+
+<p>produce the values &lsquo;<samp>a</samp>&rsquo; and &lsquo;<samp></samp>&rsquo; (the empty string),
+respectively.  See section <a href="make_88.html#Testing-Flags">Conditionals that Test Flags</a>, for a practical application of
+<code>findstring</code>.
+</p>
+<a name="index-filter"></a>
+<a name="index-filtering-words"></a>
+<a name="index-words_002c-filtering"></a>
+</dd>
+<dt> <code>$(filter <var>pattern</var>&hellip;,<var>text</var>)</code></dt>
+<dd><p>Returns all whitespace-separated words in <var>text</var> that <em>do</em> match
+any of the <var>pattern</var> words, removing any words that <em>do not</em>
+match.  The patterns are written using &lsquo;<samp>%</samp>&rsquo;, just like the patterns
+used in the <code>patsubst</code> function above.
+</p>
+<p>The <code>filter</code> function can be used to separate out different types
+of strings (such as file names) in a variable.  For example:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">sources := foo.c bar.c baz.s ugh.h
+foo: $(sources)
+        cc $(filter %.c %.s,$(sources)) -o foo
+</pre></td></tr></table>
+
+<p>says that &lsquo;<tt>foo</tt>&rsquo; depends of &lsquo;<tt>foo.c</tt>&rsquo;, &lsquo;<tt>bar.c</tt>&rsquo;,
+&lsquo;<tt>baz.s</tt>&rsquo; and &lsquo;<tt>ugh.h</tt>&rsquo; but only &lsquo;<tt>foo.c</tt>&rsquo;, &lsquo;<tt>bar.c</tt>&rsquo; and
+&lsquo;<tt>baz.s</tt>&rsquo; should be specified in the command to the
+compiler.
+</p>
+</dd>
+<dt> <code>$(filter-out <var>pattern</var>&hellip;,<var>text</var>)</code></dt>
+<dd><a name="index-filter_002dout"></a>
+<a name="index-filtering-out-words"></a>
+<a name="index-words_002c-filtering-out"></a>
+<p>Returns all whitespace-separated words in <var>text</var> that <em>do not</em>
+match any of the <var>pattern</var> words, removing the words that <em>do</em>
+match one or more.  This is the exact opposite of the <code>filter</code>
+function.
+</p>
+<p>For example, given:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">objects=main1.o foo.o main2.o bar.o
+mains=main1.o main2.o
+</pre></td></tr></table>
+
+<p>the following generates a list which contains all the object files not
+in &lsquo;<samp>mains</samp>&rsquo;:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(filter-out $(mains),$(objects))
+</pre></td></tr></table>
+
+<a name="index-sort"></a>
+<a name="index-sorting-words"></a>
+</dd>
+<dt> <code>$(sort <var>list</var>)</code></dt>
+<dd><p>Sorts the words of <var>list</var> in lexical order, removing duplicate
+words.  The output is a list of words separated by single spaces.
+Thus,
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(sort foo bar lose)
+</pre></td></tr></table>
+
+<p>returns the value &lsquo;<samp>bar foo lose</samp>&rsquo;.
+</p>
+<a name="index-removing-duplicate-words"></a>
+<a name="index-duplicate-words_002c-removing"></a>
+<a name="index-words_002c-removing-duplicates"></a>
+<p>Incidentally, since <code>sort</code> removes duplicate words, you can use
+it for this purpose even if you don&rsquo;t care about the sort order.
+</p>
+</dd>
+<dt> <code>$(word <var>n</var>,<var>text</var>)</code></dt>
+<dd><a name="index-word"></a>
+<a name="index-word_002c-selecting-a"></a>
+<a name="index-selecting-a-word"></a>
+<p>Returns the <var>n</var>th word of <var>text</var>.  The legitimate values of
+<var>n</var> start from 1.  If <var>n</var> is bigger than the number of words
+in <var>text</var>, the value is empty.  For example,
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(word 2, foo bar baz)
+</pre></td></tr></table>
+
+<p>returns &lsquo;<samp>bar</samp>&rsquo;.
+</p>
+</dd>
+<dt> <code>$(wordlist <var>s</var>,<var>e</var>,<var>text</var>)</code></dt>
+<dd><a name="index-wordlist"></a>
+<a name="index-words_002c-selecting-lists-of"></a>
+<a name="index-selecting-word-lists"></a>
+<p>Returns the list of words in <var>text</var> starting with word <var>s</var> and
+ending with word <var>e</var> (inclusive).  The legitimate values of <var>s</var>
+start from 1; <var>e</var> may start from 0.  If <var>s</var> is bigger than the
+number of words in <var>text</var>, the value is empty.  If <var>e</var> is
+bigger than the number of words in <var>text</var>, words up to the end of
+<var>text</var> are returned.  If <var>s</var> is greater than <var>e</var>, nothing
+is returned.  For example,
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(wordlist 2, 3, foo bar baz)
+</pre></td></tr></table>
+
+<p>returns &lsquo;<samp>bar baz</samp>&rsquo;.
+</p>
+</dd>
+<dt> <code>$(words <var>text</var>)</code></dt>
+<dd><a name="index-words"></a>
+<a name="index-words_002c-finding-number"></a>
+<p>Returns the number of words in <var>text</var>.
+Thus, the last word of <var>text</var> is
+<code>$(word $(words <var>text</var>),<var>text</var>)</code>.
+</p>
+</dd>
+<dt> <code>$(firstword <var>names</var>&hellip;)</code></dt>
+<dd><a name="index-firstword"></a>
+<a name="index-words_002c-extracting-first"></a>
+<p>The argument <var>names</var> is regarded as a series of names, separated
+by whitespace.  The value is the first name in the series.  The rest
+of the names are ignored.
+</p>
+<p>For example,
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(firstword foo bar)
+</pre></td></tr></table>
+
+<p>produces the result &lsquo;<samp>foo</samp>&rsquo;.  Although <code>$(firstword
+<var>text</var>)</code> is the same as <code>$(word 1,<var>text</var>)</code>, the
+<code>firstword</code> function is retained for its simplicity.
+</p>
+
+</dd>
+<dt> <code>$(lastword <var>names</var>&hellip;)</code></dt>
+<dd><a name="index-lastword"></a>
+<a name="index-words_002c-extracting-last"></a>
+<p>The argument <var>names</var> is regarded as a series of names, separated
+by whitespace.  The value is the last name in the series.
+</p>
+<p>For example,
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(lastword foo bar)
+</pre></td></tr></table>
+
+<p>produces the result &lsquo;<samp>bar</samp>&rsquo;.  Although <code>$(lastword
+<var>text</var>)</code> is the same as <code>$(word $(words <var>text</var>),<var>text</var>)</code>,
+the <code>lastword</code> function was added for its simplicity and better
+performance.
+</p></dd>
+</dl>
+
+
+<p>Here is a realistic example of the use of <code>subst</code> and
+<code>patsubst</code>.  Suppose that a makefile uses the <code>VPATH</code> variable
+to specify a list of directories that <code>make</code> should search for
+prerequisite files
+(see section <a href="make_31.html#General-Search"><code>VPATH</code> Search Path for All Prerequisites</a>).
+This example shows how to
+tell the C compiler to search for header files in the same list of
+directories.
+</p>
+<p>The value of <code>VPATH</code> is a list of directories separated by colons,
+such as &lsquo;<samp>src:../headers</samp>&rsquo;.  First, the <code>subst</code> function is used to
+change the colons to spaces:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(subst :, ,$(VPATH))
+</pre></td></tr></table>
+
+<p>This produces &lsquo;<samp>src ../headers</samp>&rsquo;.  Then <code>patsubst</code> is used to turn
+each directory name into a &lsquo;<samp>-I</samp>&rsquo; flag.  These can be added to the
+value of the variable <code>CFLAGS</code>, which is passed automatically to the C
+compiler, like this:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">override CFLAGS += $(patsubst %,-I%,$(subst :, ,$(VPATH)))
+</pre></td></tr></table>
+
+<p>The effect is to append the text &lsquo;<samp>-Isrc -I../headers</samp>&rsquo; to the
+previously given value of <code>CFLAGS</code>.  The <code>override</code> directive is
+used so that the new value is assigned even if the previous value of
+<code>CFLAGS</code> was specified with a command argument (see section <a href="make_77.html#Override-Directive">The <code>override</code> Directive</a>).
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_90.html#Syntax-of-Functions" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_92.html#File-Name-Functions" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_89.html#Functions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_89.html#Functions" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_104.html#Running" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

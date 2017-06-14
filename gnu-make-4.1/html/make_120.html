@@ -1,0 +1,355 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 10.5.3 Automatic Variables</title>
+
+
+<meta name="keywords" content="GNU make: 10.5.3 Automatic Variables">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Automatic-Variables"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_119.html#Pattern-Examples" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_121.html#Pattern-Match" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_117.html#Pattern-Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_127.html#Archives" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Automatic-Variables-1"></a>
+<h3 class="subsection">10.5.3 Automatic Variables</h3>
+<a name="index-automatic-variables"></a>
+<a name="index-variables_002c-automatic"></a>
+<a name="index-variables_002c-and-implicit-rule"></a>
+
+<p>Suppose you are writing a pattern rule to compile a &lsquo;<samp>.c</samp>&rsquo; file into a
+&lsquo;<samp>.o</samp>&rsquo; file: how do you write the &lsquo;<samp>cc</samp>&rsquo; command so that it operates
+on the right source file name?  You cannot write the name in the recipe,
+because the name is different each time the implicit rule is applied.
+</p>
+<p>What you do is use a special feature of <code>make</code>, the <em>automatic
+variables</em>.  These variables have values computed afresh for each rule that
+is executed, based on the target and prerequisites of the rule.  In this
+example, you would use &lsquo;<samp>$@</samp>&rsquo; for the object file name and &lsquo;<samp>$&lt;</samp>&rsquo;
+for the source file name.
+</p>
+<a name="index-automatic-variables-in-prerequisites"></a>
+<a name="index-prerequisites_002c-and-automatic-variables"></a>
+<p>It&rsquo;s very important that you recognize the limited scope in which
+automatic variable values are available: they only have values within
+the recipe.  In particular, you cannot use them anywhere
+within the target list of a rule; they have no value there and will
+expand to the empty string.  Also, they cannot be accessed directly
+within the prerequisite list of a rule.  A common mistake is
+attempting to use <code>$@</code> within the prerequisites list; this will
+not work.  However, there is a special feature of GNU <code>make</code>,
+secondary expansion (see section <a href="make_21.html#Secondary-Expansion">Secondary Expansion</a>), which will allow
+automatic variable values to be used in prerequisite lists.
+</p>
+<p>Here is a table of automatic variables:
+</p>
+<dl compact="compact">
+<dd><a name="index-_0024_0040"></a>
+<a name="index-_0040-_0028automatic-variable_0029"></a>
+</dd>
+<dt> <code>$@</code></dt>
+<dd><p>The file name of the target of the rule.  If the target is an archive
+member, then &lsquo;<samp>$@</samp>&rsquo; is the name of the archive file.  In a pattern
+rule that has multiple targets (see section <a href="make_118.html#Pattern-Intro">Introduction to Pattern Rules</a>), &lsquo;<samp>$@</samp>&rsquo; is the name of whichever target caused the
+rule&rsquo;s recipe to be run.
+</p>
+<a name="index-_0024_0025"></a>
+<a name="index-_0025-_0028automatic-variable_0029"></a>
+</dd>
+<dt> <code>$%</code></dt>
+<dd><p>The target member name, when the target is an archive member.
+See section <a href="make_127.html#Archives">Using <code>make</code> to Update Archive Files</a>.  For example, if the target is &lsquo;<tt>foo.a(bar.o)</tt>&rsquo; then
+&lsquo;<samp>$%</samp>&rsquo; is &lsquo;<tt>bar.o</tt>&rsquo; and &lsquo;<samp>$@</samp>&rsquo; is &lsquo;<tt>foo.a</tt>&rsquo;.  &lsquo;<samp>$%</samp>&rsquo; is
+empty when the target is not an archive member.
+</p>
+<a name="index-_0024_003c"></a>
+<a name="index-_003c-_0028automatic-variable_0029"></a>
+</dd>
+<dt> <code>$&lt;</code></dt>
+<dd><p>The name of the first prerequisite.  If the target got its recipe from
+an implicit rule, this will be the first prerequisite added by the
+implicit rule (see section <a href="make_112.html#Implicit-Rules">Using Implicit Rules</a>).
+</p>
+<a name="index-_0024_003f"></a>
+<a name="index-_003f-_0028automatic-variable_0029"></a>
+</dd>
+<dt> <code>$?</code></dt>
+<dd><p>The names of all the prerequisites that are newer than the target, with
+spaces between them.  For prerequisites which are archive members, only
+the named member is used (see section <a href="make_127.html#Archives">Using <code>make</code> to Update Archive Files</a>).
+<a name="index-prerequisites_002c-list-of-changed"></a>
+<a name="index-list-of-changed-prerequisites"></a>
+</p>
+<a name="index-_0024_005e"></a>
+<a name="index-_005e-_0028automatic-variable_0029"></a>
+</dd>
+<dt> <code>$^</code></dt>
+<dd><p>The names of all the prerequisites, with spaces between them.  For
+prerequisites which are archive members, only the named member is used
+(see section <a href="make_127.html#Archives">Using <code>make</code> to Update Archive Files</a>).  A target has only one prerequisite on each other file
+it depends on, no matter how many times each file is listed as a
+prerequisite.  So if you list a prerequisite more than once for a target,
+the value of <code>$^</code> contains just one copy of the name.  This list
+does <strong>not</strong> contain any of the order-only prerequisites; for those
+see the &lsquo;<samp>$|</samp>&rsquo; variable, below.
+<a name="index-prerequisites_002c-list-of-all"></a>
+<a name="index-list-of-all-prerequisites"></a>
+</p>
+<a name="index-_0024_002b"></a>
+<a name="index-_002b-_0028automatic-variable_0029"></a>
+</dd>
+<dt> <code>$+</code></dt>
+<dd><p>This is like &lsquo;<samp>$^</samp>&rsquo;, but prerequisites listed more than once are
+duplicated in the order they were listed in the makefile.  This is
+primarily useful for use in linking commands where it is meaningful to
+repeat library file names in a particular order.
+</p>
+<a name="index-_0024_007c"></a>
+<a name="index-_007c-_0028automatic-variable_0029"></a>
+</dd>
+<dt> <code>$|</code></dt>
+<dd><p>The names of all the order-only prerequisites, with spaces between
+them.
+</p>
+<a name="index-_0024_002a"></a>
+<a name="index-_002a-_0028automatic-variable_0029"></a>
+</dd>
+<dt> <code>$*</code></dt>
+<dd><p>The stem with which an implicit rule matches (see section <a href="make_121.html#Pattern-Match">How Patterns Match</a>).  If the target is &lsquo;<tt>dir/a.foo.b</tt>&rsquo; and the target
+pattern is &lsquo;<tt>a.%.b</tt>&rsquo; then the stem is &lsquo;<tt>dir/foo</tt>&rsquo;.  The stem is
+useful for constructing names of related files.
+<a name="index-stem_002c-variable-for"></a>
+</p>
+<p>In a static pattern rule, the stem is part of the file name that matched
+the &lsquo;<samp>%</samp>&rsquo; in the target pattern.
+</p>
+<p>In an explicit rule, there is no stem; so &lsquo;<samp>$*</samp>&rsquo; cannot be determined
+in that way.  Instead, if the target name ends with a recognized suffix
+(see section <a href="make_125.html#Suffix-Rules">Old-Fashioned Suffix Rules</a>), &lsquo;<samp>$*</samp>&rsquo; is set to
+the target name minus the suffix.  For example, if the target name is
+&lsquo;<samp>foo.c</samp>&rsquo;, then &lsquo;<samp>$*</samp>&rsquo; is set to &lsquo;<samp>foo</samp>&rsquo;, since &lsquo;<samp>.c</samp>&rsquo; is a
+suffix.  GNU <code>make</code> does this bizarre thing only for compatibility
+with other implementations of <code>make</code>.  You should generally avoid
+using &lsquo;<samp>$*</samp>&rsquo; except in implicit rules or static pattern rules.
+</p>
+<p>If the target name in an explicit rule does not end with a recognized
+suffix, &lsquo;<samp>$*</samp>&rsquo; is set to the empty string for that rule.
+</p></dd>
+</dl>
+
+<p>&lsquo;<samp>$?</samp>&rsquo; is useful even in explicit rules when you wish to operate on only
+the prerequisites that have changed.  For example, suppose that an archive
+named &lsquo;<tt>lib</tt>&rsquo; is supposed to contain copies of several object files.
+This rule copies just the changed object files into the archive:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">lib: foo.o bar.o lose.o win.o
+        ar r lib $?
+</pre></td></tr></table>
+
+<p>Of the variables listed above, four have values that are single file
+names, and three have values that are lists of file names.  These seven
+have variants that get just the file&rsquo;s directory name or just the file
+name within the directory.  The variant variables&rsquo; names are formed by
+appending &lsquo;<samp>D</samp>&rsquo; or &lsquo;<samp>F</samp>&rsquo;, respectively.  These variants are
+semi-obsolete in GNU <code>make</code> since the functions <code>dir</code> and
+<code>notdir</code> can be used to get a similar effect (see section <a href="make_92.html#File-Name-Functions">Functions for File Names</a>).  Note, however, that the
+&lsquo;<samp>D</samp>&rsquo; variants all omit the trailing slash which always appears in
+the output of the <code>dir</code> function.  Here is a table of the variants:
+</p>
+<dl compact="compact">
+<dd><a name="index-_0024_0028_0040D_0029"></a>
+<a name="index-_0040D-_0028automatic-variable_0029"></a>
+</dd>
+<dt> &lsquo;<samp>$(@D)</samp>&rsquo;</dt>
+<dd><p>The directory part of the file name of the target, with the trailing
+slash removed.  If the value of &lsquo;<samp>$@</samp>&rsquo; is &lsquo;<tt>dir/foo.o</tt>&rsquo; then
+&lsquo;<samp>$(@D)</samp>&rsquo; is &lsquo;<tt>dir</tt>&rsquo;.  This value is &lsquo;<tt>.</tt>&rsquo; if &lsquo;<samp>$@</samp>&rsquo; does
+not contain a slash.
+</p>
+<a name="index-_0024_0028_0040F_0029"></a>
+<a name="index-_0040F-_0028automatic-variable_0029"></a>
+</dd>
+<dt> &lsquo;<samp>$(@F)</samp>&rsquo;</dt>
+<dd><p>The file-within-directory part of the file name of the target.  If the
+value of &lsquo;<samp>$@</samp>&rsquo; is &lsquo;<tt>dir/foo.o</tt>&rsquo; then &lsquo;<samp>$(@F)</samp>&rsquo; is
+&lsquo;<tt>foo.o</tt>&rsquo;.  &lsquo;<samp>$(@F)</samp>&rsquo; is equivalent to &lsquo;<samp>$(notdir $@)</samp>&rsquo;.
+</p>
+<a name="index-_0024_0028_002aD_0029"></a>
+<a name="index-_002aD-_0028automatic-variable_0029"></a>
+</dd>
+<dt> &lsquo;<samp>$(*D)</samp>&rsquo;</dt>
+<dd><a name="index-_0024_0028_002aF_0029"></a>
+<a name="index-_002aF-_0028automatic-variable_0029"></a>
+</dd>
+<dt> &lsquo;<samp>$(*F)</samp>&rsquo;</dt>
+<dd><p>The directory part and the file-within-directory
+part of the stem; &lsquo;<tt>dir</tt>&rsquo; and &lsquo;<tt>foo</tt>&rsquo; in this example.
+</p>
+<a name="index-_0024_0028_0025D_0029"></a>
+<a name="index-_0025D-_0028automatic-variable_0029"></a>
+</dd>
+<dt> &lsquo;<samp>$(%D)</samp>&rsquo;</dt>
+<dd><a name="index-_0024_0028_0025F_0029"></a>
+<a name="index-_0025F-_0028automatic-variable_0029"></a>
+</dd>
+<dt> &lsquo;<samp>$(%F)</samp>&rsquo;</dt>
+<dd><p>The directory part and the file-within-directory part of the target
+archive member name.  This makes sense only for archive member targets
+of the form &lsquo;<tt><var>archive</var>(<var>member</var>)</tt>&rsquo; and is useful only when
+<var>member</var> may contain a directory name.  (See section <a href="make_128.html#Archive-Members">Archive Members as Targets</a>.)
+</p>
+<a name="index-_0024_0028_003cD_0029"></a>
+<a name="index-_003cD-_0028automatic-variable_0029"></a>
+</dd>
+<dt> &lsquo;<samp>$(&lt;D)</samp>&rsquo;</dt>
+<dd><a name="index-_0024_0028_003cF_0029"></a>
+<a name="index-_003cF-_0028automatic-variable_0029"></a>
+</dd>
+<dt> &lsquo;<samp>$(&lt;F)</samp>&rsquo;</dt>
+<dd><p>The directory part and the file-within-directory
+part of the first prerequisite.
+</p>
+<a name="index-_0024_0028_005eD_0029"></a>
+<a name="index-_005eD-_0028automatic-variable_0029"></a>
+</dd>
+<dt> &lsquo;<samp>$(^D)</samp>&rsquo;</dt>
+<dd><a name="index-_0024_0028_005eF_0029"></a>
+<a name="index-_005eF-_0028automatic-variable_0029"></a>
+</dd>
+<dt> &lsquo;<samp>$(^F)</samp>&rsquo;</dt>
+<dd><p>Lists of the directory parts and the file-within-directory
+parts of all prerequisites.
+</p>
+<a name="index-_0024_0028_002bD_0029"></a>
+<a name="index-_002bD-_0028automatic-variable_0029"></a>
+</dd>
+<dt> &lsquo;<samp>$(+D)</samp>&rsquo;</dt>
+<dd><a name="index-_0024_0028_002bF_0029"></a>
+<a name="index-_002bF-_0028automatic-variable_0029"></a>
+</dd>
+<dt> &lsquo;<samp>$(+F)</samp>&rsquo;</dt>
+<dd><p>Lists of the directory parts and the file-within-directory
+parts of all prerequisites, including multiple instances of duplicated
+prerequisites.
+</p>
+<a name="index-_0024_0028_003fD_0029"></a>
+<a name="index-_003fD-_0028automatic-variable_0029"></a>
+</dd>
+<dt> &lsquo;<samp>$(?D)</samp>&rsquo;</dt>
+<dd><a name="index-_0024_0028_003fF_0029"></a>
+<a name="index-_003fF-_0028automatic-variable_0029"></a>
+</dd>
+<dt> &lsquo;<samp>$(?F)</samp>&rsquo;</dt>
+<dd><p>Lists of the directory parts and the file-within-directory parts of
+all prerequisites that are newer than the target.
+</p></dd>
+</dl>
+
+<p>Note that we use a special stylistic convention when we talk about these
+automatic variables; we write &ldquo;the value of &lsquo;<samp>$&lt;</samp>&rsquo;&rdquo;, rather than
+&ldquo;the variable <code>&lt;</code>&rdquo; as we would write for ordinary variables
+such as <code>objects</code> and <code>CFLAGS</code>.  We think this convention
+looks more natural in this special case.  Please do not assume it has a
+deep significance; &lsquo;<samp>$&lt;</samp>&rsquo; refers to the variable named <code>&lt;</code> just
+as &lsquo;<samp>$(CFLAGS)</samp>&rsquo; refers to the variable named <code>CFLAGS</code>.
+You could just as well use &lsquo;<samp>$(&lt;)</samp>&rsquo; in place of &lsquo;<samp>$&lt;</samp>&rsquo;.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_119.html#Pattern-Examples" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_121.html#Pattern-Match" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_117.html#Pattern-Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_127.html#Archives" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

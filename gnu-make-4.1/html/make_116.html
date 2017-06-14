@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 10.4 Chains of Implicit Rules</title>
+
+
+<meta name="keywords" content="GNU make: 10.4 Chains of Implicit Rules">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Chained-Rules"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_115.html#Implicit-Variables" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_117.html#Pattern-Rules" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_127.html#Archives" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Chains-of-Implicit-Rules"></a>
+<h2 class="section">10.4 Chains of Implicit Rules</h2>
+
+<a name="index-chains-of-rules"></a>
+<a name="index-rule_002c-implicit_002c-chains-of"></a>
+<p>Sometimes a file can be made by a sequence of implicit rules.  For example,
+a file &lsquo;<tt><var>n</var>.o</tt>&rsquo; could be made from &lsquo;<tt><var>n</var>.y</tt>&rsquo; by running
+first Yacc and then <code>cc</code>.  Such a sequence is called a <em>chain</em>.
+</p>
+<p>If the file &lsquo;<tt><var>n</var>.c</tt>&rsquo; exists, or is mentioned in the makefile, no
+special searching is required: <code>make</code> finds that the object file can
+be made by C compilation from &lsquo;<tt><var>n</var>.c</tt>&rsquo;; later on, when considering
+how to make &lsquo;<tt><var>n</var>.c</tt>&rsquo;, the rule for running Yacc is
+used.  Ultimately both &lsquo;<tt><var>n</var>.c</tt>&rsquo; and &lsquo;<tt><var>n</var>.o</tt>&rsquo; are
+updated.
+</p>
+<a name="index-intermediate-files"></a>
+<a name="index-files_002c-intermediate"></a>
+<p>However, even if &lsquo;<tt><var>n</var>.c</tt>&rsquo; does not exist and is not mentioned,
+<code>make</code> knows how to envision it as the missing link between
+&lsquo;<tt><var>n</var>.o</tt>&rsquo; and &lsquo;<tt><var>n</var>.y</tt>&rsquo;!  In this case, &lsquo;<tt><var>n</var>.c</tt>&rsquo; is
+called an <em>intermediate file</em>.  Once <code>make</code> has decided to use the
+intermediate file, it is entered in the data base as if it had been
+mentioned in the makefile, along with the implicit rule that says how to
+create it.
+</p>
+<p>Intermediate files are remade using their rules just like all other
+files.  But intermediate files are treated differently in two ways.
+</p>
+<p>The first difference is what happens if the intermediate file does not
+exist.  If an ordinary file <var>b</var> does not exist, and <code>make</code>
+considers a target that depends on <var>b</var>, it invariably creates
+<var>b</var> and then updates the target from <var>b</var>.  But if <var>b</var> is an
+intermediate file, then <code>make</code> can leave well enough alone.  It
+won&rsquo;t bother updating <var>b</var>, or the ultimate target, unless some
+prerequisite of <var>b</var> is newer than that target or there is some other
+reason to update that target.
+</p>
+<p>The second difference is that if <code>make</code> <em>does</em> create <var>b</var>
+in order to update something else, it deletes <var>b</var> later on after it
+is no longer needed.  Therefore, an intermediate file which did not
+exist before <code>make</code> also does not exist after <code>make</code>.
+<code>make</code> reports the deletion to you by printing a &lsquo;<samp>rm -f</samp>&rsquo;
+command showing which file it is deleting.
+</p>
+<p>Ordinarily, a file cannot be intermediate if it is mentioned in the
+makefile as a target or prerequisite.  However, you can explicitly mark a
+file as intermediate by listing it as a prerequisite of the special target
+<code>.INTERMEDIATE</code>.  This takes effect even if the file is mentioned
+explicitly in some other way.
+</p>
+<a name="index-intermediate-files_002c-preserving"></a>
+<a name="index-preserving-intermediate-files"></a>
+<a name="index-secondary-files"></a>
+<p>You can prevent automatic deletion of an intermediate file by marking it
+as a <em>secondary</em> file.  To do this, list it as a prerequisite of the
+special target <code>.SECONDARY</code>.  When a file is secondary, <code>make</code>
+will not create the file merely because it does not already exist, but
+<code>make</code> does not automatically delete the file.  Marking a file as
+secondary also marks it as intermediate.
+</p>
+<p>You can list the target pattern of an implicit rule (such as &lsquo;<samp>%.o</samp>&rsquo;)
+as a prerequisite of the special target <code>.PRECIOUS</code> to preserve
+intermediate files made by implicit rules whose target patterns match
+that file&rsquo;s name; see <a href="make_60.html#Interrupts">Interrupting or Killing <code>make</code></a>.
+<a name="index-preserving-with-_002ePRECIOUS-1"></a>
+<a name="index-_002ePRECIOUS-intermediate-files"></a>
+</p>
+<p>A chain can involve more than two implicit rules.  For example, it is
+possible to make a file &lsquo;<tt>foo</tt>&rsquo; from &lsquo;<tt>RCS/foo.y,v</tt>&rsquo; by running RCS,
+Yacc and <code>cc</code>.  Then both &lsquo;<tt>foo.y</tt>&rsquo; and &lsquo;<tt>foo.c</tt>&rsquo; are
+intermediate files that are deleted at the end.
+</p>
+<p>No single implicit rule can appear more than once in a chain.  This means
+that <code>make</code> will not even consider such a ridiculous thing as making
+&lsquo;<tt>foo</tt>&rsquo; from &lsquo;<tt>foo.o.o</tt>&rsquo; by running the linker twice.  This
+constraint has the added benefit of preventing any infinite loop in the
+search for an implicit rule chain.
+</p>
+<p>There are some special implicit rules to optimize certain cases that would
+otherwise be handled by rule chains.  For example, making &lsquo;<tt>foo</tt>&rsquo; from
+&lsquo;<tt>foo.c</tt>&rsquo; could be handled by compiling and linking with separate
+chained rules, using &lsquo;<tt>foo.o</tt>&rsquo; as an intermediate file.  But what
+actually happens is that a special rule for this case does the compilation
+and linking with a single <code>cc</code> command.  The optimized rule is used in
+preference to the step-by-step chain because it comes earlier in the
+ordering of rules.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_115.html#Implicit-Variables" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_117.html#Pattern-Rules" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_127.html#Archives" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

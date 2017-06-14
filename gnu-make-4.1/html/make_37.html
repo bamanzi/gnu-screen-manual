@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 4.6 Phony Targets</title>
+
+
+<meta name="keywords" content="GNU make: 4.6 Phony Targets">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Phony-Targets"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_36.html#Libraries_002fSearch" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_38.html#Force-Targets" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Phony-Targets-1"></a>
+<h2 class="section">4.6 Phony Targets</h2>
+<a name="index-phony-targets"></a>
+<a name="index-targets_002c-phony"></a>
+<a name="index-targets-without-a-file"></a>
+
+<p>A phony target is one that is not really the name of a file; rather it
+is just a name for a recipe to be executed when you make an explicit
+request.  There are two reasons to use a phony target: to avoid a
+conflict with a file of the same name, and to improve performance.
+</p>
+<p>If you write a rule whose recipe will not create the target file, the
+recipe will be executed every time the target comes up for remaking.
+Here is an example:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">clean:
+        rm *.o temp
+</pre></td></tr></table>
+
+<p>Because the <code>rm</code> command does not create a file named &lsquo;<tt>clean</tt>&rsquo;,
+probably no such file will ever exist.  Therefore, the <code>rm</code> command
+will be executed every time you say &lsquo;<samp>make clean</samp>&rsquo;.
+<a name="index-rm-_0028shell-command_0029-2"></a>
+</p>
+<a name="index-_002ePHONY"></a>
+<p>In this example, the &lsquo;<tt>clean</tt>&rsquo; target will not work properly if a
+file named &lsquo;<tt>clean</tt>&rsquo; is ever created in this directory.  Since it
+has no prerequisites, &lsquo;<tt>clean</tt>&rsquo; would always be considered up to
+date and its recipe would not be executed.  To avoid this problem you
+can explicitly declare the target to be phony by making it a
+prerequisite of the special target <code>.PHONY</code>
+(see section <a href="make_40.html#Special-Targets">Special Built-in Target Names</a>) as follows:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">.PHONY: clean
+clean:
+        rm *.o temp
+</pre></td></tr></table>
+
+<p>Once this is done, &lsquo;<samp>make clean</samp>&rsquo; will run the recipe regardless of
+whether there is a file named &lsquo;<tt>clean</tt>&rsquo;.
+</p>
+<p>Phony targets are also useful in conjunction with recursive
+invocations of <code>make</code> (see section <a href="make_61.html#Recursion">Recursive Use of <code>make</code></a>).
+In this situation the makefile will often contain a variable which
+lists a number of sub-directories to be built.  A simplistic way to
+handle this is to define one rule with a recipe that loops over the
+sub-directories, like this:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">SUBDIRS = foo bar baz
+
+subdirs:
+        for dir in $(SUBDIRS); do \
+          $(MAKE) -C $$dir; \
+        done
+</pre></td></tr></table>
+
+<p>There are problems with this method, however.  First, any error
+detected in a sub-make is ignored by this rule, so it will continue
+to build the rest of the directories even when one fails.  This can be
+overcome by adding shell commands to note the error and exit, but then
+it will do so even if <code>make</code> is invoked with the <code>-k</code>
+option, which is unfortunate.  Second, and perhaps more importantly,
+you cannot take advantage of <code>make</code>&rsquo;s ability to build targets in
+parallel (see section <a href="make_56.html#Parallel">Parallel Execution</a>), since there is only
+one rule.
+</p>
+<p>By declaring the sub-directories as <code>.PHONY</code> targets (you must do
+this as the sub-directory obviously always exists; otherwise it won&rsquo;t
+be built) you can remove these problems:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">SUBDIRS = foo bar baz
+
+.PHONY: subdirs $(SUBDIRS)
+
+subdirs: $(SUBDIRS)
+
+$(SUBDIRS):
+        $(MAKE) -C $@
+
+foo: baz
+</pre></td></tr></table>
+
+<p>Here we&rsquo;ve also declared that the &lsquo;<tt>foo</tt>&rsquo; sub-directory cannot be
+built until after the &lsquo;<tt>baz</tt>&rsquo; sub-directory is complete; this kind of
+relationship declaration is particularly important when attempting
+parallel builds.
+</p>
+<p>The implicit rule search (see section <a href="make_112.html#Implicit-Rules">Using Implicit Rules</a>) is skipped for
+<code>.PHONY</code> targets.  This is why declaring a target as
+<code>.PHONY</code> is good for performance, even if you are not worried
+about the actual file existing.
+</p>
+<p>A phony target should not be a prerequisite of a real target file; if it
+is, its recipe will be run every time <code>make</code> goes to update that
+file.  As long as a phony target is never a prerequisite of a real
+target, the phony target recipe will be executed only when the phony
+target is a specified goal (see section <a href="make_106.html#Goals">Arguments to Specify the Goals</a>).
+</p>
+<p>Phony targets can have prerequisites.  When one directory contains multiple
+programs, it is most convenient to describe all of the programs in one
+makefile &lsquo;<tt>./Makefile</tt>&rsquo;.  Since the target remade by default will be the
+first one in the makefile, it is common to make this a phony target named
+&lsquo;<samp>all</samp>&rsquo; and give it, as prerequisites, all the individual programs.  For
+example:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">all : prog1 prog2 prog3
+.PHONY : all
+
+prog1 : prog1.o utils.o
+        cc -o prog1 prog1.o utils.o
+
+prog2 : prog2.o
+        cc -o prog2 prog2.o
+
+prog3 : prog3.o sort.o utils.o
+        cc -o prog3 prog3.o sort.o utils.o
+</pre></td></tr></table>
+
+<p>Now you can say just &lsquo;<samp>make</samp>&rsquo; to remake all three programs, or
+specify as arguments the ones to remake (as in &lsquo;<samp>make prog1
+prog3</samp>&rsquo;).  Phoniness is not inherited: the prerequisites of a phony
+target are not themselves phony, unless explicitly declared to be so.
+</p>
+<p>When one phony target is a prerequisite of another, it serves as a subroutine
+of the other.  For example, here &lsquo;<samp>make cleanall</samp>&rsquo; will delete the
+object files, the difference files, and the file &lsquo;<tt>program</tt>&rsquo;:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">.PHONY: cleanall cleanobj cleandiff
+
+cleanall : cleanobj cleandiff
+        rm program
+
+cleanobj :
+        rm *.o
+
+cleandiff :
+        rm *.diff
+</pre></td></tr></table>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_36.html#Libraries_002fSearch" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_38.html#Force-Targets" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

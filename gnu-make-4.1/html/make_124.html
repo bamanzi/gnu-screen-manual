@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 10.6 Defining Last-Resort Default Rules</title>
+
+
+<meta name="keywords" content="GNU make: 10.6 Defining Last-Resort Default Rules">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Last-Resort"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_123.html#Canceling-Rules" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_125.html#Suffix-Rules" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_127.html#Archives" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Defining-Last_002dResort-Default-Rules"></a>
+<h2 class="section">10.6 Defining Last-Resort Default Rules</h2>
+<a name="index-last_002dresort-default-rules"></a>
+<a name="index-default-rules_002c-last_002dresort"></a>
+
+<p>You can define a last-resort implicit rule by writing a terminal
+match-anything pattern rule with no prerequisites (see section <a href="make_122.html#Match_002dAnything-Rules">Match-Anything Pattern Rules</a>).  This is just like any other pattern rule; the only thing
+special about it is that it will match any target.  So such a rule&rsquo;s
+recipe is used for all targets and prerequisites that have no recipe
+of their own and for which no other implicit rule applies.
+</p>
+<p>For example, when testing a makefile, you might not care if the source
+files contain real data, only that they exist.  Then you might do this:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">%::
+        touch $@
+</pre></td></tr></table>
+
+<p>to cause all the source files needed (as prerequisites) to be created
+automatically.
+</p>
+<a name="index-_002eDEFAULT-1"></a>
+<p>You can instead define a recipe to be used for targets for which there
+are no rules at all, even ones which don&rsquo;t specify recipes.  You do
+this by writing a rule for the target <code>.DEFAULT</code>.  Such a rule&rsquo;s
+recipe is used for all prerequisites which do not appear as targets in
+any explicit rule, and for which no implicit rule applies.  Naturally,
+there is no <code>.DEFAULT</code> rule unless you write one.
+</p>
+<p>If you use <code>.DEFAULT</code> with no recipe or prerequisites:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">.DEFAULT:
+</pre></td></tr></table>
+
+<p>the recipe previously stored for <code>.DEFAULT</code> is cleared.  Then
+<code>make</code> acts as if you had never defined <code>.DEFAULT</code> at all.
+</p>
+<p>If you do not want a target to get the recipe from a match-anything
+pattern rule or <code>.DEFAULT</code>, but you also do not want any recipe
+to be run for the target, you can give it an empty recipe
+(see section <a href="make_67.html#Empty-Recipes">Defining Empty Recipes</a>).
+</p>
+<p>You can use a last-resort rule to override part of another makefile.
+See section <a href="make_19.html#Overriding-Makefiles">Overriding Part of Another Makefile</a>.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_123.html#Canceling-Rules" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_125.html#Suffix-Rules" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_127.html#Archives" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

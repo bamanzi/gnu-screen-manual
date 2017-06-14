@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 10.3 Variables Used by Implicit Rules</title>
+
+
+<meta name="keywords" content="GNU make: 10.3 Variables Used by Implicit Rules">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Implicit-Variables"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_114.html#Catalogue-of-Rules" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_116.html#Chained-Rules" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_127.html#Archives" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Variables-Used-by-Implicit-Rules"></a>
+<h2 class="section">10.3 Variables Used by Implicit Rules</h2>
+<a name="index-flags-for-compilers"></a>
+
+<p>The recipes in built-in implicit rules make liberal use of certain
+predefined variables.  You can alter the values of these variables in
+the makefile, with arguments to <code>make</code>, or in the environment to
+alter how the implicit rules work without redefining the rules
+themselves.  You can cancel all variables used by implicit rules with
+the &lsquo;<samp>-R</samp>&rsquo; or &lsquo;<samp>--no-builtin-variables</samp>&rsquo; option.
+</p>
+<p>For example, the recipe used to compile a C source file actually says
+&lsquo;<samp>$(CC) -c $(CFLAGS) $(CPPFLAGS)</samp>&rsquo;.  The default values of the variables
+used are &lsquo;<samp>cc</samp>&rsquo; and nothing, resulting in the command &lsquo;<samp>cc -c</samp>&rsquo;.  By
+redefining &lsquo;<samp>CC</samp>&rsquo; to &lsquo;<samp>ncc</samp>&rsquo;, you could cause &lsquo;<samp>ncc</samp>&rsquo; to be
+used for all C compilations performed by the implicit rule.  By redefining
+&lsquo;<samp>CFLAGS</samp>&rsquo; to be &lsquo;<samp>-g</samp>&rsquo;, you could pass the &lsquo;<samp>-g</samp>&rsquo; option to
+each compilation.  <em>All</em> implicit rules that do C compilation use
+&lsquo;<samp>$(CC)</samp>&rsquo; to get the program name for the compiler and <em>all</em>
+include &lsquo;<samp>$(CFLAGS)</samp>&rsquo; among the arguments given to the compiler.
+</p>
+<p>The variables used in implicit rules fall into two classes: those that are
+names of programs (like <code>CC</code>) and those that contain arguments for the
+programs (like <code>CFLAGS</code>).  (The &ldquo;name of a program&rdquo; may also contain
+some command arguments, but it must start with an actual executable program
+name.)  If a variable value contains more than one argument, separate them
+with spaces.
+</p>
+<p>The following tables describe of some of the more commonly-used predefined
+variables.  This list is not exhaustive, and the default values shown here may
+not be what <code>make</code> selects for your environment.  To see the
+complete list of predefined variables for your instance of GNU <code>make</code> you
+can run &lsquo;<samp>make -p</samp>&rsquo; in a directory with no makefiles.
+</p>
+<p>Here is a table of some of the more common variables used as names of
+programs in built-in rules:
+</p>
+<dl compact="compact">
+<dt> <code>AR</code></dt>
+<dd><a name="index-AR"></a>
+<p>Archive-maintaining program; default &lsquo;<samp>ar</samp>&rsquo;.
+<a name="index-ar"></a>
+</p>
+</dd>
+<dt> <code>AS</code></dt>
+<dd><a name="index-AS"></a>
+<p>Program for compiling assembly files; default &lsquo;<samp>as</samp>&rsquo;.
+<a name="index-as-1"></a>
+</p>
+</dd>
+<dt> <code>CC</code></dt>
+<dd><a name="index-CC"></a>
+<p>Program for compiling C programs; default &lsquo;<samp>cc</samp>&rsquo;.
+<a name="index-cc-1"></a>
+</p>
+</dd>
+<dt> <code>CXX</code></dt>
+<dd><a name="index-CXX"></a>
+<p>Program for compiling C++ programs; default &lsquo;<samp>g++</samp>&rsquo;.
+<a name="index-g_002b_002b-1"></a>
+</p>
+</dd>
+<dt> <code>CPP</code></dt>
+<dd><a name="index-CPP"></a>
+<p>Program for running the C preprocessor, with results to standard output;
+default &lsquo;<samp>$(CC) -E</samp>&rsquo;.
+</p>
+</dd>
+<dt> <code>FC</code></dt>
+<dd><a name="index-FC"></a>
+<p>Program for compiling or preprocessing Fortran and Ratfor programs;
+default &lsquo;<samp>f77</samp>&rsquo;.
+<a name="index-f77-1"></a>
+</p>
+</dd>
+<dt> <code>M2C</code></dt>
+<dd><a name="index-M2C"></a>
+<p>Program to use to compile Modula-2 source code; default &lsquo;<samp>m2c</samp>&rsquo;.
+<a name="index-m2c-1"></a>
+</p>
+</dd>
+<dt> <code>PC</code></dt>
+<dd><a name="index-PC"></a>
+<p>Program for compiling Pascal programs; default &lsquo;<samp>pc</samp>&rsquo;.
+<a name="index-pc-1"></a>
+</p>
+</dd>
+<dt> <code>CO</code></dt>
+<dd><a name="index-CO"></a>
+<p>Program for extracting a file from RCS; default &lsquo;<samp>co</samp>&rsquo;.
+<a name="index-co-1"></a>
+</p>
+</dd>
+<dt> <code>GET</code></dt>
+<dd><a name="index-GET"></a>
+<p>Program for extracting a file from SCCS; default &lsquo;<samp>get</samp>&rsquo;.
+<a name="index-get-1"></a>
+</p>
+</dd>
+<dt> <code>LEX</code></dt>
+<dd><a name="index-LEX"></a>
+<p>Program to use to turn Lex grammars into source code; default &lsquo;<samp>lex</samp>&rsquo;.
+<a name="index-lex-1"></a>
+</p>
+</dd>
+<dt> <code>YACC</code></dt>
+<dd><a name="index-YACC"></a>
+<p>Program to use to turn Yacc grammars into source code; default &lsquo;<samp>yacc</samp>&rsquo;.
+<a name="index-yacc-2"></a>
+</p>
+</dd>
+<dt> <code>LINT</code></dt>
+<dd><a name="index-LINT"></a>
+<p>Program to use to run lint on source code; default &lsquo;<samp>lint</samp>&rsquo;.
+<a name="index-lint-1"></a>
+</p>
+</dd>
+<dt> <code>MAKEINFO</code></dt>
+<dd><a name="index-MAKEINFO"></a>
+<p>Program to convert a Texinfo source file into an Info file; default
+&lsquo;<samp>makeinfo</samp>&rsquo;.
+<a name="index-makeinfo-1"></a>
+</p>
+</dd>
+<dt> <code>TEX</code></dt>
+<dd><a name="index-TEX"></a>
+<p>Program to make TeX <small>DVI</small> files from TeX source;
+default &lsquo;<samp>tex</samp>&rsquo;.
+<a name="index-tex-1"></a>
+</p>
+</dd>
+<dt> <code>TEXI2DVI</code></dt>
+<dd><a name="index-TEXI2DVI"></a>
+<p>Program to make TeX <small>DVI</small> files from Texinfo source;
+default &lsquo;<samp>texi2dvi</samp>&rsquo;.
+<a name="index-texi2dvi-1"></a>
+</p>
+</dd>
+<dt> <code>WEAVE</code></dt>
+<dd><a name="index-WEAVE"></a>
+<p>Program to translate Web into TeX; default &lsquo;<samp>weave</samp>&rsquo;.
+<a name="index-weave-1"></a>
+</p>
+</dd>
+<dt> <code>CWEAVE</code></dt>
+<dd><a name="index-CWEAVE"></a>
+<p>Program to translate C Web into TeX; default &lsquo;<samp>cweave</samp>&rsquo;.
+<a name="index-cweave-1"></a>
+</p>
+</dd>
+<dt> <code>TANGLE</code></dt>
+<dd><a name="index-TANGLE"></a>
+<p>Program to translate Web into Pascal; default &lsquo;<samp>tangle</samp>&rsquo;.
+<a name="index-tangle-1"></a>
+</p>
+</dd>
+<dt> <code>CTANGLE</code></dt>
+<dd><a name="index-CTANGLE"></a>
+<p>Program to translate C Web into C; default &lsquo;<samp>ctangle</samp>&rsquo;.
+<a name="index-ctangle-1"></a>
+</p>
+</dd>
+<dt> <code>RM</code></dt>
+<dd><a name="index-RM"></a>
+<p>Command to remove a file; default &lsquo;<samp>rm -f</samp>&rsquo;.
+<a name="index-rm"></a>
+</p></dd>
+</dl>
+
+<p>Here is a table of variables whose values are additional arguments for the
+programs above.  The default values for all of these is the empty
+string, unless otherwise noted.
+</p>
+<dl compact="compact">
+<dt> <code>ARFLAGS</code></dt>
+<dd><a name="index-ARFLAGS"></a>
+<p>Flags to give the archive-maintaining program; default &lsquo;<samp>rv</samp>&rsquo;.
+</p>
+</dd>
+<dt> <code>ASFLAGS</code></dt>
+<dd><a name="index-ASFLAGS"></a>
+<p>Extra flags to give to the assembler (when explicitly
+invoked on a &lsquo;<samp>.s</samp>&rsquo; or &lsquo;<samp>.S</samp>&rsquo; file).
+</p>
+</dd>
+<dt> <code>CFLAGS</code></dt>
+<dd><a name="index-CFLAGS"></a>
+<p>Extra flags to give to the C compiler.
+</p>
+</dd>
+<dt> <code>CXXFLAGS</code></dt>
+<dd><a name="index-CXXFLAGS"></a>
+<p>Extra flags to give to the C++ compiler.
+</p>
+</dd>
+<dt> <code>COFLAGS</code></dt>
+<dd><a name="index-COFLAGS"></a>
+<p>Extra flags to give to the RCS <code>co</code> program.
+</p>
+</dd>
+<dt> <code>CPPFLAGS</code></dt>
+<dd><a name="index-CPPFLAGS"></a>
+<p>Extra flags to give to the C preprocessor and programs
+that use it (the C and Fortran compilers).
+</p>
+</dd>
+<dt> <code>FFLAGS</code></dt>
+<dd><a name="index-FFLAGS"></a>
+<p>Extra flags to give to the Fortran compiler.
+</p>
+</dd>
+<dt> <code>GFLAGS</code></dt>
+<dd><a name="index-GFLAGS"></a>
+<p>Extra flags to give to the SCCS <code>get</code> program.
+</p>
+</dd>
+<dt> <code>LDFLAGS</code></dt>
+<dd><a name="index-LDFLAGS"></a>
+<p>Extra flags to give to compilers when they are supposed to invoke the linker,
+&lsquo;<samp>ld</samp>&rsquo;, such as <code>-L</code>.  Libraries (<code>-lfoo</code>) should be
+added to the <code>LDLIBS</code> variable instead.
+</p>
+</dd>
+<dt> <code>LDLIBS</code></dt>
+<dd><a name="index-LDLIBS"></a>
+<a name="index-LOADLIBES"></a>
+<p>Library flags or names given to compilers when they are supposed to
+invoke the linker, &lsquo;<samp>ld</samp>&rsquo;.  <code>LOADLIBES</code> is a deprecated (but
+still supported) alternative to <code>LDLIBS</code>.  Non-library linker
+flags, such as <code>-L</code>, should go in the <code>LDFLAGS</code> variable.
+</p>
+</dd>
+<dt> <code>LFLAGS</code></dt>
+<dd><a name="index-LFLAGS"></a>
+<p>Extra flags to give to Lex.
+</p>
+</dd>
+<dt> <code>YFLAGS</code></dt>
+<dd><a name="index-YFLAGS"></a>
+<p>Extra flags to give to Yacc.
+</p>
+</dd>
+<dt> <code>PFLAGS</code></dt>
+<dd><a name="index-PFLAGS"></a>
+<p>Extra flags to give to the Pascal compiler.
+</p>
+</dd>
+<dt> <code>RFLAGS</code></dt>
+<dd><a name="index-RFLAGS"></a>
+<p>Extra flags to give to the Fortran compiler for Ratfor programs.
+</p>
+</dd>
+<dt> <code>LINTFLAGS</code></dt>
+<dd><a name="index-LINTFLAGS"></a>
+<p>Extra flags to give to lint.
+</p></dd>
+</dl>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_114.html#Catalogue-of-Rules" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_116.html#Chained-Rules" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_127.html#Archives" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

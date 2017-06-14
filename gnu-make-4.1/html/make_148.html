@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 15.3 Variables for Specifying Commands</title>
+
+
+<meta name="keywords" content="GNU make: 15.3 Variables for Specifying Commands">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Command-Variables"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_147.html#Utilities-in-Makefiles" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_149.html#DESTDIR" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_145.html#Makefile-Conventions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_145.html#Makefile-Conventions" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_153.html#Quick-Reference" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Variables-for-Specifying-Commands"></a>
+<h2 class="section">15.3 Variables for Specifying Commands</h2>
+
+<p>Makefiles should provide variables for overriding certain commands, options,
+and so on.
+</p>
+<p>In particular, you should run most utility programs via variables.
+Thus, if you use Bison, have a variable named <code>BISON</code> whose default
+value is set with &lsquo;<samp>BISON = bison</samp>&rsquo;, and refer to it with
+<code>$(BISON)</code> whenever you need to use Bison.
+</p>
+<p>File management utilities such as <code>ln</code>, <code>rm</code>, <code>mv</code>, and
+so on, need not be referred to through variables in this way, since users
+don&rsquo;t need to replace them with other programs.
+</p>
+<p>Each program-name variable should come with an options variable that is
+used to supply options to the program.  Append &lsquo;<samp>FLAGS</samp>&rsquo; to the
+program-name variable name to get the options variable name&mdash;for
+example, <code>BISONFLAGS</code>.  (The names <code>CFLAGS</code> for the C
+compiler, <code>YFLAGS</code> for yacc, and <code>LFLAGS</code> for lex, are
+exceptions to this rule, but we keep them because they are standard.)
+Use <code>CPPFLAGS</code> in any compilation command that runs the
+preprocessor, and use <code>LDFLAGS</code> in any compilation command that
+does linking as well as in any direct use of <code>ld</code>.
+</p>
+<p>If there are C compiler options that <em>must</em> be used for proper
+compilation of certain files, do not include them in <code>CFLAGS</code>.
+Users expect to be able to specify <code>CFLAGS</code> freely themselves.
+Instead, arrange to pass the necessary options to the C compiler
+independently of <code>CFLAGS</code>, by writing them explicitly in the
+compilation commands or by defining an implicit rule, like this:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="smallexample">CFLAGS = -g
+ALL_CFLAGS = -I. $(CFLAGS)
+.c.o:
+        $(CC) -c $(CPPFLAGS) $(ALL_CFLAGS) $&lt;
+</pre></td></tr></table>
+
+<p>Do include the &lsquo;<samp>-g</samp>&rsquo; option in <code>CFLAGS</code>, because that is not
+<em>required</em> for proper compilation.  You can consider it a default
+that is only recommended.  If the package is set up so that it is
+compiled with GCC by default, then you might as well include &lsquo;<samp>-O</samp>&rsquo;
+in the default value of <code>CFLAGS</code> as well.
+</p>
+<p>Put <code>CFLAGS</code> last in the compilation command, after other variables
+containing compiler options, so the user can use <code>CFLAGS</code> to
+override the others.
+</p>
+<p><code>CFLAGS</code> should be used in every invocation of the C compiler,
+both those which do compilation and those which do linking.
+</p>
+<p>Every Makefile should define the variable <code>INSTALL</code>, which is the
+basic command for installing a file into the system.
+</p>
+<p>Every Makefile should also define the variables <code>INSTALL_PROGRAM</code>
+and <code>INSTALL_DATA</code>.  (The default for <code>INSTALL_PROGRAM</code> should
+be <code>$(INSTALL)</code>; the default for <code>INSTALL_DATA</code> should be
+<code>${INSTALL} -m 644</code>.)  Then it should use those variables as the
+commands for actual installation, for executables and non-executables
+respectively.  Minimal use of these variables is as follows:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(INSTALL_PROGRAM) foo $(bindir)/foo
+$(INSTALL_DATA) libfoo.a $(libdir)/libfoo.a
+</pre></td></tr></table>
+
+<p>However, it is preferable to support a <code>DESTDIR</code> prefix on the
+target files, as explained in the next section.
+</p>
+<p>It is acceptable, but not required, to install multiple files in one
+command, with the final argument being a directory, as in:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(INSTALL_PROGRAM) foo bar baz $(bindir)
+</pre></td></tr></table>
+
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_147.html#Utilities-in-Makefiles" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_149.html#DESTDIR" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_145.html#Makefile-Conventions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_145.html#Makefile-Conventions" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_153.html#Quick-Reference" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

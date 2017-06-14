@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 12.2.3 Loaded Object Interface</title>
+
+
+<meta name="keywords" content="GNU make: 12.2.3 Loaded Object Interface">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Loaded-Object-API"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_140.html#Remaking-Loaded-Objects" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_142.html#Loaded-Object-Example" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_133.html#Extending-make" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_138.html#Loading-Objects" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_143.html#Features" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Loaded-Object-Interface"></a>
+<h3 class="subsection">12.2.3 Loaded Object Interface</h3>
+<a name="index-loaded-object-API"></a>
+<a name="index-interface-for-loaded-objects"></a>
+
+<table class="cartouche" border="1"><tr><td>
+<blockquote><p><b>Warning:</b> For this feature to be useful your extensions will need to invoke
+various functions internal to GNU <code>make</code>.  The programming
+interfaces provided in this release should not be considered stable:
+functions may be added, removed, or change calling signatures or
+implementations in future versions of GNU <code>make</code>.
+</p></blockquote>
+</td></tr></table>
+
+<p>To be useful, loaded objects must be able to interact with GNU
+<code>make</code>.  This interaction includes both interfaces the loaded
+object provides to makefiles and also interfaces <code>make</code> provides
+to the loaded object to manipulate <code>make</code>&rsquo;s operation.
+</p>
+<p>The interface between loaded objects and <code>make</code> is defined by the
+&lsquo;<tt>gnumake.h</tt>&rsquo; C header file.  All loaded objects written in C
+should include this header file.  Any loaded object not written in C
+will need to implement the interface defined in this header file.
+</p>
+<p>Typically, a loaded object will register one or more new GNU
+<code>make</code> functions using the <code>gmk_add_function</code> routine from
+within its setup function.  The implementations of these <code>make</code>
+functions may make use of the <code>gmk_expand</code> and <code>gmk_eval</code>
+routines to perform their tasks, then optionally return a string as
+the result of the function expansion.
+</p>
+<a name="Loaded-Object-Licensing"></a>
+<h4 class="subsubheading">Loaded Object Licensing</h4>
+<a name="index-loaded-object-licensing"></a>
+<a name="index-plugin_005fis_005fGPL_005fcompatible"></a>
+
+<p>Every dynamic extension should define the global symbol
+<code>plugin_is_GPL_compatible</code> to assert that it has been licensed
+under a GPL-compatible license.  If this symbol does not exist,
+<code>make</code> emits a fatal error and exits when it tries to load your
+extension.
+</p>
+<p>The declared type of the symbol should be <code>int</code>. It does not need
+to be in any allocated section, though.  The code merely asserts that
+the symbol exists in the global scope. Something like this is enough:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">int plugin_is_GPL_compatible;
+</pre></td></tr></table>
+
+<a name="Data-Structures"></a>
+<h4 class="subsubheading">Data Structures</h4>
+
+<dl compact="compact">
+<dt> <code>gmk_floc</code></dt>
+<dd><p>This structure represents a filename/location pair.  It is provided
+when defining items, so GNU <code>make</code> can inform the user later
+where the definition occurred if necessary.
+</p></dd>
+</dl>
+
+<a name="Registering-Functions"></a>
+<h4 class="subsubheading">Registering Functions</h4>
+<a name="index-gmk_005fadd_005ffunction"></a>
+
+<p>There is currently one way for makefiles to invoke operations provided
+by the loaded object: through the <code>make</code> function call
+interface.  A loaded object can register one or more new functions
+which may then be invoked from within the makefile in the same way as
+any other function.
+</p>
+<p>Use <code>gmk_add_function</code> to create a new <code>make</code> function.  Its
+arguments are as follows:
+</p>
+<dl compact="compact">
+<dt> <code>name</code></dt>
+<dd><p>The function name.  This is what the makefile should use to invoke the
+function.  The name must be between 1 and 255 characters long and it
+may only contain alphanumeric, period (&lsquo;<samp>.</samp>&rsquo;), dash (&lsquo;<samp>-</samp>&rsquo;), and
+underscore (&lsquo;<samp>_</samp>&rsquo;) characters.  It may not begin with a period.
+</p>
+</dd>
+<dt> <code>func_ptr</code></dt>
+<dd><p>A pointer to a function that <code>make</code> will invoke when it expands
+the function in a makefile.  This function must be defined by the
+loaded object.
+</p>
+</dd>
+<dt> <code>min_args</code></dt>
+<dd><p>The minimum number of arguments the function will accept.  Must be
+between 0 and 255.  GNU <code>make</code> will check this and fail before
+invoking <code>func_ptr</code> if the function was invoked with too few
+arguments.
+</p>
+</dd>
+<dt> <code>max_args</code></dt>
+<dd><p>The maximum number of arguments the function will accept.  Must be
+between 0 and 255.  GNU <code>make</code> will check this and fail before
+invoking <code>func_ptr</code> if the function was invoked with too few
+arguments.  If the value is 0, then any number of arguments is
+accepted.  If the value is greater than 0, then it must be greater
+than or equal to <code>min_args</code>.
+</p>
+</dd>
+<dt> <code>flags</code></dt>
+<dd><p>Flags that specify how this function will operate; the desired flags
+should be OR&rsquo;d together.  If the <code>GMK_FUNC_NOEXPAND</code> flag is
+given then the function arguments will not be expanded before the
+function is called; otherwise they will be expanded first.
+</p></dd>
+</dl>
+
+<a name="Registered-Function-Interface"></a>
+<h4 class="subsubheading">Registered Function Interface</h4>
+<a name="index-gmk_005ffunc_005fptr"></a>
+
+<p>A function registered with <code>make</code> must match the
+<code>gmk_func_ptr</code> type.  It will be invoked with three parameters:
+<code>name</code> (the name of the function), <code>argc</code> (the number of
+arguments to the function), and <code>argv</code> (an array of pointers to
+arguments to the function).  The last pointer (that is,
+<code>argv[argc]</code>) will be null (<code>0</code>).
+</p>
+<p>The return value of the function is the result of expanding the
+function.  If the function expands to nothing the return value may be
+null.  Otherwise, it must be a pointer to a string created with
+<code>gmk_alloc</code>.  Once the function returns, <code>make</code> owns this
+string and will free it when appropriate; it cannot be accessed by the
+loaded object.
+</p>
+<a name="GNU-make-Facilities"></a>
+<h4 class="subsubheading">GNU <code>make</code> Facilities</h4>
+
+<p>There are some facilities exported by GNU <code>make</code> for use by
+loaded objects.  Typically these would be run from within the
+setup function and/or the functions registered via
+<code>gmk_add_function</code>, to retrieve or modify the data <code>make</code>
+works with.
+</p>
+<dl compact="compact">
+<dt> <code>gmk_expand</code></dt>
+<dd><a name="index-gmk_005fexpand"></a>
+<p>This function takes a string and expands it using <code>make</code>
+expansion rules.  The result of the expansion is returned in a
+nil-terminated string buffer.  The caller is responsible for calling
+<code>gmk_free</code> with a pointer to the returned buffer when done.
+</p>
+</dd>
+<dt> <code>gmk_eval</code></dt>
+<dd><a name="index-gmk_005feval"></a>
+<p>This function takes a buffer and evaluates it as a segment of makefile
+syntax.  This function can be used to define new variables, new rules,
+etc.  It is equivalent to using the <code>eval</code> <code>make</code> function.
+</p></dd>
+</dl>
+
+<p>Note that there is a difference between <code>gmk_eval</code> and calling
+<code>gmk_expand</code> with a string using the <code>eval</code> function: in
+the latter case the string will be expanded <em>twice</em>; once by
+<code>gmk_expand</code> and then again by the <code>eval</code> function.  Using
+<code>gmk_eval</code> the buffer is only expanded once, at most (as it&rsquo;s
+read by the <code>make</code> parser).
+</p>
+<a name="Memory-Management"></a>
+<h4 class="subsubheading">Memory Management</h4>
+
+<p>Some systems allow for different memory management schemes.  Thus you
+should never pass memory that you&rsquo;ve allocated directly to any
+<code>make</code> function, nor should you attempt to directly free any
+memory returned to you by any <code>make</code> function.  Instead, use the
+<code>gmk_alloc</code> and <code>gmk_free</code> functions.
+</p>
+<p>In particular, the string returned to <code>make</code> by a function
+registered using <code>gmk_add_function</code> <em>must</em> be allocated
+using <code>gmk_alloc</code>, and the string returned from the <code>make</code>
+<code>gmk_expand</code> function <em>must</em> be freed (when no longer
+needed) using <code>gmk_free</code>.
+</p>
+<dl compact="compact">
+<dt> <code>gmk_alloc</code></dt>
+<dd><a name="index-gmk_005falloc"></a>
+<p>Return a pointer to a newly-allocated buffer.  This function will
+always return a valid pointer; if not enough memory is available
+<code>make</code> will exit.
+</p>
+</dd>
+<dt> <code>gmk_free</code></dt>
+<dd><a name="index-gmk_005ffree"></a>
+<p>Free a buffer returned to you by <code>make</code>.  Once the
+<code>gmk_free</code> function returns the string will no longer be valid.
+</p></dd>
+</dl>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_140.html#Remaking-Loaded-Objects" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_142.html#Loaded-Object-Example" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_133.html#Extending-make" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_138.html#Loading-Objects" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_143.html#Features" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

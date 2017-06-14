@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 4.5.6 Directory Search for Link Libraries</title>
+
+
+<meta name="keywords" content="GNU make: 4.5.6 Directory Search for Link Libraries">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Libraries_002fSearch"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_35.html#Implicit_002fSearch" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_37.html#Phony-Targets" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_30.html#Directory-Search" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Directory-Search-for-Link-Libraries"></a>
+<h3 class="subsection">4.5.6 Directory Search for Link Libraries</h3>
+<a name="index-link-libraries_002c-and-directory-search"></a>
+<a name="index-libraries-for-linking_002c-directory-search"></a>
+<a name="index-directory-search-_0028VPATH_0029_002c-and-link-libraries"></a>
+<a name="index-VPATH_002c-and-link-libraries"></a>
+<a name="index-search-path-for-prerequisites-_0028VPATH_0029_002c-and-link-libraries"></a>
+<a name="index-_002dl-_0028library-search_0029"></a>
+<a name="index-link-libraries_002c-patterns-matching"></a>
+<a name="index-_002eLIBPATTERNS_002c-and-link-libraries"></a>
+<a name="index-_002eLIBPATTERNS"></a>
+
+<p>Directory search applies in a special way to libraries used with the
+linker.  This special feature comes into play when you write a prerequisite
+whose name is of the form &lsquo;<samp>-l<var>name</var></samp>&rsquo;.  (You can tell something
+strange is going on here because the prerequisite is normally the name of a
+file, and the <em>file name</em> of a library generally looks like
+&lsquo;<tt>lib<var>name</var>.a</tt>&rsquo;, not like &lsquo;<samp>-l<var>name</var></samp>&rsquo;.)
+</p>
+<p>When a prerequisite&rsquo;s name has the form &lsquo;<samp>-l<var>name</var></samp>&rsquo;, <code>make</code>
+handles it specially by searching for the file &lsquo;<tt>lib<var>name</var>.so</tt>&rsquo;,
+and, if it is not found, for the file &lsquo;<tt>lib<var>name</var>.a</tt>&rsquo; in the current
+directory, in directories specified by matching <code>vpath</code>
+search paths and the <code>VPATH</code> search path, and then in the
+directories &lsquo;<tt>/lib</tt>&rsquo;, &lsquo;<tt>/usr/lib</tt>&rsquo;, and &lsquo;<tt><var>prefix</var>/lib</tt>&rsquo;
+(normally &lsquo;<tt>/usr/local/lib</tt>&rsquo;, but MS-DOS/MS-Windows versions of
+<code>make</code> behave as if <var>prefix</var> is defined to be the root of the
+DJGPP installation tree).
+</p>
+<p>For example, if there is a &lsquo;<tt>/usr/lib/libcurses.a</tt>&rsquo; library on your
+system (and no &lsquo;<tt>/usr/lib/libcurses.so</tt>&rsquo; file), then
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">foo : foo.c -lcurses
+        cc $^ -o $@
+</pre></td></tr></table>
+
+<p>would cause the command &lsquo;<samp>cc foo.c /usr/lib/libcurses.a -o foo</samp>&rsquo; to
+be executed when &lsquo;<tt>foo</tt>&rsquo; is older than &lsquo;<tt>foo.c</tt>&rsquo; or than
+&lsquo;<tt>/usr/lib/libcurses.a</tt>&rsquo;.
+</p>
+<p>Although the default set of files to be searched for is
+&lsquo;<tt>lib<var>name</var>.so</tt>&rsquo; and &lsquo;<tt>lib<var>name</var>.a</tt>&rsquo;, this is customizable
+via the <code>.LIBPATTERNS</code> variable.  Each word in the value of this
+variable is a pattern string.  When a prerequisite like
+&lsquo;<samp>-l<var>name</var></samp>&rsquo; is seen, <code>make</code> will replace the percent in
+each pattern in the list with <var>name</var> and perform the above directory
+searches using each library file name.
+</p>
+<p>The default value for <code>.LIBPATTERNS</code> is &lsquo;<samp>lib%.so lib%.a</samp>&rsquo;,
+which provides the default behavior described above.
+</p>
+<p>You can turn off link library expansion completely by setting this
+variable to an empty value.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_35.html#Implicit_002fSearch" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_37.html#Phony-Targets" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_30.html#Directory-Search" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

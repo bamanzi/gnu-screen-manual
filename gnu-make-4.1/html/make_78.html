@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 6.8 Defining Multi-Line Variables</title>
+
+
+<meta name="keywords" content="GNU make: 6.8 Defining Multi-Line Variables">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Multi_002dLine"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_77.html#Override-Directive" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_79.html#Undefine-Directive" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_85.html#Conditionals" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Defining-Multi_002dLine-Variables"></a>
+<h2 class="section">6.8 Defining Multi-Line Variables</h2>
+<a name="index-define"></a>
+<a name="index-endef"></a>
+<a name="index-multi_002dline-variable-definition"></a>
+<a name="index-variables_002c-multi_002dline"></a>
+<a name="index-verbatim-variable-definition"></a>
+<a name="index-defining-variables-verbatim"></a>
+<a name="index-variables_002c-defining-verbatim"></a>
+
+<p>Another way to set the value of a variable is to use the <code>define</code>
+directive.  This directive has an unusual syntax which allows newline
+characters to be included in the value, which is convenient for
+defining both canned sequences of commands (see section <a href="make_66.html#Canned-Recipes">Defining Canned Recipes</a>), and also sections of makefile syntax to
+use with <code>eval</code> (see section <a href="make_98.html#Eval-Function">The <code>eval</code> Function</a>).
+</p>
+<p>The <code>define</code> directive is followed on the same line by the name
+of the variable being defined and an (optional) assignment operator,
+and nothing more.  The value to give the variable appears on the
+following lines.  The end of the value is marked by a line containing
+just the word <code>endef</code>.  Aside from this difference in syntax,
+<code>define</code> works just like any other variable definition.  The
+variable name may contain function and variable references, which are
+expanded when the directive is read to find the actual variable name
+to use.
+</p>
+<p>You may omit the variable assignment operator if you prefer.  If
+omitted, <code>make</code> assumes it to be &lsquo;<samp>=</samp>&rsquo; and creates a
+recursively-expanded variable (see section <a href="make_70.html#Flavors">The Two Flavors of Variables</a>).
+When using a &lsquo;<samp>+=</samp>&rsquo; operator, the value is appended to the previous
+value as with any other append operation: with a single space
+separating the old and new values.
+</p>
+<p>You may nest <code>define</code> directives: <code>make</code> will keep track of
+nested directives and report an error if they are not all properly
+closed with <code>endef</code>.  Note that lines beginning with the recipe
+prefix character are considered part of a recipe, so any <code>define</code>
+or <code>endef</code> strings appearing on such a line will not be
+considered <code>make</code> directives.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">define two-lines =
+echo foo
+echo $(bar)
+endef
+</pre></td></tr></table>
+
+<p>The value in an ordinary assignment cannot contain a newline; but the
+newlines that separate the lines of the value in a <code>define</code> become
+part of the variable&rsquo;s value (except for the final newline which precedes
+the <code>endef</code> and is not considered part of the value).
+</p>
+<p>When used in a recipe, the previous example is functionally equivalent
+to this:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">two-lines = echo foo; echo $(bar)
+</pre></td></tr></table>
+
+<p>since two commands separated by semicolon behave much like two separate
+shell commands.  However, note that using two separate lines means
+<code>make</code> will invoke the shell twice, running an independent sub-shell
+for each line.  See section <a href="make_53.html#Execution">Recipe Execution</a>.
+</p>
+<p>If you want variable definitions made with <code>define</code> to take
+precedence over command-line variable definitions, you can use the
+<code>override</code> directive together with <code>define</code>:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">override define two-lines =
+foo
+$(bar)
+endef
+</pre></td></tr></table>
+
+<p>See section <a href="make_77.html#Override-Directive">The <code>override</code> Directive</a>.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_77.html#Override-Directive" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_79.html#Undefine-Directive" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_85.html#Conditionals" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

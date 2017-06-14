@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 11.4 Suffix Rules for Archive Files</title>
+
+
+<meta name="keywords" content="GNU make: 11.4 Suffix Rules for Archive Files">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Archive-Suffix-Rules"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_131.html#Archive-Pitfalls" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_133.html#Extending-make" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_127.html#Archives" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_127.html#Archives" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_133.html#Extending-make" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Suffix-Rules-for-Archive-Files"></a>
+<h2 class="section">11.4 Suffix Rules for Archive Files</h2>
+<a name="index-suffix-rule_002c-for-archive"></a>
+<a name="index-archive_002c-suffix-rule-for"></a>
+<a name="index-library-archive_002c-suffix-rule-for"></a>
+<a name="index-_002ea-_0028archives_0029"></a>
+
+<p>You can write a special kind of suffix rule for dealing with archive
+files.  See section <a href="make_125.html#Suffix-Rules">Old-Fashioned Suffix Rules</a>, for a full explanation of suffix rules.
+Archive suffix rules are obsolete in GNU <code>make</code>, because pattern
+rules for archives are a more general mechanism (see section <a href="make_129.html#Archive-Update">Implicit Rule for Archive Member Targets</a>).  But they are retained for compatibility with other
+<code>make</code>s.
+</p>
+<p>To write a suffix rule for archives, you simply write a suffix rule
+using the target suffix &lsquo;<samp>.a</samp>&rsquo; (the usual suffix for archive files).
+For example, here is the old-fashioned suffix rule to update a library
+archive from C source files:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">.c.a:
+        $(CC) $(CFLAGS) $(CPPFLAGS) -c $&lt; -o $*.o
+        $(AR) r $@ $*.o
+        $(RM) $*.o
+</pre></td></tr></table>
+
+<p>This works just as if you had written the pattern rule:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">(%.o): %.c
+        $(CC) $(CFLAGS) $(CPPFLAGS) -c $&lt; -o $*.o
+        $(AR) r $@ $*.o
+        $(RM) $*.o
+</pre></td></tr></table>
+
+<p>In fact, this is just what <code>make</code> does when it sees a suffix rule
+with &lsquo;<samp>.a</samp>&rsquo; as the target suffix.  Any double-suffix rule
+&lsquo;<samp>.<var>x</var>.a</samp>&rsquo; is converted to a pattern rule with the target
+pattern &lsquo;<samp>(%.o)</samp>&rsquo; and a prerequisite pattern of &lsquo;<samp>%.<var>x</var></samp>&rsquo;.
+</p>
+<p>Since you might want to use &lsquo;<samp>.a</samp>&rsquo; as the suffix for some other kind
+of file, <code>make</code> also converts archive suffix rules to pattern rules
+in the normal way (see section <a href="make_125.html#Suffix-Rules">Old-Fashioned Suffix Rules</a>).  Thus a double-suffix rule
+&lsquo;<samp>.<var>x</var>.a</samp>&rsquo; produces two pattern rules: &lsquo;<samp>(%.o):
+%.<var>x</var></samp>&rsquo; and &lsquo;<samp>%.a: %.<var>x</var></samp>&rsquo;.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_131.html#Archive-Pitfalls" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_133.html#Extending-make" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_127.html#Archives" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_127.html#Archives" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_133.html#Extending-make" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

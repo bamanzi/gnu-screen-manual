@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 8.5 The foreach Function</title>
+
+
+<meta name="keywords" content="GNU make: 8.5 The foreach Function">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Foreach-Function"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_93.html#Conditional-Functions" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_95.html#File-Function" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_89.html#Functions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_89.html#Functions" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_104.html#Running" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="The-foreach-Function"></a>
+<h2 class="section">8.5 The <code>foreach</code> Function</h2>
+<a name="index-foreach"></a>
+<a name="index-words_002c-iterating-over"></a>
+
+<p>The <code>foreach</code> function is very different from other functions.  It
+causes one piece of text to be used repeatedly, each time with a different
+substitution performed on it.  It resembles the <code>for</code> command in the
+shell <code>sh</code> and the <code>foreach</code> command in the C-shell <code>csh</code>.
+</p>
+<p>The syntax of the <code>foreach</code> function is:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">$(foreach <var>var</var>,<var>list</var>,<var>text</var>)
+</pre></td></tr></table>
+
+<p>The first two arguments, <var>var</var> and <var>list</var>, are expanded before
+anything else is done; note that the last argument, <var>text</var>, is
+<strong>not</strong> expanded at the same time.  Then for each word of the expanded
+value of <var>list</var>, the variable named by the expanded value of <var>var</var>
+is set to that word, and <var>text</var> is expanded.  Presumably <var>text</var>
+contains references to that variable, so its expansion will be different
+each time.
+</p>
+<p>The result is that <var>text</var> is expanded as many times as there are
+whitespace-separated words in <var>list</var>.  The multiple expansions of
+<var>text</var> are concatenated, with spaces between them, to make the result
+of <code>foreach</code>.
+</p>
+<p>This simple example sets the variable &lsquo;<samp>files</samp>&rsquo; to the list of all files
+in the directories in the list &lsquo;<samp>dirs</samp>&rsquo;:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">dirs := a b c d
+files := $(foreach dir,$(dirs),$(wildcard $(dir)/*))
+</pre></td></tr></table>
+
+<p>Here <var>text</var> is &lsquo;<samp>$(wildcard $(dir)/*)</samp>&rsquo;.  The first repetition
+finds the value &lsquo;<samp>a</samp>&rsquo; for <code>dir</code>, so it produces the same result
+as &lsquo;<samp>$(wildcard a/*)</samp>&rsquo;; the second repetition produces the result
+of &lsquo;<samp>$(wildcard b/*)</samp>&rsquo;; and the third, that of &lsquo;<samp>$(wildcard c/*)</samp>&rsquo;.
+</p>
+<p>This example has the same result (except for setting &lsquo;<samp>dirs</samp>&rsquo;) as
+the following example:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">files := $(wildcard a/* b/* c/* d/*)
+</pre></td></tr></table>
+
+<p>When <var>text</var> is complicated, you can improve readability by giving it
+a name, with an additional variable:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">find_files = $(wildcard $(dir)/*)
+dirs := a b c d
+files := $(foreach dir,$(dirs),$(find_files))
+</pre></td></tr></table>
+
+<p>Here we use the variable <code>find_files</code> this way.  We use plain &lsquo;<samp>=</samp>&rsquo;
+to define a recursively-expanding variable, so that its value contains an
+actual function call to be re-expanded under the control of <code>foreach</code>;
+a simply-expanded variable would not do, since <code>wildcard</code> would be
+called only once at the time of defining <code>find_files</code>.
+</p>
+<p>The <code>foreach</code> function has no permanent effect on the variable
+<var>var</var>; its value and flavor after the <code>foreach</code> function call are
+the same as they were beforehand.  The other values which are taken from
+<var>list</var> are in effect only temporarily, during the execution of
+<code>foreach</code>.  The variable <var>var</var> is a simply-expanded variable
+during the execution of <code>foreach</code>.  If <var>var</var> was undefined
+before the <code>foreach</code> function call, it is undefined after the call.
+See section <a href="make_70.html#Flavors">The Two Flavors of Variables</a>.
+</p>
+<p>You must take care when using complex variable expressions that result in
+variable names because many strange things are valid variable names, but
+are probably not what you intended.  For example,
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="smallexample">files := $(foreach Esta-escrito-en-espanol!,b c ch,$(find_files))
+</pre></td></tr></table>
+
+<p>might be useful if the value of <code>find_files</code> references the variable
+whose name is &lsquo;<samp>Esta-escrito-en-espanol!</samp>&rsquo; (es un nombre bastante largo,
+no?), but it is more likely to be a mistake.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_93.html#Conditional-Functions" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_95.html#File-Function" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_89.html#Functions" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_89.html#Functions" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_104.html#Running" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

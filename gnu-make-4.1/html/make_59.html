@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 5.5 Errors in Recipes</title>
+
+
+<meta name="keywords" content="GNU make: 5.5 Errors in Recipes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Errors"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_58.html#Parallel-Input" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_60.html#Interrupts" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Errors-in-Recipes"></a>
+<h2 class="section">5.5 Errors in Recipes</h2>
+<a name="index-errors-_0028in-recipes_0029"></a>
+<a name="index-recipes_002c-errors-in"></a>
+<a name="index-exit-status-_0028errors_0029"></a>
+
+<p>After each shell invocation returns, <code>make</code> looks at its exit
+status.  If the shell completed successfully (the exit status is
+zero), the next line in the recipe is executed in a new shell; after
+the last line is finished, the rule is finished.
+</p>
+<p>If there is an error (the exit status is nonzero), <code>make</code> gives up on
+the current rule, and perhaps on all rules.
+</p>
+<p>Sometimes the failure of a certain recipe line does not indicate a problem.
+For example, you may use the <code>mkdir</code> command to ensure that a
+directory exists.  If the directory already exists, <code>mkdir</code> will
+report an error, but you probably want <code>make</code> to continue regardless.
+</p>
+<a name="index-_002d-_0028in-recipes_0029"></a>
+<p>To ignore errors in a recipe line, write a &lsquo;<samp>-</samp>&rsquo; at the beginning
+of the line&rsquo;s text (after the initial tab).  The &lsquo;<samp>-</samp>&rsquo; is discarded
+before the line is passed to the shell for execution.
+</p>
+<p>For example,
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">clean:
+        -rm -f *.o
+</pre></td></tr></table>
+<a name="index-rm-_0028shell-command_0029-3"></a>
+
+<p>This causes <code>make</code> to continue even if <code>rm</code> is unable to
+remove a file.
+</p>
+<a name="index-_002di"></a>
+<a name="index-_002d_002dignore_002derrors"></a>
+<a name="index-_002eIGNORE-1"></a>
+<p>When you run <code>make</code> with the &lsquo;<samp>-i</samp>&rsquo; or &lsquo;<samp>--ignore-errors</samp>&rsquo;
+flag, errors are ignored in all recipes of all rules.  A rule in the
+makefile for the special target <code>.IGNORE</code> has the same effect, if
+there are no prerequisites.  These ways of ignoring errors are obsolete
+because &lsquo;<samp>-</samp>&rsquo; is more flexible.
+</p>
+<p>When errors are to be ignored, because of either a &lsquo;<samp>-</samp>&rsquo; or the
+&lsquo;<samp>-i</samp>&rsquo; flag, <code>make</code> treats an error return just like success,
+except that it prints out a message that tells you the status code
+the shell exited with, and says that the error has been ignored.
+</p>
+<p>When an error happens that <code>make</code> has not been told to ignore,
+it implies that the current target cannot be correctly remade, and neither
+can any other that depends on it either directly or indirectly.  No further
+recipes will be executed for these targets, since their preconditions
+have not been achieved.
+</p>
+
+<a name="index-_002dk"></a>
+<a name="index-_002d_002dkeep_002dgoing"></a>
+<p>Normally <code>make</code> gives up immediately in this circumstance, returning a
+nonzero status.  However, if the &lsquo;<samp>-k</samp>&rsquo; or &lsquo;<samp>--keep-going</samp>&rsquo;
+flag is specified, <code>make</code>
+continues to consider the other prerequisites of the pending targets,
+remaking them if necessary, before it gives up and returns nonzero status.
+For example, after an error in compiling one object file, &lsquo;<samp>make -k</samp>&rsquo;
+will continue compiling other object files even though it already knows
+that linking them will be impossible.  See section <a href="make_111.html#Options-Summary">Summary of Options</a>.
+</p>
+<p>The usual behavior assumes that your purpose is to get the specified
+targets up to date; once <code>make</code> learns that this is impossible, it
+might as well report the failure immediately.  The &lsquo;<samp>-k</samp>&rsquo; option says
+that the real purpose is to test as many of the changes made in the
+program as possible, perhaps to find several independent problems so
+that you can correct them all before the next attempt to compile.  This
+is why Emacs&rsquo; <code>compile</code> command passes the &lsquo;<samp>-k</samp>&rsquo; flag by
+default.
+<a name="index-Emacs-_0028M_002dx-compile_0029"></a>
+</p>
+<a name="index-_002eDELETE_005fON_005fERROR-1"></a>
+<a name="index-deletion-of-target-files"></a>
+<a name="index-removal-of-target-files"></a>
+<a name="index-target_002c-deleting-on-error"></a>
+<p>Usually when a recipe line fails, if it has changed the target file at all,
+the file is corrupted and cannot be used&mdash;or at least it is not
+completely updated.  Yet the file&rsquo;s time stamp says that it is now up to
+date, so the next time <code>make</code> runs, it will not try to update that
+file.  The situation is just the same as when the shell is killed by a
+signal; see section <a href="make_60.html#Interrupts">Interrupting or Killing <code>make</code></a>.  So generally the right thing to do is to
+delete the target file if the recipe fails after beginning to change
+the file.  <code>make</code> will do this if <code>.DELETE_ON_ERROR</code> appears
+as a target.  This is almost always what you want <code>make</code> to do, but
+it is not historical practice; so for compatibility, you must explicitly
+request it.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_58.html#Parallel-Input" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_60.html#Interrupts" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

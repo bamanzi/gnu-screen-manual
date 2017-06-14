@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 8. Functions for Transforming Text</title>
+
+
+<meta name="keywords" content="GNU make: 8. Functions for Transforming Text">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Functions"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_88.html#Testing-Flags" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_90.html#Syntax-of-Functions" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_85.html#Conditionals" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_104.html#Running" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Functions-for-Transforming-Text"></a>
+<h1 class="chapter">8. Functions for Transforming Text</h1>
+<a name="index-functions"></a>
+
+<p><em>Functions</em> allow you to do text processing in the makefile to
+compute the files to operate on or the commands to use in recipes.
+You use a function in a <em>function call</em>, where you give the name
+of the function and some text (the <em>arguments</em>) for the function
+to operate on.  The result of the function&rsquo;s processing is substituted
+into the makefile at the point of the call, just as a variable might
+be substituted.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="make_90.html#Syntax-of-Functions" accesskey="1">8.1 Function Call Syntax</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         How to write a function call.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_91.html#Text-Functions" accesskey="2">8.2 Functions for String Substitution and Analysis</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              General-purpose text manipulation functions.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_92.html#File-Name-Functions" accesskey="3">8.3 Functions for File Names</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         Functions for manipulating file names.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_93.html#Conditional-Functions" accesskey="4">8.4 Functions for Conditionals</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">       Functions that implement conditions.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_94.html#Foreach-Function" accesskey="5">8.5 The <code>foreach</code> Function</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            Repeat some text with controlled variation.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_95.html#File-Function" accesskey="6">8.6 The <code>file</code> Function</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               Write text to a file.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_96.html#Call-Function" accesskey="7">8.7 The <code>call</code> Function</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               Expand a user-defined function.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_97.html#Value-Function" accesskey="8">8.8 The <code>value</code> Function</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              Return the un-expanded value of a variable.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_98.html#Eval-Function" accesskey="9">8.9 The <code>eval</code> Function</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               Evaluate the arguments as makefile syntax.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_99.html#Origin-Function">8.10 The <code>origin</code> Function</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             Find where a variable got its value.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_100.html#Flavor-Function">8.11 The <code>flavor</code> Function</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             Find out the flavor of a variable.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_101.html#Make-Control-Functions">8.12 Functions That Control Make</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">      Functions that control how make runs.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_102.html#Shell-Function">8.13 The <code>shell</code> Function</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              Substitute the output of a shell command.
+</td></tr>
+<tr><td align="left" valign="top"><a href="make_103.html#Guile-Function">8.14 The <code>guile</code> Function</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              Use GNU Guile embedded scripting language.
+</td></tr>
+</table>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_88.html#Testing-Flags" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_90.html#Syntax-of-Functions" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_85.html#Conditionals" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_104.html#Running" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

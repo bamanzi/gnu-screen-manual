@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 5.8 Defining Canned Recipes</title>
+
+
+<meta name="keywords" content="GNU make: 5.8 Defining Canned Recipes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Canned-Recipes"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_65.html#g_t_002dw-Option" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_67.html#Empty-Recipes" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Defining-Canned-Recipes"></a>
+<h2 class="section">5.8 Defining Canned Recipes</h2>
+<a name="index-canned-recipes"></a>
+<a name="index-recipes_002c-canned"></a>
+<a name="index-sequences-of-commands"></a>
+<a name="index-commands_002c-sequences-of"></a>
+
+<p>When the same sequence of commands is useful in making various
+targets, you can define it as a canned sequence with the <code>define</code>
+directive, and refer to the canned sequence from the recipes for those
+targets.  The canned sequence is actually a variable, so the name must
+not conflict with other variable names.
+</p>
+<p>Here is an example of defining a canned recipe:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">define run-yacc =
+yacc $(firstword $^)
+mv y.tab.c $@
+endef
+</pre></td></tr></table>
+<a name="index-yacc"></a>
+
+<p>Here <code>run-yacc</code> is the name of the variable being defined;
+<code>endef</code> marks the end of the definition; the lines in between are the
+commands.  The <code>define</code> directive does not expand variable references
+and function calls in the canned sequence; the &lsquo;<samp>$</samp>&rsquo; characters,
+parentheses, variable names, and so on, all become part of the value of the
+variable you are defining.
+See section <a href="make_78.html#Multi_002dLine">Defining Multi-Line Variables</a>,
+for a complete explanation of <code>define</code>.
+</p>
+<p>The first command in this example runs Yacc on the first prerequisite of
+whichever rule uses the canned sequence.  The output file from Yacc is
+always named &lsquo;<tt>y.tab.c</tt>&rsquo;.  The second command moves the output to the
+rule&rsquo;s target file name.
+</p>
+<p>To use the canned sequence, substitute the variable into the recipe of a
+rule.  You can substitute it like any other variable
+(see section <a href="make_69.html#Reference">Basics of Variable References</a>).
+Because variables defined by <code>define</code> are recursively expanded
+variables, all the variable references you wrote inside the <code>define</code>
+are expanded now.  For example:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">foo.c : foo.y
+        $(run-yacc)
+</pre></td></tr></table>
+
+<p>&lsquo;<samp>foo.y</samp>&rsquo; will be substituted for the variable &lsquo;<samp>$^</samp>&rsquo; when it occurs in
+<code>run-yacc</code>&rsquo;s value, and &lsquo;<samp>foo.c</samp>&rsquo; for &lsquo;<samp>$@</samp>&rsquo;.
+</p>
+<p>This is a realistic example, but this particular one is not needed in
+practice because <code>make</code> has an implicit rule to figure out these
+commands based on the file names involved
+(see section <a href="make_112.html#Implicit-Rules">Using Implicit Rules</a>).
+</p>
+<a name="index-_0040_002c-and-define"></a>
+<a name="index-_002d_002c-and-define"></a>
+<a name="index-_002b_002c-and-define"></a>
+<p>In recipe execution, each line of a canned sequence is treated just as
+if the line appeared on its own in the rule, preceded by a tab.  In
+particular, <code>make</code> invokes a separate sub-shell for each line.  You
+can use the special prefix characters that affect command lines
+(&lsquo;<samp>@</samp>&rsquo;, &lsquo;<samp>-</samp>&rsquo;, and &lsquo;<samp>+</samp>&rsquo;) on each line of a canned sequence.
+See section <a href="make_48.html#Recipes">Writing Recipes in Rules</a>.
+For example, using this canned sequence:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">define frobnicate =
+@echo &quot;frobnicating target $@&quot;
+frob-step-1 $&lt; -o $@-step-1
+frob-step-2 $@-step-1 -o $@
+endef
+</pre></td></tr></table>
+
+<p><code>make</code> will not echo the first line, the <code>echo</code> command.
+But it <em>will</em> echo the following two recipe lines.
+</p>
+<p>On the other hand, prefix characters on the recipe line that refers to
+a canned sequence apply to every line in the sequence.  So the rule:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">frob.out: frob.in
+        @$(frobnicate)
+</pre></td></tr></table>
+
+<p>does not echo <em>any</em> recipe lines.
+(See section <a href="make_52.html#Echoing">Recipe Echoing</a>, for a full explanation of &lsquo;<samp>@</samp>&rsquo;.)
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_65.html#g_t_002dw-Option" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_67.html#Empty-Recipes" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

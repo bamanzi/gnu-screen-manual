@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 4.2 Rule Syntax</title>
+
+
+<meta name="keywords" content="GNU make: 4.2 Rule Syntax">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Rule-Syntax"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_23.html#Rule-Example" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_25.html#Prerequisite-Types" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Rule-Syntax-1"></a>
+<h2 class="section">4.2 Rule Syntax</h2>
+
+<a name="index-rule-syntax"></a>
+<a name="index-syntax-of-rules"></a>
+<p>In general, a rule looks like this:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example"><var>targets</var> : <var>prerequisites</var>
+        <var>recipe</var>
+        &hellip;
+</pre></td></tr></table>
+
+<p>or like this:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example"><var>targets</var> : <var>prerequisites</var> ; <var>recipe</var>
+        <var>recipe</var>
+        &hellip;
+</pre></td></tr></table>
+
+<a name="index-targets"></a>
+<a name="index-rule-targets"></a>
+<p>The <var>targets</var> are file names, separated by spaces.  Wildcard
+characters may be used (see section <a href="make_26.html#Wildcards">Using Wildcard Characters in File Names</a>) and a name of the form &lsquo;<tt><var>a</var>(<var>m</var>)</tt>&rsquo;
+represents member <var>m</var> in archive file <var>a</var>
+(see section <a href="make_128.html#Archive-Members">Archive Members as Targets</a>).
+Usually there is only one
+target per rule, but occasionally there is a reason to have more
+(see section <a href="make_41.html#Multiple-Targets">Multiple Targets in a Rule</a>).
+</p>
+<a name="index-recipes"></a>
+<a name="index-tab-character-_0028in-commands_0029"></a>
+<p>The <var>recipe</var> lines start with a tab character (or the first
+character in the value of the <code>.RECIPEPREFIX</code> variable;
+see section <a href="make_84.html#Special-Variables">Other Special Variables</a>).  The first recipe line may appear on the line
+after the prerequisites, with a tab character, or may appear on the
+same line, with a semicolon.  Either way, the effect is the same.
+There are other differences in the syntax of recipes.
+See section <a href="make_48.html#Recipes">Writing Recipes in Rules</a>.
+</p>
+<a name="index-dollar-sign-_0028_0024_0029_002c-in-rules"></a>
+<a name="index-_0024_002c-in-rules"></a>
+<a name="index-rules_002c-and-_0024"></a>
+<p>Because dollar signs are used to start <code>make</code> variable
+references, if you really want a dollar sign in a target or
+prerequisite you must write two of them, &lsquo;<samp>$$</samp>&rsquo; (see section <a href="make_68.html#Using-Variables">How to Use Variables</a>).  If you have enabled secondary
+expansion (see section <a href="make_21.html#Secondary-Expansion">Secondary Expansion</a>) and you want a literal dollar
+sign in the prerequisites list, you must actually write <em>four</em>
+dollar signs (&lsquo;<samp>$$$$</samp>&rsquo;).
+</p>
+<p>You may split a long line by inserting a backslash followed by a
+newline, but this is not required, as <code>make</code> places no limit on
+the length of a line in a makefile.
+</p>
+<p>A rule tells <code>make</code> two things: when the targets are out of date,
+and how to update them when necessary.
+</p>
+<a name="index-prerequisites"></a>
+<a name="index-rule-prerequisites"></a>
+<p>The criterion for being out of date is specified in terms of the
+<var>prerequisites</var>, which consist of file names separated by spaces.
+(Wildcards and archive members (see section <a href="make_127.html#Archives">Using <code>make</code> to Update Archive Files</a>) are allowed here too.)
+A target is out of date if it does not exist or if it is older than any
+of the prerequisites (by comparison of last-modification times).  The
+idea is that the contents of the target file are computed based on
+information in the prerequisites, so if any of the prerequisites changes,
+the contents of the existing target file are no longer necessarily
+valid.
+</p>
+<p>How to update is specified by a <var>recipe</var>.  This is one or more
+lines to be executed by the shell (normally &lsquo;<samp>sh</samp>&rsquo;), but with some
+extra features (see section <a href="make_48.html#Recipes">Writing Recipes in Rules</a>).
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_23.html#Rule-Example" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_25.html#Prerequisite-Types" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

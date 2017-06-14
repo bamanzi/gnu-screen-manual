@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 5.7.1 How the MAKE Variable Works</title>
+
+
+<meta name="keywords" content="GNU make: 5.7.1 How the MAKE Variable Works">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="MAKE-Variable"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_61.html#Recursion" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_63.html#Variables_002fRecursion" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_61.html#Recursion" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="How-the-MAKE-Variable-Works"></a>
+<h3 class="subsection">5.7.1 How the <code>MAKE</code> Variable Works</h3>
+<a name="index-MAKE"></a>
+<a name="index-recursion_002c-and-MAKE-variable"></a>
+
+<p>Recursive <code>make</code> commands should always use the variable <code>MAKE</code>,
+not the explicit command name &lsquo;<samp>make</samp>&rsquo;, as shown here:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">subsystem:
+        cd subdir &amp;&amp; $(MAKE)
+</pre></td></tr></table>
+
+<p>The value of this variable is the file name with which <code>make</code> was
+invoked.  If this file name was &lsquo;<tt>/bin/make</tt>&rsquo;, then the recipe executed
+is &lsquo;<samp>cd subdir &amp;&amp; /bin/make</samp>&rsquo;.  If you use a special version of
+<code>make</code> to run the top-level makefile, the same special version will be
+executed for recursive invocations.
+<a name="index-cd-_0028shell-command_0029-1"></a>
+</p>
+<a name="index-_002b_002c-and-recipes"></a>
+<p>As a special feature, using the variable <code>MAKE</code> in the recipe of
+a rule alters the effects of the &lsquo;<samp>-t</samp>&rsquo; (&lsquo;<samp>--touch</samp>&rsquo;), &lsquo;<samp>-n</samp>&rsquo;
+(&lsquo;<samp>--just-print</samp>&rsquo;), or &lsquo;<samp>-q</samp>&rsquo; (&lsquo;<samp>--question</samp>&rsquo;) option.
+Using the <code>MAKE</code> variable has the same effect as using a &lsquo;<samp>+</samp>&rsquo;
+character at the beginning of the recipe line.  See section <a href="make_107.html#Instead-of-Execution">Instead of Executing the Recipes</a>.  This special feature
+is only enabled if the <code>MAKE</code> variable appears directly in the
+recipe: it does not apply if the <code>MAKE</code> variable is referenced
+through expansion of another variable.  In the latter case you must
+use the &lsquo;<samp>+</samp>&rsquo; token to get these special effects.
+</p>
+<p>Consider the command &lsquo;<samp>make -t</samp>&rsquo; in the above example.  (The
+&lsquo;<samp>-t</samp>&rsquo; option marks targets as up to date without actually running
+any recipes; see <a href="make_107.html#Instead-of-Execution">Instead of Executing Recipes</a>.)  Following the usual
+definition of &lsquo;<samp>-t</samp>&rsquo;, a &lsquo;<samp>make -t</samp>&rsquo; command in the example would
+create a file named &lsquo;<tt>subsystem</tt>&rsquo; and do nothing else.  What you
+really want it to do is run &lsquo;<samp>cd subdir &amp;&amp; make -t</samp>&rsquo;; but
+that would require executing the recipe, and &lsquo;<samp>-t</samp>&rsquo; says not to
+execute recipes.
+<a name="index-_002dt_002c-and-recursion"></a>
+<a name="index-recursion_002c-and-_002dt"></a>
+<a name="index-_002d_002dtouch_002c-and-recursion"></a>
+</p>
+<p>The special feature makes this do what you want: whenever a recipe
+line of a rule contains the variable <code>MAKE</code>, the flags &lsquo;<samp>-t</samp>&rsquo;,
+&lsquo;<samp>-n</samp>&rsquo; and &lsquo;<samp>-q</samp>&rsquo; do not apply to that line.  Recipe lines
+containing <code>MAKE</code> are executed normally despite the presence of a
+flag that causes most recipes not to be run.  The usual
+<code>MAKEFLAGS</code> mechanism passes the flags to the sub-<code>make</code>
+(see section <a href="make_64.html#Options_002fRecursion">Communicating Options to a Sub-<code>make</code></a>), so your request to touch the files, or print the
+recipes, is propagated to the subsystem.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_61.html#Recursion" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_63.html#Variables_002fRecursion" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_61.html#Recursion" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

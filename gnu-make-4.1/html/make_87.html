@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 7.2 Syntax of Conditionals</title>
+
+
+<meta name="keywords" content="GNU make: 7.2 Syntax of Conditionals">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Conditional-Syntax"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_86.html#Conditional-Example" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_88.html#Testing-Flags" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_85.html#Conditionals" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_85.html#Conditionals" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_89.html#Functions" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Syntax-of-Conditionals"></a>
+<h2 class="section">7.2 Syntax of Conditionals</h2>
+<a name="index-ifdef"></a>
+<a name="index-ifeq"></a>
+<a name="index-ifndef"></a>
+<a name="index-ifneq"></a>
+<a name="index-else"></a>
+<a name="index-endif"></a>
+
+<p>The syntax of a simple conditional with no <code>else</code> is as follows:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example"><var>conditional-directive</var>
+<var>text-if-true</var>
+endif
+</pre></td></tr></table>
+
+<p>The <var>text-if-true</var> may be any lines of text, to be considered as part
+of the makefile if the condition is true.  If the condition is false, no
+text is used instead.
+</p>
+<p>The syntax of a complex conditional is as follows:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example"><var>conditional-directive</var>
+<var>text-if-true</var>
+else
+<var>text-if-false</var>
+endif
+</pre></td></tr></table>
+
+<p>or:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example"><var>conditional-directive-one</var>
+<var>text-if-one-is-true</var>
+else <var>conditional-directive-two</var>
+<var>text-if-two-is-true</var>
+else
+<var>text-if-one-and-two-are-false</var>
+endif
+</pre></td></tr></table>
+
+<p>There can be as many &ldquo;<code>else</code> <var>conditional-directive</var>&rdquo;
+clauses as necessary.  Once a given condition is true,
+<var>text-if-true</var> is used and no other clause is used; if no
+condition is true then <var>text-if-false</var> is used.  The
+<var>text-if-true</var> and <var>text-if-false</var> can be any number of lines
+of text.
+</p>
+<p>The syntax of the <var>conditional-directive</var> is the same whether the
+conditional is simple or complex; after an <code>else</code> or not.  There
+are four different directives that test different conditions.  Here is
+a table of them:
+</p>
+<dl compact="compact">
+<dt> <code>ifeq (<var>arg1</var>, <var>arg2</var>)</code></dt>
+<dt> <code>ifeq '<var>arg1</var>' '<var>arg2</var>'</code></dt>
+<dt> <code>ifeq &quot;<var>arg1</var>&quot; &quot;<var>arg2</var>&quot;</code></dt>
+<dt> <code>ifeq &quot;<var>arg1</var>&quot; '<var>arg2</var>'</code></dt>
+<dt> <code>ifeq '<var>arg1</var>' &quot;<var>arg2</var>&quot;</code></dt>
+<dd><p>Expand all variable references in <var>arg1</var> and <var>arg2</var> and
+compare them.  If they are identical, the <var>text-if-true</var> is
+effective; otherwise, the <var>text-if-false</var>, if any, is effective.
+</p>
+<p>Often you want to test if a variable has a non-empty value.  When the
+value results from complex expansions of variables and functions,
+expansions you would consider empty may actually contain whitespace
+characters and thus are not seen as empty.  However, you can use the
+<code>strip</code> function (see section <a href="make_91.html#Text-Functions">Functions for String Substitution and Analysis</a>) to avoid interpreting
+whitespace as a non-empty value.  For example:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">ifeq ($(strip $(foo)),)
+<var>text-if-empty</var>
+endif
+</pre></td></tr></table>
+
+<p>will evaluate <var>text-if-empty</var> even if the expansion of
+<code>$(foo)</code> contains whitespace characters.
+</p>
+</dd>
+<dt> <code>ifneq (<var>arg1</var>, <var>arg2</var>)</code></dt>
+<dt> <code>ifneq '<var>arg1</var>' '<var>arg2</var>'</code></dt>
+<dt> <code>ifneq &quot;<var>arg1</var>&quot; &quot;<var>arg2</var>&quot;</code></dt>
+<dt> <code>ifneq &quot;<var>arg1</var>&quot; '<var>arg2</var>'</code></dt>
+<dt> <code>ifneq '<var>arg1</var>' &quot;<var>arg2</var>&quot;</code></dt>
+<dd><p>Expand all variable references in <var>arg1</var> and <var>arg2</var> and
+compare them.  If they are different, the <var>text-if-true</var> is
+effective; otherwise, the <var>text-if-false</var>, if any, is effective.
+</p>
+</dd>
+<dt> <code>ifdef <var>variable-name</var></code></dt>
+<dd><p>The <code>ifdef</code> form takes the <em>name</em> of a variable as its
+argument, not a reference to a variable.  The value of that variable
+has a non-empty value, the <var>text-if-true</var> is effective; otherwise,
+the <var>text-if-false</var>, if any, is effective.  Variables that have
+never been defined have an empty value.  The text <var>variable-name</var>
+is expanded, so it could be a variable or function that expands
+to the name of a variable.  For example:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">bar = true
+foo = bar
+ifdef $(foo)
+frobozz = yes
+endif
+</pre></td></tr></table>
+
+<p>The variable reference <code>$(foo)</code> is expanded, yielding <code>bar</code>,
+which is considered to be the name of a variable.  The variable
+<code>bar</code> is not expanded, but its value is examined to determine if
+it is non-empty.
+</p>
+<p>Note that <code>ifdef</code> only tests whether a variable has a value.  It
+does not expand the variable to see if that value is nonempty.
+Consequently, tests using <code>ifdef</code> return true for all definitions
+except those like <code>foo =</code>.  To test for an empty value, use
+<code>ifeq ($(foo),)</code>.  For example,
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">bar =
+foo = $(bar)
+ifdef foo
+frobozz = yes
+else
+frobozz = no
+endif
+</pre></td></tr></table>
+
+<p>sets &lsquo;<samp>frobozz</samp>&rsquo; to &lsquo;<samp>yes</samp>&rsquo;, while:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">foo =
+ifdef foo
+frobozz = yes
+else
+frobozz = no
+endif
+</pre></td></tr></table>
+
+<p>sets &lsquo;<samp>frobozz</samp>&rsquo; to &lsquo;<samp>no</samp>&rsquo;.
+</p>
+</dd>
+<dt> <code>ifndef <var>variable-name</var></code></dt>
+<dd><p>If the variable <var>variable-name</var> has an empty value, the
+<var>text-if-true</var> is effective; otherwise, the <var>text-if-false</var>,
+if any, is effective.  The rules for expansion and testing of
+<var>variable-name</var> are identical to the <code>ifdef</code> directive.
+</p></dd>
+</dl>
+
+<p>Extra spaces are allowed and ignored at the beginning of the
+conditional directive line, but a tab is not allowed.  (If the line
+begins with a tab, it will be considered part of a recipe for a rule.)
+Aside from this, extra spaces or tabs may be inserted with no effect
+anywhere except within the directive name or within an argument.  A
+comment starting with &lsquo;<samp>#</samp>&rsquo; may appear at the end of the line.
+</p>
+<p>The other two directives that play a part in a conditional are <code>else</code>
+and <code>endif</code>.  Each of these directives is written as one word, with no
+arguments.  Extra spaces are allowed and ignored at the beginning of the
+line, and spaces or tabs at the end.  A comment starting with &lsquo;<samp>#</samp>&rsquo; may
+appear at the end of the line.
+</p>
+<p>Conditionals affect which lines of the makefile <code>make</code> uses.  If
+the condition is true, <code>make</code> reads the lines of the
+<var>text-if-true</var> as part of the makefile; if the condition is false,
+<code>make</code> ignores those lines completely.  It follows that syntactic
+units of the makefile, such as rules, may safely be split across the
+beginning or the end of the conditional.
+</p>
+<p><code>make</code> evaluates conditionals when it reads a makefile.
+Consequently, you cannot use automatic variables in the tests of
+conditionals because they are not defined until recipes are run
+(see section <a href="make_120.html#Automatic-Variables">Automatic Variables</a>).
+</p>
+<p>To prevent intolerable confusion, it is not permitted to start a
+conditional in one makefile and end it in another.  However, you may
+write an <code>include</code> directive within a conditional, provided you do
+not attempt to terminate the conditional inside the included file.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_86.html#Conditional-Example" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_88.html#Testing-Flags" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_85.html#Conditionals" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_85.html#Conditionals" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_89.html#Functions" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

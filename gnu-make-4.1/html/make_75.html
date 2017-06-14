@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 6.5 Setting Variables</title>
+
+
+<meta name="keywords" content="GNU make: 6.5 Setting Variables">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Setting"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_74.html#Values" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_76.html#Appending" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_85.html#Conditionals" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Setting-Variables"></a>
+<h2 class="section">6.5 Setting Variables</h2>
+<a name="index-setting-variables"></a>
+<a name="index-variables_002c-setting"></a>
+<a name="index-_003d-1"></a>
+<a name="index-_003a_003d-1"></a>
+<a name="index-_003a_003a_003d-1"></a>
+<a name="index-_003f_003d-1"></a>
+<a name="index-_0021_003d"></a>
+
+<p>To set a variable from the makefile, write a line starting with the
+variable name followed by &lsquo;<samp>=</samp>&rsquo; &lsquo;<samp>:=</samp>&rsquo;, or &lsquo;<samp>::=</samp>&rsquo;.  Whatever
+follows the &lsquo;<samp>=</samp>&rsquo;, &lsquo;<samp>:=</samp>&rsquo;, or &lsquo;<samp>::=</samp>&rsquo; on the line becomes the
+value.  For example,
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">objects = main.o foo.o bar.o utils.o
+</pre></td></tr></table>
+
+<p>defines a variable named <code>objects</code>.  Whitespace around the variable
+name and immediately after the &lsquo;<samp>=</samp>&rsquo; is ignored.
+</p>
+<p>Variables defined with &lsquo;<samp>=</samp>&rsquo; are <em>recursively expanded</em>
+variables.  Variables defined with &lsquo;<samp>:=</samp>&rsquo; or &lsquo;<samp>::=</samp>&rsquo; are
+<em>simply expanded</em> variables; these definitions can contain
+variable references which will be expanded before the definition is
+made.  See section <a href="make_70.html#Flavors">The Two Flavors of Variables</a>.
+</p>
+<p>The variable name may contain function and variable references, which
+are expanded when the line is read to find the actual variable name to use.
+</p>
+<p>There is no limit on the length of the value of a variable except the
+amount of memory on the computer.  You can split the value of a
+variable into multiple physical lines for readability
+(see section <a href="make_14.html#Splitting-Lines">Splitting Long Lines</a>).
+</p>
+<p>Most variable names are considered to have the empty string as a value if
+you have never set them.  Several variables have built-in initial values
+that are not empty, but you can set them in the usual ways
+(see section <a href="make_115.html#Implicit-Variables">Variables Used by Implicit Rules</a>).
+Several special variables are set
+automatically to a new value for each rule; these are called the
+<em>automatic</em> variables (see section <a href="make_120.html#Automatic-Variables">Automatic Variables</a>).
+</p>
+<p>If you&rsquo;d like a variable to be set to a value only if it&rsquo;s not already
+set, then you can use the shorthand operator &lsquo;<samp>?=</samp>&rsquo; instead of
+&lsquo;<samp>=</samp>&rsquo;.  These two settings of the variable &lsquo;<samp>FOO</samp>&rsquo; are identical
+(see section <a href="make_99.html#Origin-Function">The <code>origin</code> Function</a>):
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">FOO ?= bar
+</pre></td></tr></table>
+
+<p>and
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">ifeq ($(origin FOO), undefined)
+FOO = bar
+endif
+</pre></td></tr></table>
+
+<p>The shell assignment operator &lsquo;<samp>!=</samp>&rsquo; can be used to execute a
+program and set a variable to its output.  This operator first
+evaluates the right-hand side, then passes that result to the shell
+for execution.  If the result of the execution ends in a newline, that
+one newline is removed; all other newlines are replaced by spaces.
+The resulting string is then placed into the named
+recursively-expanded variable.  For example:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">hash != printf '\043'
+file_list != find . -name '*.c'
+</pre></td></tr></table>
+
+<p>If the result of the execution could produce a <code>$</code>, and you don&rsquo;t
+intend what follows that to be interpreted as a make variable or
+function reference, then you must replace every <code>$</code> with
+<code>$$</code> as part of the execution.  Alternatively, you can set a
+simply expanded variable to the result of running a program using the
+<code>shell</code> function call.  See section <a href="make_102.html#Shell-Function">The <code>shell</code> Function</a>.  For example:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">hash := $(shell printf '\043')
+var := $(shell find . -name &quot;*.c&quot;)
+</pre></td></tr></table>
+
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_74.html#Values" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_76.html#Appending" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_85.html#Conditionals" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

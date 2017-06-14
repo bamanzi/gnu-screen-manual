@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 4.9 Special Built-in Target Names</title>
+
+
+<meta name="keywords" content="GNU make: 4.9 Special Built-in Target Names">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Special-Targets"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_39.html#Empty-Targets" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_41.html#Multiple-Targets" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Special-Built_002din-Target-Names"></a>
+<h2 class="section">4.9 Special Built-in Target Names</h2>
+<a name="index-special-targets"></a>
+<a name="index-built_002din-special-targets"></a>
+<a name="index-targets_002c-built_002din-special"></a>
+
+<p>Certain names have special meanings if they appear as targets.
+</p>
+<dl compact="compact">
+<dd><a name="index-_002ePHONY-1"></a>
+</dd>
+<dt> <code>.PHONY</code></dt>
+<dd>
+<p>The prerequisites of the special target <code>.PHONY</code> are considered to
+be phony targets.  When it is time to consider such a target,
+<code>make</code> will run its recipe unconditionally, regardless of
+whether a file with that name exists or what its last-modification
+time is.  See section <a href="make_37.html#Phony-Targets">Phony Targets</a>.
+</p>
+<a name="index-_002eSUFFIXES"></a>
+</dd>
+<dt> <code>.SUFFIXES</code></dt>
+<dd>
+<p>The prerequisites of the special target <code>.SUFFIXES</code> are the list
+of suffixes to be used in checking for suffix rules.
+See section <a href="make_125.html#Suffix-Rules">Old-Fashioned Suffix Rules</a>.
+</p>
+<a name="index-_002eDEFAULT"></a>
+</dd>
+<dt> <code>.DEFAULT</code></dt>
+<dd>
+<p>The recipe specified for <code>.DEFAULT</code> is used for any target for
+which no rules are found (either explicit rules or implicit rules).
+See section <a href="make_124.html#Last-Resort">Defining Last-Resort Default Rules</a>.  If a <code>.DEFAULT</code> recipe is specified, every
+file mentioned as a prerequisite, but not as a target in a rule, will have
+that recipe executed on its behalf.  See section <a href="make_126.html#Implicit-Rule-Search">Implicit Rule Search Algorithm</a>.
+</p>
+<a name="index-_002ePRECIOUS"></a>
+</dd>
+<dt> <code>.PRECIOUS</code></dt>
+<dd><a name="index-precious-targets"></a>
+<a name="index-preserving-with-_002ePRECIOUS"></a>
+
+<p>The targets which <code>.PRECIOUS</code> depends on are given the following
+special treatment: if <code>make</code> is killed or interrupted during the
+execution of their recipes, the target is not deleted.
+See section <a href="make_60.html#Interrupts">Interrupting or Killing <code>make</code></a>.  Also, if the
+target is an intermediate file, it will not be deleted after it is no
+longer needed, as is normally done.  See section <a href="make_116.html#Chained-Rules">Chains of Implicit Rules</a>.  In this latter respect it overlaps with the
+<code>.SECONDARY</code> special target.
+</p>
+<p>You can also list the target pattern of an implicit rule (such as
+&lsquo;<samp>%.o</samp>&rsquo;) as a prerequisite file of the special target <code>.PRECIOUS</code>
+to preserve intermediate files created by rules whose target patterns
+match that file&rsquo;s name.
+</p>
+<a name="index-_002eINTERMEDIATE"></a>
+</dd>
+<dt> <code>.INTERMEDIATE</code></dt>
+<dd><a name="index-intermediate-targets_002c-explicit"></a>
+
+<p>The targets which <code>.INTERMEDIATE</code> depends on are treated as
+intermediate files.  See section <a href="make_116.html#Chained-Rules">Chains of Implicit Rules</a>.
+<code>.INTERMEDIATE</code> with no prerequisites has no effect.
+</p>
+<a name="index-_002eSECONDARY"></a>
+</dd>
+<dt> <code>.SECONDARY</code></dt>
+<dd><a name="index-secondary-targets"></a>
+<a name="index-preserving-with-_002eSECONDARY"></a>
+
+<p>The targets which <code>.SECONDARY</code> depends on are treated as
+intermediate files, except that they are never automatically deleted.
+See section <a href="make_116.html#Chained-Rules">Chains of Implicit Rules</a>.
+</p>
+<p><code>.SECONDARY</code> with no prerequisites causes all targets to be treated
+as secondary (i.e., no target is removed because it is considered
+intermediate).
+</p>
+<a name="index-_002eSECONDEXPANSION-1"></a>
+</dd>
+<dt> <code>.SECONDEXPANSION</code></dt>
+<dd>
+<p>If <code>.SECONDEXPANSION</code> is mentioned as a target anywhere in the
+makefile, then all prerequisite lists defined <em>after</em> it appears
+will be expanded a second time after all makefiles have been read in.
+See section <a href="make_21.html#Secondary-Expansion">Secondary Expansion</a>.
+</p>
+<a name="index-_002eDELETE_005fON_005fERROR"></a>
+</dd>
+<dt> <code>.DELETE_ON_ERROR</code></dt>
+<dd><a name="index-removing-targets-on-failure"></a>
+
+<p>If <code>.DELETE_ON_ERROR</code> is mentioned as a target anywhere in the
+makefile, then <code>make</code> will delete the target of a rule if it has
+changed and its recipe exits with a nonzero exit status, just as it
+does when it receives a signal.  See section <a href="make_59.html#Errors">Errors in Recipes</a>.
+</p>
+<a name="index-_002eIGNORE"></a>
+</dd>
+<dt> <code>.IGNORE</code></dt>
+<dd>
+<p>If you specify prerequisites for <code>.IGNORE</code>, then <code>make</code> will
+ignore errors in execution of the recipe for those particular files.
+The recipe for <code>.IGNORE</code> (if any) is ignored.
+</p>
+<p>If mentioned as a target with no prerequisites, <code>.IGNORE</code> says to
+ignore errors in execution of recipes for all files.  This usage of
+&lsquo;<samp>.IGNORE</samp>&rsquo; is supported only for historical compatibility.  Since
+this affects every recipe in the makefile, it is not very useful; we
+recommend you use the more selective ways to ignore errors in specific
+recipes.  See section <a href="make_59.html#Errors">Errors in Recipes</a>.
+</p>
+<a name="index-_002eLOW_005fRESOLUTION_005fTIME"></a>
+</dd>
+<dt> <code>.LOW_RESOLUTION_TIME</code></dt>
+<dd>
+<p>If you specify prerequisites for <code>.LOW_RESOLUTION_TIME</code>,
+<code>make</code> assumes that these files are created by commands that
+generate low resolution time stamps.  The recipe for the
+<code>.LOW_RESOLUTION_TIME</code> target are ignored.
+</p>
+<p>The high resolution file time stamps of many modern file systems
+lessen the chance of <code>make</code> incorrectly concluding that a file
+is up to date.  Unfortunately, some hosts do not provide a way to set a
+high resolution file time stamp, so commands like &lsquo;<samp>cp -p</samp>&rsquo; that
+explicitly set a file&rsquo;s time stamp must discard its sub-second part.
+If a file is created by such a command, you should list it as a
+prerequisite of <code>.LOW_RESOLUTION_TIME</code> so that <code>make</code>
+does not mistakenly conclude that the file is out of date.  For
+example:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">.LOW_RESOLUTION_TIME: dst
+dst: src
+        cp -p src dst
+</pre></td></tr></table>
+
+<p>Since &lsquo;<samp>cp -p</samp>&rsquo; discards the sub-second part of &lsquo;<tt>src</tt>&rsquo;&rsquo;s time
+stamp, &lsquo;<tt>dst</tt>&rsquo; is typically slightly older than &lsquo;<tt>src</tt>&rsquo; even when
+it is up to date.  The <code>.LOW_RESOLUTION_TIME</code> line causes
+<code>make</code> to consider &lsquo;<tt>dst</tt>&rsquo; to be up to date if its time stamp
+is at the start of the same second that &lsquo;<tt>src</tt>&rsquo;&rsquo;s time stamp is in.
+</p>
+<p>Due to a limitation of the archive format, archive member time stamps
+are always low resolution.  You need not list archive members as
+prerequisites of <code>.LOW_RESOLUTION_TIME</code>, as <code>make</code> does this
+automatically.
+</p>
+<a name="index-_002eSILENT"></a>
+</dd>
+<dt> <code>.SILENT</code></dt>
+<dd>
+<p>If you specify prerequisites for <code>.SILENT</code>, then <code>make</code> will
+not print the recipe used to remake those particular files before
+executing them.  The recipe for <code>.SILENT</code> is ignored.
+</p>
+<p>If mentioned as a target with no prerequisites, <code>.SILENT</code> says not
+to print any recipes before executing them.  This usage of
+&lsquo;<samp>.SILENT</samp>&rsquo; is supported only for historical compatibility.  We
+recommend you use the more selective ways to silence specific recipes.
+See section <a href="make_52.html#Echoing">Recipe Echoing</a>.  If you want to silence all recipes
+for a particular run of <code>make</code>, use the &lsquo;<samp>-s</samp>&rsquo; or
+&lsquo;<samp>--silent</samp>&rsquo; option (see section <a href="make_111.html#Options-Summary">Summary of Options</a>).
+</p>
+<a name="index-_002eEXPORT_005fALL_005fVARIABLES"></a>
+</dd>
+<dt> <code>.EXPORT_ALL_VARIABLES</code></dt>
+<dd>
+<p>Simply by being mentioned as a target, this tells <code>make</code> to
+export all variables to child processes by default.
+See section <a href="make_63.html#Variables_002fRecursion">Communicating Variables to a Sub-<code>make</code></a>.
+</p>
+<a name="index-_002eNOTPARALLEL"></a>
+</dd>
+<dt> <code>.NOTPARALLEL</code></dt>
+<dd><a name="index-parallel-execution_002c-overriding"></a>
+
+<p>If <code>.NOTPARALLEL</code> is mentioned as a target, then this invocation
+of <code>make</code> will be run serially, even if the &lsquo;<samp>-j</samp>&rsquo; option is
+given.  Any recursively invoked <code>make</code> command will still run
+recipes in parallel (unless its makefile also contains this target).
+Any prerequisites on this target are ignored.
+</p>
+<a name="index-_002eONESHELL"></a>
+</dd>
+<dt> <code>.ONESHELL</code></dt>
+<dd><a name="index-recipe-execution_002c-single-invocation"></a>
+
+<p>If <code>.ONESHELL</code> is mentioned as a target, then when a target is
+built all lines of the recipe will be given to a single invocation of
+the shell rather than each line being invoked separately
+(see section <a href="make_53.html#Execution">Recipe Execution</a>).
+</p>
+<a name="index-_002ePOSIX"></a>
+</dd>
+<dt> <code>.POSIX</code></dt>
+<dd><a name="index-POSIX_002dconforming-mode_002c-setting"></a>
+
+<p>If <code>.POSIX</code> is mentioned as a target, then the makefile will be
+parsed and run in POSIX-conforming mode.  This does <em>not</em> mean
+that only POSIX-conforming makefiles will be accepted: all advanced
+GNU <code>make</code> features are still available.  Rather, this target
+causes <code>make</code> to behave as required by POSIX in those areas
+where <code>make</code>&rsquo;s default behavior differs.
+</p>
+<p>In particular, if this target is mentioned then recipes will be
+invoked as if the shell had been passed the <code>-e</code> flag: the first
+failing command in a recipe will cause the recipe to fail immediately.
+</p></dd>
+</dl>
+
+<p>Any defined implicit rule suffix also counts as a special target if it
+appears as a target, and so does the concatenation of two suffixes, such
+as &lsquo;<samp>.c.o</samp>&rsquo;.  These targets are suffix rules, an obsolete way of
+defining implicit rules (but a way still widely used).  In principle, any
+target name could be special in this way if you break it in two and add
+both pieces to the suffix list.  In practice, suffixes normally begin with
+&lsquo;<samp>.</samp>&rsquo;, so these special target names also begin with &lsquo;<samp>.</samp>&rsquo;.
+See section <a href="make_125.html#Suffix-Rules">Old-Fashioned Suffix Rules</a>.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_39.html#Empty-Targets" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_41.html#Multiple-Targets" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

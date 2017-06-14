@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 9.2 Arguments to Specify the Goals</title>
+
+
+<meta name="keywords" content="GNU make: 9.2 Arguments to Specify the Goals">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Goals"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_105.html#Makefile-Arguments" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_107.html#Instead-of-Execution" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_104.html#Running" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_104.html#Running" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Arguments-to-Specify-the-Goals"></a>
+<h2 class="section">9.2 Arguments to Specify the Goals</h2>
+<a name="index-goal_002c-how-to-specify"></a>
+
+<p>The <em>goals</em> are the targets that <code>make</code> should strive ultimately
+to update.  Other targets are updated as well if they appear as
+prerequisites of goals, or prerequisites of prerequisites of goals, etc.
+</p>
+<p>By default, the goal is the first target in the makefile (not counting
+targets that start with a period).  Therefore, makefiles are usually
+written so that the first target is for compiling the entire program or
+programs they describe.  If the first rule in the makefile has several
+targets, only the first target in the rule becomes the default goal, not
+the whole list.  You can manage the selection of the default goal from
+within your makefile using the <code>.DEFAULT_GOAL</code> variable
+(see section <a href="make_84.html#Special-Variables">Other Special Variables</a>).
+</p>
+<p>You can also specify a different goal or goals with command line
+arguments to <code>make</code>.  Use the name of the goal as an argument.
+If you specify several goals, <code>make</code> processes each of them in
+turn, in the order you name them.
+</p>
+<p>Any target in the makefile may be specified as a goal (unless it
+starts with &lsquo;<samp>-</samp>&rsquo; or contains an &lsquo;<samp>=</samp>&rsquo;, in which case it will be
+parsed as a switch or variable definition, respectively).  Even
+targets not in the makefile may be specified, if <code>make</code> can find
+implicit rules that say how to make them.
+</p>
+<a name="index-MAKECMDGOALS"></a>
+<p><code>Make</code> will set the special variable <code>MAKECMDGOALS</code> to the
+list of goals you specified on the command line.  If no goals were given
+on the command line, this variable is empty.  Note that this variable
+should be used only in special circumstances.
+</p>
+<p>An example of appropriate use is to avoid including &lsquo;<tt>.d</tt>&rsquo; files
+during <code>clean</code> rules (see section <a href="make_47.html#Automatic-Prerequisites">Generating Prerequisites Automatically</a>), so
+<code>make</code> won&rsquo;t create them only to immediately remove them
+again:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">sources = foo.c bar.c
+
+ifneq ($(MAKECMDGOALS),clean)
+include $(sources:.c=.d)
+endif
+</pre></td></tr></table>
+
+<p>One use of specifying a goal is if you want to compile only a part of
+the program, or only one of several programs.  Specify as a goal each
+file that you wish to remake.  For example, consider a directory containing
+several programs, with a makefile that starts like this:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">.PHONY: all
+all: size nm ld ar as
+</pre></td></tr></table>
+
+<p>If you are working on the program <code>size</code>, you might want to say
+&lsquo;<samp>make size</samp>&rsquo; so that only the files of that program are recompiled.
+</p>
+<p>Another use of specifying a goal is to make files that are not normally
+made.  For example, there may be a file of debugging output, or a
+version of the program that is compiled specially for testing, which has
+a rule in the makefile but is not a prerequisite of the default goal.
+</p>
+<p>Another use of specifying a goal is to run the recipe associated with
+a phony target (see section <a href="make_37.html#Phony-Targets">Phony Targets</a>) or empty target (see section <a href="make_39.html#Empty-Targets">Empty Target Files to Record Events</a>).  Many makefiles contain
+a phony target named &lsquo;<tt>clean</tt>&rsquo; which deletes everything except source
+files.  Naturally, this is done only if you request it explicitly with
+&lsquo;<samp>make clean</samp>&rsquo;.  Following is a list of typical phony and empty
+target names.  See section <a href="make_151.html#Standard-Targets">Standard Targets for Users</a>, for a detailed list of all the
+standard target names which GNU software packages use.
+</p>
+<dl compact="compact">
+<dt> &lsquo;<tt>all</tt>&rsquo;</dt>
+<dd><a name="index-all-_0028standard-target_0029"></a>
+<p>Make all the top-level targets the makefile knows about.
+</p>
+</dd>
+<dt> &lsquo;<tt>clean</tt>&rsquo;</dt>
+<dd><a name="index-clean-_0028standard-target_0029"></a>
+<p>Delete all files that are normally created by running <code>make</code>.
+</p>
+</dd>
+<dt> &lsquo;<tt>mostlyclean</tt>&rsquo;</dt>
+<dd><a name="index-mostlyclean-_0028standard-target_0029"></a>
+<p>Like &lsquo;<samp>clean</samp>&rsquo;, but may refrain from deleting a few files that people
+normally don&rsquo;t want to recompile.  For example, the &lsquo;<samp>mostlyclean</samp>&rsquo;
+target for GCC does not delete &lsquo;<tt>libgcc.a</tt>&rsquo;, because recompiling it
+is rarely necessary and takes a lot of time.
+</p>
+</dd>
+<dt> &lsquo;<tt>distclean</tt>&rsquo;</dt>
+<dd><a name="index-distclean-_0028standard-target_0029"></a>
+</dd>
+<dt> &lsquo;<tt>realclean</tt>&rsquo;</dt>
+<dd><a name="index-realclean-_0028standard-target_0029"></a>
+</dd>
+<dt> &lsquo;<tt>clobber</tt>&rsquo;</dt>
+<dd><a name="index-clobber-_0028standard-target_0029"></a>
+<p>Any of these targets might be defined to delete <em>more</em> files than
+&lsquo;<samp>clean</samp>&rsquo; does.  For example, this would delete configuration files
+or links that you would normally create as preparation for compilation,
+even if the makefile itself cannot create these files.
+</p>
+</dd>
+<dt> &lsquo;<tt>install</tt>&rsquo;</dt>
+<dd><a name="index-install-_0028standard-target_0029"></a>
+<p>Copy the executable file into a directory that users typically search
+for commands; copy any auxiliary files that the executable uses into
+the directories where it will look for them.
+</p>
+</dd>
+<dt> &lsquo;<tt>print</tt>&rsquo;</dt>
+<dd><a name="index-print-_0028standard-target_0029"></a>
+<p>Print listings of the source files that have changed.
+</p>
+</dd>
+<dt> &lsquo;<tt>tar</tt>&rsquo;</dt>
+<dd><a name="index-tar-_0028standard-target_0029"></a>
+<p>Create a tar file of the source files.
+</p>
+</dd>
+<dt> &lsquo;<tt>shar</tt>&rsquo;</dt>
+<dd><a name="index-shar-_0028standard-target_0029"></a>
+<p>Create a shell archive (shar file) of the source files.
+</p>
+</dd>
+<dt> &lsquo;<tt>dist</tt>&rsquo;</dt>
+<dd><a name="index-dist-_0028standard-target_0029"></a>
+<p>Create a distribution file of the source files.  This might
+be a tar file, or a shar file, or a compressed version of one of the
+above, or even more than one of the above.
+</p>
+</dd>
+<dt> &lsquo;<tt>TAGS</tt>&rsquo;</dt>
+<dd><a name="index-TAGS-_0028standard-target_0029"></a>
+<p>Update a tags table for this program.
+</p>
+</dd>
+<dt> &lsquo;<tt>check</tt>&rsquo;</dt>
+<dd><a name="index-check-_0028standard-target_0029"></a>
+</dd>
+<dt> &lsquo;<tt>test</tt>&rsquo;</dt>
+<dd><a name="index-test-_0028standard-target_0029"></a>
+<p>Perform self tests on the program this makefile builds.
+</p></dd>
+</dl>
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_105.html#Makefile-Arguments" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_107.html#Instead-of-Execution" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_104.html#Running" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_104.html#Running" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

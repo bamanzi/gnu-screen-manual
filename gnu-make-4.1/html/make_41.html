@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 4.10 Multiple Targets in a Rule</title>
+
+
+<meta name="keywords" content="GNU make: 4.10 Multiple Targets in a Rule">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Multiple-Targets"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_40.html#Special-Targets" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_42.html#Multiple-Rules" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Multiple-Targets-in-a-Rule"></a>
+<h2 class="section">4.10 Multiple Targets in a Rule</h2>
+<a name="index-multiple-targets"></a>
+<a name="index-several-targets-in-a-rule"></a>
+<a name="index-targets_002c-multiple"></a>
+<a name="index-rule_002c-with-multiple-targets"></a>
+
+<p>A rule with multiple targets is equivalent to writing many rules, each with
+one target, and all identical aside from that.  The same recipe applies to
+all the targets, but its effect may vary because you can substitute the
+actual target name into the recipe using &lsquo;<samp>$@</samp>&rsquo;.  The rule contributes
+the same prerequisites to all the targets also.
+</p>
+<p>This is useful in two cases.
+</p>
+<ul>
+<li>
+You want just prerequisites, no recipe.  For example:
+
+<table><tr><td>&nbsp;</td><td><pre class="example">kbd.o command.o files.o: command.h
+</pre></td></tr></table>
+
+<p>gives an additional prerequisite to each of the three object files
+mentioned.
+</p>
+</li><li>
+Similar recipes work for all the targets.  The recipes do not need
+to be absolutely identical, since the automatic variable &lsquo;<samp>$@</samp>&rsquo;
+can be used to substitute the particular target to be remade into the
+commands (see section <a href="make_120.html#Automatic-Variables">Automatic Variables</a>).  For example:
+
+<table><tr><td>&nbsp;</td><td><pre class="example">bigoutput littleoutput : text.g
+        generate text.g -$(subst output,,$@) &gt; $@
+</pre></td></tr></table>
+<a name="index-subst"></a>
+
+<p>is equivalent to
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">bigoutput : text.g
+        generate text.g -big &gt; bigoutput
+littleoutput : text.g
+        generate text.g -little &gt; littleoutput
+</pre></td></tr></table>
+
+<p>Here we assume the hypothetical program <code>generate</code> makes two
+types of output, one if given &lsquo;<samp>-big</samp>&rsquo; and one if given
+&lsquo;<samp>-little</samp>&rsquo;.
+See section <a href="make_91.html#Text-Functions">Functions for String Substitution and Analysis</a>,
+for an explanation of the <code>subst</code> function.
+</p></li></ul>
+
+<p>Suppose you would like to vary the prerequisites according to the
+target, much as the variable &lsquo;<samp>$@</samp>&rsquo; allows you to vary the recipe.
+You cannot do this with multiple targets in an ordinary rule, but you
+can do it with a <em>static pattern rule</em>.  See section <a href="make_43.html#Static-Pattern">Static Pattern Rules</a>.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_40.html#Special-Targets" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_42.html#Multiple-Rules" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

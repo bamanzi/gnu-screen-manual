@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 9.3 Instead of Executing Recipes</title>
+
+
+<meta name="keywords" content="GNU make: 9.3 Instead of Executing Recipes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Instead-of-Execution"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_106.html#Goals" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_108.html#Avoiding-Compilation" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_104.html#Running" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_104.html#Running" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Instead-of-Executing-Recipes"></a>
+<h2 class="section">9.3 Instead of Executing Recipes</h2>
+<a name="index-execution_002c-instead-of"></a>
+<a name="index-recipes_002c-instead-of-executing"></a>
+
+<p>The makefile tells <code>make</code> how to tell whether a target is up to date,
+and how to update each target.  But updating the targets is not always
+what you want.  Certain options specify other activities for <code>make</code>.
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>-n</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--just-print</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--dry-run</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--recon</samp>&rsquo;</dt>
+<dd><a name="index-_002d_002djust_002dprint-1"></a>
+<a name="index-_002d_002ddry_002drun-1"></a>
+<a name="index-_002d_002drecon-1"></a>
+<a name="index-_002dn-1"></a>
+
+<p>&ldquo;No-op&rdquo;.  Causes <code>make</code> to print the recipes that are needed to
+make the targets up to date, but not actually execute them.  Note that
+some recipes are still executed, even with this flag (see section <a href="make_62.html#MAKE-Variable">How the <code>MAKE</code> Variable Works</a>).  Also any recipes
+needed to update included makefiles are still executed
+(see section <a href="make_18.html#Remaking-Makefiles">How Makefiles Are Remade</a>).
+</p>
+</dd>
+<dt> &lsquo;<samp>-t</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--touch</samp>&rsquo;</dt>
+<dd><a name="index-_002d_002dtouch"></a>
+<a name="index-touching-files"></a>
+<a name="index-target_002c-touching"></a>
+<a name="index-_002dt"></a>
+
+<p>&ldquo;Touch&rdquo;.  Marks targets as up to date without actually changing
+them.  In other words, <code>make</code> pretends to update the targets but
+does not really change their contents; instead only their modified
+times are updated.
+</p>
+</dd>
+<dt> &lsquo;<samp>-q</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--question</samp>&rsquo;</dt>
+<dd><a name="index-_002d_002dquestion"></a>
+<a name="index-_002dq"></a>
+<a name="index-question-mode"></a>
+
+<p>&ldquo;Question&rdquo;.  Silently check whether the targets are up to date, but
+do not execute recipes; the exit code shows whether any updates are
+needed.
+</p>
+</dd>
+<dt> &lsquo;<samp>-W <var>file</var></samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--what-if=<var>file</var></samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--assume-new=<var>file</var></samp>&rsquo;</dt>
+<dt> &lsquo;<samp>--new-file=<var>file</var></samp>&rsquo;</dt>
+<dd><a name="index-_002d_002dwhat_002dif"></a>
+<a name="index-_002dW"></a>
+<a name="index-_002d_002dassume_002dnew"></a>
+<a name="index-_002d_002dnew_002dfile"></a>
+<a name="index-what-if"></a>
+<a name="index-files_002c-assuming-new"></a>
+
+<p>&ldquo;What if&rdquo;.  Each &lsquo;<samp>-W</samp>&rsquo; flag is followed by a file name.  The given
+files&rsquo; modification times are recorded by <code>make</code> as being the present
+time, although the actual modification times remain the same.
+You can use the &lsquo;<samp>-W</samp>&rsquo; flag in conjunction with the &lsquo;<samp>-n</samp>&rsquo; flag
+to see what would happen if you were to modify specific files.
+</p></dd>
+</dl>
+
+<p>With the &lsquo;<samp>-n</samp>&rsquo; flag, <code>make</code> prints the recipe that it would
+normally execute but usually does not execute it.
+</p>
+<p>With the &lsquo;<samp>-t</samp>&rsquo; flag, <code>make</code> ignores the recipes in the rules
+and uses (in effect) the command <code>touch</code> for each target that needs to
+be remade.  The <code>touch</code> command is also printed, unless &lsquo;<samp>-s</samp>&rsquo; or
+<code>.SILENT</code> is used.  For speed, <code>make</code> does not actually invoke
+the program <code>touch</code>.  It does the work directly.
+</p>
+<p>With the &lsquo;<samp>-q</samp>&rsquo; flag, <code>make</code> prints nothing and executes no
+recipes, but the exit status code it returns is zero if and only if the
+targets to be considered are already up to date.  If the exit status is
+one, then some updating needs to be done.  If <code>make</code> encounters an
+error, the exit status is two, so you can distinguish an error from a
+target that is not up to date.
+</p>
+<p>It is an error to use more than one of these three flags in the same
+invocation of <code>make</code>.
+</p>
+<a name="index-_002b_002c-and-recipe-execution"></a>
+<p>The &lsquo;<samp>-n</samp>&rsquo;, &lsquo;<samp>-t</samp>&rsquo;, and &lsquo;<samp>-q</samp>&rsquo; options do not affect recipe
+lines that begin with &lsquo;<samp>+</samp>&rsquo; characters or contain the strings
+&lsquo;<samp>$(MAKE)</samp>&rsquo; or &lsquo;<samp>${MAKE}</samp>&rsquo;.  Note that only the line containing
+the &lsquo;<samp>+</samp>&rsquo; character or the strings &lsquo;<samp>$(MAKE)</samp>&rsquo; or &lsquo;<samp>${MAKE}</samp>&rsquo;
+is run regardless of these options.  Other lines in the same rule are
+not run unless they too begin with &lsquo;<samp>+</samp>&rsquo; or contain &lsquo;<samp>$(MAKE)</samp>&rsquo; or
+&lsquo;<samp>${MAKE}</samp>&rsquo; (See section <a href="make_62.html#MAKE-Variable">How the <code>MAKE</code> Variable Works</a>.)
+</p>
+<a name="index-phony-targets-and-recipe-execution"></a>
+<p>The &lsquo;<samp>-t</samp>&rsquo; flag prevents phony targets (see section <a href="make_37.html#Phony-Targets">Phony Targets</a>) from
+being updated, unless there are recipe lines beginning with &lsquo;<samp>+</samp>&rsquo;
+or containing &lsquo;<samp>$(MAKE)</samp>&rsquo; or &lsquo;<samp>${MAKE}</samp>&rsquo;.
+</p>
+<p>The &lsquo;<samp>-W</samp>&rsquo; flag provides two features:
+</p>
+<ul>
+<li>
+If you also use the &lsquo;<samp>-n</samp>&rsquo; or &lsquo;<samp>-q</samp>&rsquo; flag, you can see what
+<code>make</code> would do if you were to modify some files.
+
+</li><li>
+Without the &lsquo;<samp>-n</samp>&rsquo; or &lsquo;<samp>-q</samp>&rsquo; flag, when <code>make</code> is actually
+executing recipes, the &lsquo;<samp>-W</samp>&rsquo; flag can direct <code>make</code> to act as
+if some files had been modified, without actually running the recipes
+for those files.
+</li></ul>
+
+<p>Note that the options &lsquo;<samp>-p</samp>&rsquo; and &lsquo;<samp>-v</samp>&rsquo; allow you to obtain other
+information about <code>make</code> or about the makefiles in use
+(see section <a href="make_111.html#Options-Summary">Summary of Options</a>).
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_106.html#Goals" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_108.html#Avoiding-Compilation" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_104.html#Running" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_104.html#Running" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_112.html#Implicit-Rules" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

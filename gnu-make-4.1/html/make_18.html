@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 3.5 How Makefiles Are Remade</title>
+
+
+<meta name="keywords" content="GNU make: 3.5 How Makefiles Are Remade">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Remaking-Makefiles"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_17.html#MAKEFILES-Variable" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_19.html#Overriding-Makefiles" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_12.html#Makefiles" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_12.html#Makefiles" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="How-Makefiles-Are-Remade"></a>
+<h2 class="section">3.5 How Makefiles Are Remade</h2>
+<a name="index-updating-makefiles"></a>
+<a name="index-remaking-makefiles"></a>
+<a name="index-makefile_002c-remaking-of"></a>
+<p>Sometimes makefiles can be remade from other files, such as RCS or SCCS
+files.  If a makefile can be remade from other files, you probably want
+<code>make</code> to get an up-to-date version of the makefile to read in.
+</p>
+<p>To this end, after reading in all makefiles, <code>make</code> will consider
+each as a goal target and attempt to update it.  If a makefile has a
+rule which says how to update it (found either in that very makefile or
+in another one) or if an implicit rule applies to it (see section <a href="make_112.html#Implicit-Rules">Using Implicit Rules</a>), it will be updated if necessary.  After
+all makefiles have been checked, if any have actually been changed,
+<code>make</code> starts with a clean slate and reads all the makefiles over
+again.  (It will also attempt to update each of them over again, but
+normally this will not change them again, since they are already up to
+date.)
+</p>
+<p>If you know that one or more of your makefiles cannot be remade and
+you want to keep <code>make</code> from performing an implicit rule search
+on them, perhaps for efficiency reasons, you can use any normal method
+of preventing implicit rule look-up to do so.  For example, you can
+write an explicit rule with the makefile as the target, and an empty
+recipe (see section <a href="make_67.html#Empty-Recipes">Using Empty Recipes</a>).
+</p>
+<p>If the makefiles specify a double-colon rule to remake a file with
+a recipe but no prerequisites, that file will always be remade
+(see section <a href="make_46.html#Double_002dColon">Double-Colon Rules</a>).  In the case of makefiles, a makefile that has a
+double-colon rule with a recipe but no prerequisites will be remade every
+time <code>make</code> is run, and then again after <code>make</code> starts over
+and reads the makefiles in again.  This would cause an infinite loop:
+<code>make</code> would constantly remake the makefile, and never do anything
+else.  So, to avoid this, <code>make</code> will <strong>not</strong> attempt to
+remake makefiles which are specified as targets of a double-colon rule
+with a recipe but no prerequisites.
+</p>
+<p>If you do not specify any makefiles to be read with &lsquo;<samp>-f</samp>&rsquo; or
+&lsquo;<samp>--file</samp>&rsquo; options, <code>make</code> will try the default makefile names;
+see section <a href="make_15.html#Makefile-Names">What Name to Give Your Makefile</a>.  Unlike
+makefiles explicitly requested with &lsquo;<samp>-f</samp>&rsquo; or &lsquo;<samp>--file</samp>&rsquo; options,
+<code>make</code> is not certain that these makefiles should exist.  However,
+if a default makefile does not exist but can be created by running
+<code>make</code> rules, you probably want the rules to be run so that the
+makefile can be used.
+</p>
+<p>Therefore, if none of the default makefiles exists, <code>make</code> will try
+to make each of them in the same order in which they are searched for
+(see section <a href="make_15.html#Makefile-Names">What Name to Give Your Makefile</a>)
+until it succeeds in making one, or it runs out of names to try.  Note
+that it is not an error if <code>make</code> cannot find or make any makefile;
+a makefile is not always necessary.
+</p>
+<p>When you use the &lsquo;<samp>-t</samp>&rsquo; or &lsquo;<samp>--touch</samp>&rsquo; option
+(see section <a href="make_107.html#Instead-of-Execution">Instead of Executing Recipes</a>),
+you would not want to use an out-of-date makefile to decide which
+targets to touch.  So the &lsquo;<samp>-t</samp>&rsquo; option has no effect on updating
+makefiles; they are really updated even if &lsquo;<samp>-t</samp>&rsquo; is specified.
+Likewise, &lsquo;<samp>-q</samp>&rsquo; (or &lsquo;<samp>--question</samp>&rsquo;) and &lsquo;<samp>-n</samp>&rsquo; (or
+&lsquo;<samp>--just-print</samp>&rsquo;) do not prevent updating of makefiles, because an
+out-of-date makefile would result in the wrong output for other targets.
+Thus, &lsquo;<samp>make -f mfile -n foo</samp>&rsquo; will update &lsquo;<tt>mfile</tt>&rsquo;, read it in,
+and then print the recipe to update &lsquo;<tt>foo</tt>&rsquo; and its prerequisites
+without running it.  The recipe printed for &lsquo;<tt>foo</tt>&rsquo; will be the one
+specified in the updated contents of &lsquo;<tt>mfile</tt>&rsquo;.
+</p>
+<p>However, on occasion you might actually wish to prevent updating of even
+the makefiles.  You can do this by specifying the makefiles as goals in
+the command line as well as specifying them as makefiles.  When the
+makefile name is specified explicitly as a goal, the options &lsquo;<samp>-t</samp>&rsquo;
+and so on do apply to them.
+</p>
+<p>Thus, &lsquo;<samp>make -f mfile -n mfile foo</samp>&rsquo; would read the makefile
+&lsquo;<tt>mfile</tt>&rsquo;, print the recipe needed to update it without actually
+running it, and then print the recipe needed to update &lsquo;<tt>foo</tt>&rsquo;
+without running that.  The recipe for &lsquo;<tt>foo</tt>&rsquo; will be the one
+specified by the existing contents of &lsquo;<tt>mfile</tt>&rsquo;.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_17.html#MAKEFILES-Variable" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_19.html#Overriding-Makefiles" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_12.html#Makefiles" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_12.html#Makefiles" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

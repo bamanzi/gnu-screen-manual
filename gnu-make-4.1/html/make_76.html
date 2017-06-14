@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 6.6 Appending More Text to Variables</title>
+
+
+<meta name="keywords" content="GNU make: 6.6 Appending More Text to Variables">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Appending"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_75.html#Setting" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_77.html#Override-Directive" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_85.html#Conditionals" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="Appending-More-Text-to-Variables"></a>
+<h2 class="section">6.6 Appending More Text to Variables</h2>
+<a name="index-_002b_003d"></a>
+<a name="index-appending-to-variables"></a>
+<a name="index-variables_002c-appending-to"></a>
+
+<p>Often it is useful to add more text to the value of a variable already defined.
+You do this with a line containing &lsquo;<samp>+=</samp>&rsquo;, like this:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">objects += another.o
+</pre></td></tr></table>
+
+<p>This takes the value of the variable <code>objects</code>, and adds the text
+&lsquo;<samp>another.o</samp>&rsquo; to it (preceded by a single space).  Thus:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">objects = main.o foo.o bar.o utils.o
+objects += another.o
+</pre></td></tr></table>
+
+<p>sets <code>objects</code> to &lsquo;<samp>main.o foo.o bar.o utils.o another.o</samp>&rsquo;.
+</p>
+<p>Using &lsquo;<samp>+=</samp>&rsquo; is similar to:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">objects = main.o foo.o bar.o utils.o
+objects := $(objects) another.o
+</pre></td></tr></table>
+
+<p>but differs in ways that become important when you use more complex values.
+</p>
+<p>When the variable in question has not been defined before, &lsquo;<samp>+=</samp>&rsquo;
+acts just like normal &lsquo;<samp>=</samp>&rsquo;: it defines a recursively-expanded
+variable.  However, when there <em>is</em> a previous definition, exactly
+what &lsquo;<samp>+=</samp>&rsquo; does depends on what flavor of variable you defined
+originally.  See section <a href="make_70.html#Flavors">The Two Flavors of Variables</a>, for an
+explanation of the two flavors of variables.
+</p>
+<p>When you add to a variable&rsquo;s value with &lsquo;<samp>+=</samp>&rsquo;, <code>make</code> acts
+essentially as if you had included the extra text in the initial
+definition of the variable.  If you defined it first with &lsquo;<samp>:=</samp>&rsquo; or
+&lsquo;<samp>::=</samp>&rsquo;, making it a simply-expanded variable, &lsquo;<samp>+=</samp>&rsquo; adds to
+that simply-expanded definition, and expands the new text before
+appending it to the old value just as &lsquo;<samp>:=</samp>&rsquo; does (see
+<a href="make_75.html#Setting">Setting Variables</a>, for a full explanation of
+&lsquo;<samp>:=</samp>&rsquo; or &lsquo;<samp>::=</samp>&rsquo;).  In fact,
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">variable := value
+variable += more
+</pre></td></tr></table>
+
+<p>is exactly equivalent to:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">variable := value
+variable := $(variable) more
+</pre></td></tr></table>
+
+<p>On the other hand, when you use &lsquo;<samp>+=</samp>&rsquo; with a variable that you defined
+first to be recursively-expanded using plain &lsquo;<samp>=</samp>&rsquo;, <code>make</code> does
+something a bit different.  Recall that when you define a
+recursively-expanded variable, <code>make</code> does not expand the value you set
+for variable and function references immediately.  Instead it stores the text
+verbatim, and saves these variable and function references to be expanded
+later, when you refer to the new variable (see section <a href="make_70.html#Flavors">The Two Flavors of Variables</a>).  When you use &lsquo;<samp>+=</samp>&rsquo; on a recursively-expanded variable,
+it is this unexpanded text to which <code>make</code> appends the new text you
+specify.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">variable = value
+variable += more
+</pre></td></tr></table>
+
+<p>is roughly equivalent to:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">temp = value
+variable = $(temp) more
+</pre></td></tr></table>
+
+<p>except that of course it never defines a variable called <code>temp</code>.
+The importance of this comes when the variable&rsquo;s old value contains
+variable references.  Take this common example:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">CFLAGS = $(includes) -O
+&hellip;
+CFLAGS += -pg # enable profiling
+</pre></td></tr></table>
+
+<p>The first line defines the <code>CFLAGS</code> variable with a reference to another
+variable, <code>includes</code>.  (<code>CFLAGS</code> is used by the rules for C
+compilation; see section <a href="make_114.html#Catalogue-of-Rules">Catalogue of Built-In Rules</a>.)
+Using &lsquo;<samp>=</samp>&rsquo; for the definition makes <code>CFLAGS</code> a recursively-expanded
+variable, meaning &lsquo;<samp>$(includes) -O</samp>&rsquo; is <em>not</em> expanded when
+<code>make</code> processes the definition of <code>CFLAGS</code>.  Thus, <code>includes</code>
+need not be defined yet for its value to take effect.  It only has to be
+defined before any reference to <code>CFLAGS</code>.  If we tried to append to the
+value of <code>CFLAGS</code> without using &lsquo;<samp>+=</samp>&rsquo;, we might do it like this:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">CFLAGS := $(CFLAGS) -pg # enable profiling
+</pre></td></tr></table>
+
+<p>This is pretty close, but not quite what we want.  Using &lsquo;<samp>:=</samp>&rsquo;
+redefines <code>CFLAGS</code> as a simply-expanded variable; this means
+<code>make</code> expands the text &lsquo;<samp>$(CFLAGS) -pg</samp>&rsquo; before setting the
+variable.  If <code>includes</code> is not yet defined, we get &lsquo;<samp> -O
+-pg</samp>&rsquo;, and a later definition of <code>includes</code> will have no effect.
+Conversely, by using &lsquo;<samp>+=</samp>&rsquo; we set <code>CFLAGS</code> to the
+<em>unexpanded</em> value &lsquo;<samp>$(includes) -O -pg</samp>&rsquo;.  Thus we preserve
+the reference to <code>includes</code>, so if that variable gets defined at
+any later point, a reference like &lsquo;<samp>$(CFLAGS)</samp>&rsquo; still uses its
+value.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_75.html#Setting" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_77.html#Override-Directive" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_68.html#Using-Variables" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_85.html#Conditionals" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

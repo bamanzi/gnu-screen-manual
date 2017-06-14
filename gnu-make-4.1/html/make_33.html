@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- This file documents the GNU make utility, which determines
+automatically which pieces of a large program need to be recompiled,
+and issues the commands to recompile them.
+
+This is Edition 0.73, last updated 5 October 2014,
+of The GNU Make Manual, for GNU make version 4.1.
+
+Copyright C 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995,
+1996, 1997, 1998, 1999, 2000, 2002, 2003, 2004, 2005, 2006, 2007,
+2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being "A GNU Manual,"
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled "GNU Free Documentation
+License."
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom."
+
+ -->
+<!-- Created on June 14, 2017 by texi2html 1.82
+texi2html was written by: 
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>GNU make: 4.5.3 How Directory Searches are Performed</title>
+
+
+<meta name="keywords" content="GNU make: 4.5.3 How Directory Searches are Performed">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+code {background-color: #F3F0EC; color: #355F7C; font-weight: bold}
+dt {background-color: #F2F2F2;}
+em {color: #984e35}
+kbd {background-color: #eeeeff;}
+pre {background-color: #eeffcc;}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+tt {color: #985e35}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Search-Algorithm"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_32.html#Selective-Search" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_34.html#Recipes_002fSearch" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_30.html#Directory-Search" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+
+<a name="How-Directory-Searches-are-Performed"></a>
+<h3 class="subsection">4.5.3 How Directory Searches are Performed</h3>
+<a name="index-algorithm-for-directory-search"></a>
+<a name="index-directory-search-algorithm"></a>
+
+<p>When a prerequisite is found through directory search, regardless of type
+(general or selective), the pathname located may not be the one that
+<code>make</code> actually provides you in the prerequisite list.  Sometimes
+the path discovered through directory search is thrown away.
+</p>
+<p>The algorithm <code>make</code> uses to decide whether to keep or abandon a
+path found via directory search is as follows:
+</p>
+<ol>
+<li>
+If a target file does not exist at the path specified in the makefile,
+directory search is performed.
+
+</li><li>
+If the directory search is successful, that path is kept and this file
+is tentatively stored as the target.
+
+</li><li>
+All prerequisites of this target are examined using this same method.
+
+</li><li>
+After processing the prerequisites, the target may or may not need to be
+rebuilt:
+
+<ol>
+<li>
+If the target does <em>not</em> need to be rebuilt, the path to the file
+found during directory search is used for any prerequisite lists which
+contain this target.  In short, if <code>make</code> doesn&rsquo;t need to rebuild
+the target then you use the path found via directory search.
+
+</li><li>
+If the target <em>does</em> need to be rebuilt (is out-of-date), the
+pathname found during directory search is <em>thrown away</em>, and the
+target is rebuilt using the file name specified in the makefile.  In
+short, if <code>make</code> must rebuild, then the target is rebuilt locally,
+not in the directory found via directory search.
+</li></ol>
+</li></ol>
+
+<p>This algorithm may seem complex, but in practice it is quite often
+exactly what you want.
+</p>
+<a name="index-traditional-directory-search-_0028GPATH_0029"></a>
+<a name="index-directory-search_002c-traditional-_0028GPATH_0029"></a>
+<p>Other versions of <code>make</code> use a simpler algorithm: if the file does
+not exist, and it is found via directory search, then that pathname is
+always used whether or not the target needs to be built.  Thus, if the
+target is rebuilt it is created at the pathname discovered during
+directory search.
+</p>
+<a name="index-GPATH"></a>
+<p>If, in fact, this is the behavior you want for some or all of your
+directories, you can use the <code>GPATH</code> variable to indicate this to
+<code>make</code>.
+</p>
+<p><code>GPATH</code> has the same syntax and format as <code>VPATH</code> (that is, a
+space- or colon-delimited list of pathnames).  If an out-of-date target
+is found by directory search in a directory that also appears in
+<code>GPATH</code>, then that pathname is not thrown away.  The target is
+rebuilt using the expanded path.
+</p>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="make_32.html#Selective-Search" title="Previous section in reading order" accesskey="p"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_34.html#Recipes_002fSearch" title="Next section in reading order" accesskey="n"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make_22.html#Rules" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="make_30.html#Directory-Search" title="Up section" accesskey="u"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="make_48.html#Recipes" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="make.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="make_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="make_157.html#Concept-Index" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="make_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+
+</p>
+</body>
+</html>

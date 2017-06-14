@@ -1,0 +1,704 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="texi2html 1.82">
+<!-- Sitemap 1.0 -->
+</HEAD>
+<BODY>
+<OBJECT type="text/site properties">
+<param name="ImageType" value="Folder">
+</OBJECT>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="GNU make">
+<param name="Local" value="make.html#Top">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="1. Overview of make">
+<param name="Local" value="make_1.html#Overview">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="1.1 How to Read This Manual">
+<param name="Local" value="make_2.html#Reading">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="1.2 Problems and Bugs">
+<param name="Local" value="make_3.html#Bugs">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="2. An Introduction to Makefiles">
+<param name="Local" value="make_4.html#Introduction">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="2.1 What a Rule Looks Like">
+<param name="Local" value="make_5.html#Rule-Introduction">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="2.2 A Simple Makefile">
+<param name="Local" value="make_6.html#Simple-Makefile">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="2.3 How make Processes a Makefile">
+<param name="Local" value="make_7.html#How-Make-Works">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="2.4 Variables Make Makefiles Simpler">
+<param name="Local" value="make_8.html#Variables-Simplify">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="2.5 Letting make Deduce the Recipes">
+<param name="Local" value="make_9.html#make-Deduces">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="2.6 Another Style of Makefile">
+<param name="Local" value="make_10.html#Combine-By-Prerequisite">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="2.7 Rules for Cleaning the Directory">
+<param name="Local" value="make_11.html#Cleanup">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="3. Writing Makefiles">
+<param name="Local" value="make_12.html#Makefiles">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="3.1 What Makefiles Contain">
+<param name="Local" value="make_13.html#Makefile-Contents">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="3.1.1 Splitting Long Lines">
+<param name="Local" value="make_14.html#Splitting-Lines">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="3.2 What Name to Give Your Makefile">
+<param name="Local" value="make_15.html#Makefile-Names">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="3.3 Including Other Makefiles">
+<param name="Local" value="make_16.html#Include">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="3.4 The Variable MAKEFILES">
+<param name="Local" value="make_17.html#MAKEFILES-Variable">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="3.5 How Makefiles Are Remade">
+<param name="Local" value="make_18.html#Remaking-Makefiles">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="3.6 Overriding Part of Another Makefile">
+<param name="Local" value="make_19.html#Overriding-Makefiles">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="3.7 How make Reads a Makefile">
+<param name="Local" value="make_20.html#Reading-Makefiles">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="3.8 Secondary Expansion">
+<param name="Local" value="make_21.html#Secondary-Expansion">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4. Writing Rules">
+<param name="Local" value="make_22.html#Rules">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.1 Rule Example">
+<param name="Local" value="make_23.html#Rule-Example">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.2 Rule Syntax">
+<param name="Local" value="make_24.html#Rule-Syntax">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.3 Types of Prerequisites">
+<param name="Local" value="make_25.html#Prerequisite-Types">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.4 Using Wildcard Characters in File Names">
+<param name="Local" value="make_26.html#Wildcards">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.4.1 Wildcard Examples">
+<param name="Local" value="make_27.html#Wildcard-Examples">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.4.2 Pitfalls of Using Wildcards">
+<param name="Local" value="make_28.html#Wildcard-Pitfall">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.4.3 The Function wildcard">
+<param name="Local" value="make_29.html#Wildcard-Function">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.5 Searching Directories for Prerequisites">
+<param name="Local" value="make_30.html#Directory-Search">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.5.1 VPATH: Search Path for All Prerequisites">
+<param name="Local" value="make_31.html#General-Search">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.5.2 The vpath Directive">
+<param name="Local" value="make_32.html#Selective-Search">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.5.3 How Directory Searches are Performed">
+<param name="Local" value="make_33.html#Search-Algorithm">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.5.4 Writing Recipes with Directory Search">
+<param name="Local" value="make_34.html#Recipes_002fSearch">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.5.5 Directory Search and Implicit Rules">
+<param name="Local" value="make_35.html#Implicit_002fSearch">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.5.6 Directory Search for Link Libraries">
+<param name="Local" value="make_36.html#Libraries_002fSearch">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.6 Phony Targets">
+<param name="Local" value="make_37.html#Phony-Targets">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.7 Rules without Recipes or Prerequisites">
+<param name="Local" value="make_38.html#Force-Targets">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.8 Empty Target Files to Record Events">
+<param name="Local" value="make_39.html#Empty-Targets">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.9 Special Built-in Target Names">
+<param name="Local" value="make_40.html#Special-Targets">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.10 Multiple Targets in a Rule">
+<param name="Local" value="make_41.html#Multiple-Targets">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.11 Multiple Rules for One Target">
+<param name="Local" value="make_42.html#Multiple-Rules">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.12 Static Pattern Rules">
+<param name="Local" value="make_43.html#Static-Pattern">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.12.1 Syntax of Static Pattern Rules">
+<param name="Local" value="make_44.html#Static-Usage">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.12.2 Static Pattern Rules versus Implicit Rules">
+<param name="Local" value="make_45.html#Static-versus-Implicit">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.13 Double-Colon Rules">
+<param name="Local" value="make_46.html#Double_002dColon">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="4.14 Generating Prerequisites Automatically">
+<param name="Local" value="make_47.html#Automatic-Prerequisites">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5. Writing Recipes in Rules">
+<param name="Local" value="make_48.html#Recipes">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.1 Recipe Syntax">
+<param name="Local" value="make_49.html#Recipe-Syntax">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.1.1 Splitting Recipe Lines">
+<param name="Local" value="make_50.html#Splitting-Recipe-Lines">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.1.2 Using Variables in Recipes">
+<param name="Local" value="make_51.html#Variables-in-Recipes">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.2 Recipe Echoing">
+<param name="Local" value="make_52.html#Echoing">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.3 Recipe Execution">
+<param name="Local" value="make_53.html#Execution">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.3.1 Using One Shell">
+<param name="Local" value="make_54.html#One-Shell">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.3.2 Choosing the Shell">
+<param name="Local" value="make_55.html#Choosing-the-Shell">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.4 Parallel Execution">
+<param name="Local" value="make_56.html#Parallel">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.4.1 Output During Parallel Execution">
+<param name="Local" value="make_57.html#Parallel-Output">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.4.2 Input During Parallel Execution">
+<param name="Local" value="make_58.html#Parallel-Input">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.5 Errors in Recipes">
+<param name="Local" value="make_59.html#Errors">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.6 Interrupting or Killing make">
+<param name="Local" value="make_60.html#Interrupts">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.7 Recursive Use of make">
+<param name="Local" value="make_61.html#Recursion">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.7.1 How the MAKE Variable Works">
+<param name="Local" value="make_62.html#MAKE-Variable">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.7.2 Communicating Variables to a Sub-make">
+<param name="Local" value="make_63.html#Variables_002fRecursion">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.7.3 Communicating Options to a Sub-make">
+<param name="Local" value="make_64.html#Options_002fRecursion">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.7.4 The --print-directory Option">
+<param name="Local" value="make_65.html#g_t_002dw-Option">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.8 Defining Canned Recipes">
+<param name="Local" value="make_66.html#Canned-Recipes">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="5.9 Using Empty Recipes">
+<param name="Local" value="make_67.html#Empty-Recipes">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6. How to Use Variables">
+<param name="Local" value="make_68.html#Using-Variables">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.1 Basics of Variable References">
+<param name="Local" value="make_69.html#Reference">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.2 The Two Flavors of Variables">
+<param name="Local" value="make_70.html#Flavors">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.3 Advanced Features for Reference to Variables">
+<param name="Local" value="make_71.html#Advanced">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.3.1 Substitution References">
+<param name="Local" value="make_72.html#Substitution-Refs">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.3.2 Computed Variable Names">
+<param name="Local" value="make_73.html#Computed-Names">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.4 How Variables Get Their Values">
+<param name="Local" value="make_74.html#Values">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.5 Setting Variables">
+<param name="Local" value="make_75.html#Setting">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.6 Appending More Text to Variables">
+<param name="Local" value="make_76.html#Appending">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.7 The override Directive">
+<param name="Local" value="make_77.html#Override-Directive">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.8 Defining Multi-Line Variables">
+<param name="Local" value="make_78.html#Multi_002dLine">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.9 Undefining Variables">
+<param name="Local" value="make_79.html#Undefine-Directive">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.10 Variables from the Environment">
+<param name="Local" value="make_80.html#Environment">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.11 Target-specific Variable Values">
+<param name="Local" value="make_81.html#Target_002dspecific">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.12 Pattern-specific Variable Values">
+<param name="Local" value="make_82.html#Pattern_002dspecific">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.13 Suppressing Inheritance">
+<param name="Local" value="make_83.html#Suppressing-Inheritance">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="6.14 Other Special Variables">
+<param name="Local" value="make_84.html#Special-Variables">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="7. Conditional Parts of Makefiles">
+<param name="Local" value="make_85.html#Conditionals">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="7.1 Example of a Conditional">
+<param name="Local" value="make_86.html#Conditional-Example">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="7.2 Syntax of Conditionals">
+<param name="Local" value="make_87.html#Conditional-Syntax">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="7.3 Conditionals that Test Flags">
+<param name="Local" value="make_88.html#Testing-Flags">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8. Functions for Transforming Text">
+<param name="Local" value="make_89.html#Functions">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.1 Function Call Syntax">
+<param name="Local" value="make_90.html#Syntax-of-Functions">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.2 Functions for String Substitution and Analysis">
+<param name="Local" value="make_91.html#Text-Functions">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.3 Functions for File Names">
+<param name="Local" value="make_92.html#File-Name-Functions">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.4 Functions for Conditionals">
+<param name="Local" value="make_93.html#Conditional-Functions">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.5 The foreach Function">
+<param name="Local" value="make_94.html#Foreach-Function">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.6 The file Function">
+<param name="Local" value="make_95.html#File-Function">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.7 The call Function">
+<param name="Local" value="make_96.html#Call-Function">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.8 The value Function">
+<param name="Local" value="make_97.html#Value-Function">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.9 The eval Function">
+<param name="Local" value="make_98.html#Eval-Function">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.10 The origin Function">
+<param name="Local" value="make_99.html#Origin-Function">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.11 The flavor Function">
+<param name="Local" value="make_100.html#Flavor-Function">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.12 Functions That Control Make">
+<param name="Local" value="make_101.html#Make-Control-Functions">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.13 The shell Function">
+<param name="Local" value="make_102.html#Shell-Function">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="8.14 The guile Function">
+<param name="Local" value="make_103.html#Guile-Function">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9. How to Run make">
+<param name="Local" value="make_104.html#Running">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.1 Arguments to Specify the Makefile">
+<param name="Local" value="make_105.html#Makefile-Arguments">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.2 Arguments to Specify the Goals">
+<param name="Local" value="make_106.html#Goals">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.3 Instead of Executing Recipes">
+<param name="Local" value="make_107.html#Instead-of-Execution">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.4 Avoiding Recompilation of Some Files">
+<param name="Local" value="make_108.html#Avoiding-Compilation">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.5 Overriding Variables">
+<param name="Local" value="make_109.html#Overriding">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.6 Testing the Compilation of a Program">
+<param name="Local" value="make_110.html#Testing">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="9.7 Summary of Options">
+<param name="Local" value="make_111.html#Options-Summary">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10. Using Implicit Rules">
+<param name="Local" value="make_112.html#Implicit-Rules">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.1 Using Implicit Rules">
+<param name="Local" value="make_113.html#Using-Implicit">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.2 Catalogue of Built-In Rules">
+<param name="Local" value="make_114.html#Catalogue-of-Rules">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.3 Variables Used by Implicit Rules">
+<param name="Local" value="make_115.html#Implicit-Variables">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.4 Chains of Implicit Rules">
+<param name="Local" value="make_116.html#Chained-Rules">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.5 Defining and Redefining Pattern Rules">
+<param name="Local" value="make_117.html#Pattern-Rules">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.5.1 Introduction to Pattern Rules">
+<param name="Local" value="make_118.html#Pattern-Intro">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.5.2 Pattern Rule Examples">
+<param name="Local" value="make_119.html#Pattern-Examples">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.5.3 Automatic Variables">
+<param name="Local" value="make_120.html#Automatic-Variables">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.5.4 How Patterns Match">
+<param name="Local" value="make_121.html#Pattern-Match">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.5.5 Match-Anything Pattern Rules">
+<param name="Local" value="make_122.html#Match_002dAnything-Rules">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.5.6 Canceling Implicit Rules">
+<param name="Local" value="make_123.html#Canceling-Rules">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.6 Defining Last-Resort Default Rules">
+<param name="Local" value="make_124.html#Last-Resort">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.7 Old-Fashioned Suffix Rules">
+<param name="Local" value="make_125.html#Suffix-Rules">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="10.8 Implicit Rule Search Algorithm">
+<param name="Local" value="make_126.html#Implicit-Rule-Search">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11. Using make to Update Archive Files">
+<param name="Local" value="make_127.html#Archives">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.1 Archive Members as Targets">
+<param name="Local" value="make_128.html#Archive-Members">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.2 Implicit Rule for Archive Member Targets">
+<param name="Local" value="make_129.html#Archive-Update">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.2.1 Updating Archive Symbol Directories">
+<param name="Local" value="make_130.html#Archive-Symbols">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.3 Dangers When Using Archives">
+<param name="Local" value="make_131.html#Archive-Pitfalls">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="11.4 Suffix Rules for Archive Files">
+<param name="Local" value="make_132.html#Archive-Suffix-Rules">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12. Extending GNU make">
+<param name="Local" value="make_133.html#Extending-make">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.1 GNU Guile Integration">
+<param name="Local" value="make_134.html#Guile-Integration">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.1.1 Conversion of Guile Types">
+<param name="Local" value="make_135.html#Guile-Types">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.1.2 Interfaces from Guile to make">
+<param name="Local" value="make_136.html#Guile-Interface">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.1.3 Example Using Guile in make">
+<param name="Local" value="make_137.html#Guile-Example">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.2 Loading Dynamic Objects">
+<param name="Local" value="make_138.html#Loading-Objects">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.2.1 The load Directive">
+<param name="Local" value="make_139.html#load-Directive">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.2.2 How Loaded Objects Are Remade">
+<param name="Local" value="make_140.html#Remaking-Loaded-Objects">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.2.3 Loaded Object Interface">
+<param name="Local" value="make_141.html#Loaded-Object-API">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="12.2.4 Example Loaded Object">
+<param name="Local" value="make_142.html#Loaded-Object-Example">
+</OBJECT> </LI>
+</UL>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="13. Features of GNU make">
+<param name="Local" value="make_143.html#Features">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="14. Incompatibilities and Missing Features">
+<param name="Local" value="make_144.html#Missing">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="15. Makefile Conventions">
+<param name="Local" value="make_145.html#Makefile-Conventions">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="15.1 General Conventions for Makefiles">
+<param name="Local" value="make_146.html#Makefile-Basics">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="15.2 Utilities in Makefiles">
+<param name="Local" value="make_147.html#Utilities-in-Makefiles">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="15.3 Variables for Specifying Commands">
+<param name="Local" value="make_148.html#Command-Variables">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="15.4 DESTDIR: Support for Staged Installs">
+<param name="Local" value="make_149.html#DESTDIR">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="15.5 Variables for Installation Directories">
+<param name="Local" value="make_150.html#Directory-Variables">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="15.6 Standard Targets for Users">
+<param name="Local" value="make_151.html#Standard-Targets">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="15.7 Install Command Categories">
+<param name="Local" value="make_152.html#Install-Command-Categories">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="A. Quick Reference">
+<param name="Local" value="make_153.html#Quick-Reference">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="B. Errors Generated by Make">
+<param name="Local" value="make_154.html#Error-Messages">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="C. Complex Makefile Example">
+<param name="Local" value="make_155.html#Complex-Makefile">
+</OBJECT> </LI>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="C.1 GNU Free Documentation License">
+<param name="Local" value="make_156.html#GNU-Free-Documentation-License">
+</OBJECT> </LI>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Index of Concepts">
+<param name="Local" value="make_157.html#Concept-Index">
+</OBJECT> </LI>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Index of Functions, Variables, &amp; Directives">
+<param name="Local" value="make_158.html#Name-Index">
+</OBJECT> </LI>
+</UL>
+</HTML>
+</BODY>
